@@ -3,8 +3,9 @@ title: emojidex API Reference
 
 language_tabs:
   - shell
-  - js
   - ruby
+  - js
+  - java
 
 toc_footers:
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
@@ -16,13 +17,47 @@ search: true
 ---
 
 # Introduction
+About emojidex
+--------------
+emojidex is the worlds first emoji-as-a-service provider as well as an extremely Open Source 
+friendly set of tools and assets. We appreciate your interest in emjidex and want 
+you to know that the vast majority of profit from emojidex are used to support a variety of Open 
+Source software projects, educational material development, research projects and more. By using
+emojidex in your project you are helping support Open Source, global education, and a variety of
+good and interesting scientific and engineering causes.  
+
+The emojidex Service
+--------------------
+emojidex is primarily based around the [emojidex service](https://www.emojidex.com). This service
+offers an API with listing, search and registration services. Some services require a token to 
+access [registration for example] or for certain types of access [search with over 100 results 
+per page and other queries that could be overused]. These limitations are only to prevent abuse 
+or overuse of the system.
+
+emojidex Tools and Clients
+--------------------------
+emojidex offers a set of clients and tools that can be found in the 
+[emojidex organization](https://github.com/emojidex/) on github. The core tool and model for 
+emojidex is the [emojidex gem for Ruby](https://github.com/emojidex/emojidex). This is the basis 
+of not only online and backend tools but also the majority of the tools for emojidex such as the 
+converter and the desktop client/editor. For Java/Android there's 
+[emojidex android](https://github.com/emojidex/emojidex). 
+
+emojidex on a Web Site
+----------------------
+The [emojidex Coffee](https://github.com/emojidex/emojidex-coffee) client is a front end client 
+and tool set, developed in Coffee Script, and distributed as a jQuery plug-in. Using emojidex 
+to automatically convert emoji character codes on your web site and use emoji assets in or as
+widgets, and to enter and parse text with emoji is made as easy as simple as possible. All emoji 
+are obtained from the content delivery network for the emojidex Service so you don't need to 
+cache any emoji on your server or worry about any assets or images on your own server.
+
+# API
 <aside class="notice">
 This documenation is for Version 1 of the API.
 </aside>
 
 This documentation covers access and usage of emojidex service utilizing the API and CDN.
-
-# API
 
 ## HTTP Requests
 `https://www.emojidex.com/api/v1`
@@ -43,7 +78,21 @@ Coming soon. For now you do not need to set an API key.
 Not all API calls require authentication, but all API calls can be performed with authentication 
 tokens included. Generally if a user has an auth token it should be used with every call.
 
-> User Authentication:
+To authenticate you must add the "user" and "auth_token" fields to the request. The "user" field
+is the user name, and the auth_token can be obtained with an authorize request.
+<aside class="warning">
+DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password to the API when 
+you are obtaining an auth token. Store auth tokens as securely as possible!
+</aside>
+
+### Obtain a Token
+To obtain a token TODO
+
+> Token acquisition:
+
+### Using a Token
+
+> Token utilization:
 
 ```ruby
 ```
