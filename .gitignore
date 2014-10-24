@@ -1,3 +1,6 @@
+*.swo
+*.swp
+*.orig
 *.gem
 *.rbc
 .bundle
