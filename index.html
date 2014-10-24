@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>emojidex API Reference</title>
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby","python"]);
+          setupLanguages(["shell","ruby","js","java"]);
         });
       </script>
   </head>
@@ -30,7 +30,8 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="js">js</a>
+              <a href="#" data-language-name="java">java</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -39,217 +40,415 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
             <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+        <h1 id='introduction'>Introduction</h1><h2 id='about-emojidex'>About emojidex</h2>
+<p>emojidex is the worlds first emoji-as-a-service provider as well as an extremely Open Source 
+friendly set of tools and assets. We appreciate your interest in emjidex and want 
+you to know that the vast majority of profit from emojidex are used to support a variety of Open 
+Source software projects, educational material development, research projects and more. By using
+emojidex in your project you are helping support Open Source, global education, and a variety of
+good and interesting scientific and engineering causes.  </p>
+<h2 id='the-emojidex-service'>The emojidex Service</h2>
+<p>emojidex is primarily based around the <a href="https://www.emojidex.com">emojidex service</a>. This service
+offers an API with listing, search and registration services. Some services require a token to 
+access [registration for example] or for certain types of access [search with over 100 results 
+per page and other queries that could be overused]. These limitations are only to prevent abuse 
+or overuse of the system.</p>
+<h2 id='emojidex-tools-and-clients'>emojidex Tools and Clients</h2>
+<p>emojidex offers a set of clients and tools that can be found in the 
+<a href="https://github.com/emojidex/">emojidex organization</a> on github. The core tool and model for 
+emojidex is the <a href="https://github.com/emojidex/emojidex">emojidex gem for Ruby</a>. This is the basis 
+of not only online and backend tools but also the majority of the tools for emojidex such as the 
+converter and the desktop client/editor. For Java/Android there&rsquo;s 
+<a href="https://github.com/emojidex/emojidex">emojidex android</a>. </p>
+<h2 id='emojidex-on-a-web-site'>emojidex on a Web Site</h2>
+<p>The <a href="https://github.com/emojidex/emojidex-coffee">emojidex Coffee</a> client is a front end client 
+and tool set, developed in Coffee Script, and distributed as a jQuery plug-in. Using emojidex 
+to automatically convert emoji character codes on your web site and use emoji assets in or as
+widgets, and to enter and parse text with emoji is made as easy as simple as possible. All emoji 
+are obtained from the content delivery network for the emojidex Service so you don&rsquo;t need to 
+cache any emoji on your server or worry about any assets or images on your own server.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="http://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</pre>
-<pre class="highlight python"><span class="kn">import</span> <span class="s">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">Kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</pre>
-<pre class="highlight shell"><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</pre>
-
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
-
+          <h1 id='api'>API</h1>
 <p><aside class="notice">
-You must replace <code class="prettyprint">meowmeowmeow</code> with your personal API key.
+This documenation is for Version 1 of the API.
 </aside></p>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h1><pre class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</pre>
-<pre class="highlight python"><span class="kn">import</span> <span class="s">'kittn'</span>
+<p>This documentation covers access and usage of emojidex service utilizing the API and CDN.</p>
+<h2 id='http-requests'>HTTP Requests</h2>
+<p><code class="prettyprint">https://www.emojidex.com/api/v1</code></p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">Kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</pre>
-<pre class="highlight shell">curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</pre>
+<p>The API must always be called through HTTPS/SSL. This is to prevent leaking of user auth 
+tokens and generally to keep as much information as to how users use emojidex as private 
+as possible.</p>
+<h2 id='http-methods'>HTTP Methods</h2>
+<p>Throughout most of the API different actions are mapped to different HTTP Methods, such as GET, 
+PUT, POST, DELETE. You MUST be aware of what method you are using to make an API request, as most 
+of the time only one HTTP method will perform the task you want in your query.</p>
+<h2 id='api-keys'>API Keys</h2>
+<p>Coming soon. For now you do not need to set an API key.</p>
+<h2 id='authentication'>Authentication</h2>
+<blockquote>
+<p>Token acquisition:</p>
+</blockquote>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight javascript"></code></pre>
+<pre><code class="highlight shell">curl www.emojidex.com/api/v1
+</code></pre>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Token utilization:</p>
 </blockquote>
-<pre class="highlight json"><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></pre>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight javascript"></code></pre>
+<pre><code class="highlight shell">curl www.emojidex.com/api/v1
+</code></pre>
 
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h1>
-<p><code class="prettyprint">GET http://example.com/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h1>
+<p>Not all API calls require authentication, but all API calls can be performed with authentication 
+tokens included. Generally if a user has an auth token it should be used with every call.</p>
+
+<p>To authenticate you must add the &ldquo;user&rdquo; and &ldquo;auth_token&rdquo; fields to the request. The &ldquo;user&rdquo; field
+is the user name, and the auth_token can be obtained with an authorize request.
+<aside class="warning">
+DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password to the API when 
+you are obtaining an auth token. Store auth tokens as securely as possible!
+</aside></p>
+<h3 id='obtain-a-token'>Obtain a Token</h3>
+<p>TODO</p>
+<h3 id='using-a-token'>Using a Token</h3>
+<p>TODO</p>
+<h2 id='emoji-index'>emoji Index</h2>
+<blockquote>
+<p>GET /emoji</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/emoji
+</code></pre>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight javascript"></code></pre>
+<pre><code class="highlight java"></code></pre>
+
+<blockquote>
+<p>GET /emoji limit=50 page=2</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/emoji -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
+</code></pre>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight javascript"></code></pre>
+<pre><code class="highlight java"></code></pre>
+
+<p>Gets a general index of emoji.<br>
+<aside class="notice">
+This index is ordered by a combination of registration date and popularity. 
+Newer and more popular emoji will show up first.
+</aside></p>
+
+<p><em>Parameters</em></p>
+
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
+<th>Name</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>limit</td>
+<td>integer</td>
+<td>amount of emoji to return per page</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>page</td>
+<td>integer</td>
+<td>page number</td>
 </tr>
 </tbody></table>
-
-<p><aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside></p>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h1><pre class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre>
-<pre class="highlight python"><span class="kn">import</span> <span class="s">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">Kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre>
-<pre class="highlight shell">curl <span class="s2">"http://example.com/api/kittens/3"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</pre>
+<h2 id='detailed-emoji-index'>Detailed emoji index</h2>
+<blockquote>
+<p>GET /emoji/detailed</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/emoji/detailed
+</code></pre>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight javascript"></code></pre>
+<pre><code class="highlight java"></code></pre>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>GET /emoji/detailed limit=50 page=2</p>
 </blockquote>
-<pre class="highlight json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></pre>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/emoji/detailed -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
+</code></pre>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight javascript"></code></pre>
+<pre><code class="highlight java"></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<p>Gets a detailed index of emoji, wherein each emoji entry contains all the extended 
+information associated with that emoji.
+<aside class="notice">
+This index is ordered by a combination of registration date and popularity. 
+Newer and more popular emoji will show up first.
+</aside></p>
 
-<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside></p>
-<h3 id='http-request'>HTTP Request</h1>
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h1>
+<p><em>Parameters</em></p>
+
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Name</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the cat to retrieve</td>
+<td>limit</td>
+<td>integer</td>
+<td>amount of emoji to return per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>page number</td>
 </tr>
 </tbody></table>
+<h2 id='newest-emoji'>Newest emoji</h2>
+<blockquote>
+<p>GET /newest</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/newest
+</code></pre>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight javascript"></code></pre>
+<pre><code class="highlight java"></code></pre>
 
-          <h1 id='errors'>Errors</h1>
-<p><aside class="notice">This error section is stored in a separate file in <code class="prettyprint">includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the <code class="prettyprint">includes</code> folder and add them to the top of your <code class="prettyprint">index.md</code>&rsquo;s frontmatter. Files are included in the order listed.</aside></p>
+<blockquote>
+<p>GET /emoji limit=50 page=2</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/newest -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
+</code></pre>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight javascript"></code></pre>
+<pre><code class="highlight java"></code></pre>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>Gets a general index of emoji sorted by registration date.  </p>
+
+<p><em>Parameters</em></p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>limit</td>
+<td>integer</td>
+<td>amount of emoji to return per page</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slown down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>page</td>
+<td>integer</td>
+<td>page number</td>
 </tr>
 </tbody></table>
+<h2 id='popular-emoji'>Popular emoji</h2>
+<blockquote>
+<p>GET /popular</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/popular
+</code></pre>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight javascript"></code></pre>
+<pre><code class="highlight java"></code></pre>
+
+<blockquote>
+<p>GET /emoji limit=50 page=2</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/popular -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
+</code></pre>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight javascript"></code></pre>
+<pre><code class="highlight java"></code></pre>
+
+<p>Gets a general index of emoji sorted by popularity.  </p>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>integer</td>
+<td>amount of emoji to return per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>page number</td>
+</tr>
+</tbody></table>
+<h2 id='search-for-emoji'>Search for emoji</h2><h3 id='search-with-category-restriction'>Search with category restriction</h3><h3 id='search-by-tags'>Search by tags</h3><h2 id='user-emoji'>User emoji</h2>
+<blockquote>
+<p>Get emoji for the user &ldquo;Zero&rdquo;</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/users/Zero/emoji
+</code></pre>
+
+<blockquote>
+<p>Get emoji for the user &ldquo;絵文字&rdquo;</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/users/絵文字/emoji
+</code></pre>
+
+<p>You can get all emoji registered by a specific user.<br>
+Some special user accounts exist from which you can get the current UTF 
+index, emojidex original extended emoji, etc. These accounts are as 
+follows:</p>
+
+<ul>
+<li>emoji: All UTF/Unicode emoji with English emoji codes</li>
+<li>emojidex: All emojidex original extended emoji with English emoji codes</li>
+<li>絵文字: UTF/Unicode emoji with Japanese emoji codes</li>
+<li>絵文字デックス: emojidex original extended emoji with Japanese emoji codes</li>
+</ul>
+
+          <h1 id='assets'>Assets</h1><h2 id='assets-cdn-address'>Assets [CDN] Address</h2>
+<p><code class="prettyprint">http://assets.emojidex.com</code></p>
+
+<p>Note that this is not (currently) an HTTPS address. Assets are hosted in an S3 bucket. 
+In the future we will try to rig SSL up to the assets subdomain but at the moment SSL 
+can optionally be used by allowing certs from *.s3.amazonaws.com. You could directly 
+access assets by using the the Amazon S3 address but we DO NOT recommend it:</p>
+
+<p><code class="prettyprint">https://s3-us-west-2.amazonaws.com/assets.emojidex.com/</code></p>
+
+<p><aside class="warning">
+The S3 address may change at some point. DO NOT use the S3 address in any static content. 
+ONLY use the S3 address if you absolutely need HTTPS/SSL AND you can not override the 
+certificate origin AND you are prepared to change references to that address at some point 
+in the future.
+</aside></p>
+<h2 id='asset-access--layout'>Asset Access / Layout</h2>
+<blockquote>
+<p>Get the 32px PNG image for :blush:</p>
+</blockquote>
+<pre><code class="highlight plaintext">http://assets.emojidex.com/emoji/px32/blush.png
+</code></pre>
+
+<blockquote>
+<p>Get the SVG image for :blush:</p>
+</blockquote>
+<pre><code class="highlight plaintext">http://assets.emojidex.com/emoji/blush.svg
+</code></pre>
+
+<p>Assets can be found on the Content Delivery Network under structured 
+directories.</p>
+
+<p>Each emoji asset is composed of the emoji code, with spaces represented as underscores. 
+For example, the emoji code &ldquo;blush&rdquo; would have PNG images named &ldquo;blush.png&rdquo;.</p>
+
+<p>All emoji on www.emojidex.com can be found under /emoji, with the root /emoji containing SVG 
+images:<br>
+<code class="prettyprint">http://assets.emojidex.com/emoji/blush.svg</code><br>
+<img alt="blush emoji" src="http://assets.emojidex.com/emoji/blush.svg" /></p>
+
+<p>PNG images come in a variety of sizes:<br>
+<code class="prettyprint">
+{ ldpi: 9, mdpi: 18, hdpi: 27, xhdpi: 36, px8: 8,
+  px16: 16, px32: 32, px64: 64, px128: 128, px256: 256 }
+</code><br>
+Each emoji size is squared (wide emoji coming soon!). An emoji in a particular size is always
+guarnteed to have the height specified for its size. For example, LDPI emoji are always 9px 
+high.  </p>
+
+<table><thead>
+<tr>
+<th>display</th>
+<th>size</th>
+<th>address</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/ldpi/blush.png" /></td>
+<td>ldpi</td>
+<td>http://assets.emojidex.com/emoji/ldpi/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/mdpi/blush.png" /></td>
+<td>mdpi</td>
+<td>http://assets.emojidex.com/emoji/mdpi/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/hdpi/blush.png" /></td>
+<td>hdpi</td>
+<td>http://assets.emojidex.com/emoji/hdpi/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/xhdpi/blush.png" /></td>
+<td>xhdpi</td>
+<td>http://assets.emojidex.com/emoji/xhdpi/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px8/blush.png" /></td>
+<td>px8</td>
+<td>http://assets.emojidex.com/emoji/px8/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px16/blush.png" /></td>
+<td>px16</td>
+<td>http://assets.emojidex.com/emoji/px16/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px32/blush.png" /></td>
+<td>px32</td>
+<td>http://assets.emojidex.com/emoji/px32/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px64/blush.png" /></td>
+<td>px64</td>
+<td>http://assets.emojidex.com/emoji/px64/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px128/blush.png" /></td>
+<td>px128</td>
+<td>http://assets.emojidex.com/emoji/px128/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px256/blush.png" /></td>
+<td>px256</td>
+<td>http://assets.emojidex.com/emoji/px256/blush.png</td>
+</tr>
+</tbody></table>
+
+<p><aside class="warning">
+Only obtian the images you need only in the size that matches your use case or the nearest size 
+that is larger than your use case.
+</aside>
+<aside class="warning">
+Do not agressively download/cache emoji you may not be displaying. If you are going to pre-cache 
+some emoji images please limit it to only a few (eg. 10 or less).
+</aside></p>
+
+<p>In general small text will usually be best with an emoji 
+size of about mdpi <img alt="blush emoji" src="http://assets.emojidex.com/emoji/mdpi/blush.png" />. Regular text, 
+as in text that is readable on most mobile handsets without zooming, will usually be around hdpi 
+<img alt="blush emoji" src="http://assets.emojidex.com/emoji/hdpi/blush.png" />.</p>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="js">js</a>
+                <a href="#" data-language-name="java">java</a>
           </div>
       </div>
     </div>
