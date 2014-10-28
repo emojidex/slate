@@ -8,6 +8,7 @@ language_tabs:
   - java
 
 toc_footers:
+  - <a href='/clients.html'>Client Documentation</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
