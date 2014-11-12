@@ -238,52 +238,6 @@ limit | integer | amount of emoji to return per page
 page | integer | page number
 
 ## Search for emoji
-The basis for emoji searches is search by emoji code. Searches can be performed for 
-codes that contain a term, start with a term, or end with a term. Alternatively, 
-you can serch for tags, or you can combine a code search with tags to restrict search 
-results to emoji containging the term which also have the tags specified. Additionally, 
-searches can be restricted to one or more categories, where results will only be emoji 
-present in the categories specified. In general, more tags specified means a more 
-specific search with fewer results. And, in general, the more categories specified the 
-more generalized the search and therefore more results. When no categories or tags are 
-specified the search will not be restricted to any categories or tags and will return 
-all results for the term specified.
-
-The API endpoint for searches is /search/emoji.
-
-*Prefix*
-All advanced search fields have a [q] prefix. The [q] prefix simply makes the distinction 
-that the argument being passed is a query term and not a control method or other argument.
-
-*Predicates*
-Predicates are added to the code field to specify the search type, such as "\[q\]\[code_cont\]" 
-to "query for codes which contain" the specified term.
-
-Predicate | Meaning | Description
----- | ---- | -----------
-cont | Contains | Contains the search term somewhere in the code.
-eq | Equals | Is exactly equal to the term given. This parameter will nullify any other terms.
-sw | Starts With | Code starts with the term.
-ew | Ends With | Code ends with the term.
-
-<aside class="notice">
-All predicates other than "eq" can be mixed.
-</aside>
-
-*Search Fields*
-
-Name | Description
----- | -----------
-code | Code search. Can use predicates.
-tags | An array of tags to search by or to limit results to.
-categories | An array of categories to limit the search domain.
-
-*Parameters*
-
-Name | Type | Description
----- | ---- | -----------
-limit | integer | amount of emoji to return per page
-page | integer | page number
 
 > Search for emoji with code containing "heart"
 
@@ -332,6 +286,53 @@ curl -X GET https://www.emojidex.com/api/v1/search/emoji -d \[q\]\[tags\]=\[weap
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d \[q\]\[code_cont\]=rifle -d \[q\]\[tags\]=\[weapon\] -d \[q\]\[categories\]=\[tools\]
 ```
+
+The basis for emoji searches is search by emoji code. Searches can be performed for 
+codes that contain a term, start with a term, or end with a term. Alternatively, 
+you can serch for tags, or you can combine a code search with tags to restrict search 
+results to emoji containging the term which also have the tags specified. Additionally, 
+searches can be restricted to one or more categories, where results will only be emoji 
+present in the categories specified. In general, more tags specified means a more 
+specific search with fewer results. And, in general, the more categories specified the 
+more generalized the search and therefore more results. When no categories or tags are 
+specified the search will not be restricted to any categories or tags and will return 
+all results for the term specified.
+
+The API endpoint for searches is /search/emoji.
+
+*Prefix*
+All advanced search fields have a [q] prefix. The [q] prefix simply makes the distinction 
+that the argument being passed is a query term and not a control method or other argument.
+
+*Predicates*
+Predicates are added to the code field to specify the search type, such as "\[q\]\[code_cont\]" 
+to "query for codes which contain" the specified term.
+
+Predicate | Meaning | Description
+---- | ---- | -----------
+cont | Contains | Contains the search term somewhere in the code.
+eq | Equals | Is exactly equal to the term given. This parameter will nullify any other terms.
+sw | Starts With | Code starts with the term.
+ew | Ends With | Code ends with the term.
+
+<aside class="notice">
+All predicates other than "eq" can be mixed.
+</aside>
+
+*Search Fields*
+
+Name | Description
+---- | -----------
+code | Code search. Can use predicates.
+tags | An array of tags to search by or to limit results to.
+categories | An array of categories to limit the search domain.
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+limit | integer | amount of emoji to return per page
+page | integer | page number
 
 ## User emoji
 
