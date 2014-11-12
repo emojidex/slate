@@ -260,25 +260,25 @@ curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_ew=heart
 > Search for emoji with codes containing "heart" in the category "faces"
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories=\[faces\]
+curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories\[\]=faces
 ```
 
 > Search for emoji with codes containing "heart" in either the category "faces" or "abstract"
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories=\[faces\] -d categories=\[abstract\]
+curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories\[\]=faces -d categories\[\]=abstract
 ```
 
 > Search for emoji with tag "weapon" 
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags=\[weapon\]
+curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags\[\]=weapon
 ```
 
 > Search for emoji where code contains "rifle", has the tag "weapon", and is in category "tools"
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=rifle -d tags=\[weapon\] -d categories=\[tools\]
+curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=rifle -d tags\[\]=weapon -d categories\[\]=tools
 ```
 
 The basis for emoji searches is search by emoji code. Searches can be performed for 
@@ -315,8 +315,8 @@ the code you are checking for).
 Name | Description
 ---- | -----------
 code | Code search. Can use predicates.
-tags | An array of tags to search by or to limit results to.
-categories | An array of categories to limit the search domain.
+tags[] | An array of tags to search by or to limit results to.
+categories[] | An array of categories to limit the search domain.
 
 *Parameters*
 
