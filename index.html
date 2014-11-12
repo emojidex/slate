@@ -40,6 +40,7 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
+            <li><a href='/clients.html'>Client Documentation</a></li>
             <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -295,7 +296,152 @@ Newer and more popular emoji will show up first.
 <td>page number</td>
 </tr>
 </tbody></table>
-<h2 id='search-for-emoji'>Search for emoji</h2><h3 id='search-with-category-restriction'>Search with category restriction</h3><h3 id='search-by-tags'>Search by tags</h3><h2 id='user-emoji'>User emoji</h2>
+<h2 id='search-for-emoji'>Search for emoji</h2>
+<blockquote>
+<p>Search for emoji with code containing &ldquo;heart&rdquo;</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_cont<span class="se">\]</span><span class="o">=</span>heart
+</code></pre>
+
+<blockquote>
+<p>Search for emoji with code starting with &ldquo;heart&rdquo;</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_sw<span class="se">\]</span><span class="o">=</span>heart
+</code></pre>
+
+<blockquote>
+<p>Search for emoji with code ending with &ldquo;heart&rdquo;</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_ew<span class="se">\]</span><span class="o">=</span>heart
+</code></pre>
+
+<blockquote>
+<p>Search for emoji with the exact code of &ldquo;heart&rdquo;</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_eq<span class="se">\]</span><span class="o">=</span>heart
+</code></pre>
+
+<blockquote>
+<p>Search for emoji with codes containing &ldquo;heart&rdquo; in the category &ldquo;faces&rdquo;</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_cont<span class="se">\]</span><span class="o">=</span>heart -d <span class="se">\[</span>q<span class="se">\]\[</span>categories<span class="se">\]</span><span class="o">=</span><span class="se">\[</span>faces<span class="se">\]</span>
+</code></pre>
+
+<blockquote>
+<p>Search for emoji with codes containing &ldquo;heart&rdquo; in either the category &ldquo;faces&rdquo; or &ldquo;abstract&rdquo;</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_cont<span class="se">\]</span><span class="o">=</span>heart -d <span class="se">\[</span>q<span class="se">\]\[</span>categories<span class="se">\]</span><span class="o">=</span><span class="se">\[</span>faces,abstract<span class="se">\]</span>
+</code></pre>
+
+<blockquote>
+<p>Search for emoji with tag &ldquo;weapon&rdquo; </p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>tags<span class="se">\]</span><span class="o">=</span><span class="se">\[</span>weapon<span class="se">\]</span>
+</code></pre>
+
+<blockquote>
+<p>Search for emoji where code contains &ldquo;rifle&rdquo;, has the tag &ldquo;weapon&rdquo;, and is in category &ldquo;tools&rdquo;</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_cont<span class="se">\]</span><span class="o">=</span>rifle -d <span class="se">\[</span>q<span class="se">\]\[</span>tags<span class="se">\]</span><span class="o">=</span><span class="se">\[</span>weapon<span class="se">\]</span> -d <span class="se">\[</span>q<span class="se">\]\[</span>categories<span class="se">\]</span><span class="o">=</span><span class="se">\[</span>tools<span class="se">\]</span>
+</code></pre>
+
+<p>The basis for emoji searches is search by emoji code. Searches can be performed for 
+codes that contain a term, start with a term, or end with a term. Alternatively, 
+you can serch for tags, or you can combine a code search with tags to restrict search 
+results to emoji containging the term which also have the tags specified. Additionally, 
+searches can be restricted to one or more categories, where results will only be emoji 
+present in the categories specified. In general, more tags specified means a more 
+specific search with fewer results. And, in general, the more categories specified the 
+more generalized the search and therefore more results. When no categories or tags are 
+specified the search will not be restricted to any categories or tags and will return 
+all results for the term specified.</p>
+
+<p>The API endpoint for searches is /search/emoji.</p>
+
+<p><em>Prefix</em>
+All advanced search fields have a [q] prefix. The [q] prefix simply makes the distinction 
+that the argument being passed is a query term and not a control method or other argument.</p>
+
+<p><em>Predicates</em>
+Predicates are added to the code field to specify the search type, such as &ldquo;[q][code_cont]&rdquo; 
+to &ldquo;query for codes which contain&rdquo; the specified term.</p>
+
+<table><thead>
+<tr>
+<th>Predicate</th>
+<th>Meaning</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>cont</td>
+<td>Contains</td>
+<td>Contains the search term somewhere in the code.</td>
+</tr>
+<tr>
+<td>eq</td>
+<td>Equals</td>
+<td>Is exactly equal to the term given. This parameter will nullify any other terms.</td>
+</tr>
+<tr>
+<td>sw</td>
+<td>Starts With</td>
+<td>Code starts with the term.</td>
+</tr>
+<tr>
+<td>ew</td>
+<td>Ends With</td>
+<td>Code ends with the term.</td>
+</tr>
+</tbody></table>
+
+<p><aside class="notice">
+All predicates other than &ldquo;eq&rdquo; can be mixed.
+</aside></p>
+
+<p><em>Search Fields</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>code</td>
+<td>Code search. Can use predicates.</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>An array of tags to search by or to limit results to.</td>
+</tr>
+<tr>
+<td>categories</td>
+<td>An array of categories to limit the search domain.</td>
+</tr>
+</tbody></table>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>integer</td>
+<td>amount of emoji to return per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>page number</td>
+</tr>
+</tbody></table>
+<h2 id='user-emoji'>User emoji</h2>
 <blockquote>
 <p>Get emoji for the user &ldquo;Zero&rdquo;</p>
 </blockquote>
