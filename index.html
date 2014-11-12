@@ -318,25 +318,25 @@ Newer and more popular emoji will show up first.
 <blockquote>
 <p>Search for emoji with codes containing &ldquo;heart&rdquo; in the category &ldquo;faces&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d <span class="nv">categories</span><span class="o">=</span><span class="se">\[</span>faces<span class="se">\]</span>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d categories<span class="se">\[\]</span><span class="o">=</span>faces
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with codes containing &ldquo;heart&rdquo; in either the category &ldquo;faces&rdquo; or &ldquo;abstract&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d <span class="nv">categories</span><span class="o">=</span><span class="se">\[</span>faces<span class="se">\]</span> -d <span class="nv">categories</span><span class="o">=</span><span class="se">\[</span>abstract<span class="se">\]</span>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d categories<span class="se">\[\]</span><span class="o">=</span>faces -d categories<span class="se">\[\]</span><span class="o">=</span>abstract
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with tag &ldquo;weapon&rdquo; </p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">tags</span><span class="o">=</span><span class="se">\[</span>weapon<span class="se">\]</span>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags<span class="se">\[\]</span><span class="o">=</span>weapon
 </code></pre>
 
 <blockquote>
 <p>Search for emoji where code contains &ldquo;rifle&rdquo;, has the tag &ldquo;weapon&rdquo;, and is in category &ldquo;tools&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>rifle -d <span class="nv">tags</span><span class="o">=</span><span class="se">\[</span>weapon<span class="se">\]</span> -d <span class="nv">categories</span><span class="o">=</span><span class="se">\[</span>tools<span class="se">\]</span>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>rifle -d tags<span class="se">\[\]</span><span class="o">=</span>weapon -d categories<span class="se">\[\]</span><span class="o">=</span>tools
 </code></pre>
 
 <p>The basis for emoji searches is search by emoji code. Searches can be performed for 
@@ -399,11 +399,11 @@ the code you are checking for).
 <td>Code search. Can use predicates.</td>
 </tr>
 <tr>
-<td>tags</td>
+<td>tags[]</td>
 <td>An array of tags to search by or to limit results to.</td>
 </tr>
 <tr>
-<td>categories</td>
+<td>categories[]</td>
 <td>An array of categories to limit the search domain.</td>
 </tr>
 </tbody></table>
