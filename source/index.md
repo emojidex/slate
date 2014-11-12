@@ -22,11 +22,11 @@ search: true
 About emojidex
 --------------
 emojidex is the worlds first emoji-as-a-service provider as well as an extremely Open Source 
-friendly set of tools and assets. We appreciate your interest in emjidex and want 
+friendly set of tools and assets. We appreciate your interest in emojidex and want 
 you to know that the vast majority of profit from emojidex are used to support a variety of Open 
-Source software projects, educational material development, research projects and more. By using
-emojidex in your project you are helping support Open Source, global education, and a variety of
-good and interesting scientific and engineering causes.  
+Source software projects, educational material development and scientific / engineering projects.
+By using emojidex in your project you are helping support Open Source, global education, and a 
+variety of good and interesting scientific and engineering causes.  
 
 The emojidex Service
 --------------------

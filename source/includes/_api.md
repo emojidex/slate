@@ -242,49 +242,43 @@ page | integer | page number
 > Search for emoji with code containing "heart"
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d \[q\]\[code_cont\]=heart
+curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart
 ```
 
 > Search for emoji with code starting with "heart"
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d \[q\]\[code_sw\]=heart
+curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_sw=heart
 ```
 
 > Search for emoji with code ending with "heart"
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d \[q\]\[code_ew\]=heart
-```
-
-> Search for emoji with the exact code of "heart"
-
-```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d \[q\]\[code_eq\]=heart
+curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_ew=heart
 ```
 
 > Search for emoji with codes containing "heart" in the category "faces"
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d \[q\]\[code_cont\]=heart -d \[q\]\[categories\]=\[faces\]
+curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories=\[faces\]
 ```
 
 > Search for emoji with codes containing "heart" in either the category "faces" or "abstract"
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d \[q\]\[code_cont\]=heart -d \[q\]\[categories\]=\[faces,abstract\]
+curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories=\[faces\] -d categories=\[abstract\]
 ```
 
 > Search for emoji with tag "weapon" 
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d \[q\]\[tags\]=\[weapon\]
+curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags=\[weapon\]
 ```
 
 > Search for emoji where code contains "rifle", has the tag "weapon", and is in category "tools"
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/search/emoji -d \[q\]\[code_cont\]=rifle -d \[q\]\[tags\]=\[weapon\] -d \[q\]\[categories\]=\[tools\]
+curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=rifle -d tags=\[weapon\] -d categories=\[tools\]
 ```
 
 The basis for emoji searches is search by emoji code. Searches can be performed for 
@@ -300,10 +294,6 @@ all results for the term specified.
 
 The API endpoint for searches is /search/emoji.
 
-*Prefix*
-All advanced search fields have a [q] prefix. The [q] prefix simply makes the distinction 
-that the argument being passed is a query term and not a control method or other argument.
-
 *Predicates*
 Predicates are added to the code field to specify the search type, such as "\[q\]\[code_cont\]" 
 to "query for codes which contain" the specified term.
@@ -311,12 +301,13 @@ to "query for codes which contain" the specified term.
 Predicate | Meaning | Description
 ---- | ---- | -----------
 cont | Contains | Contains the search term somewhere in the code.
-eq | Equals | Is exactly equal to the term given. This parameter will nullify any other terms.
 sw | Starts With | Code starts with the term.
 ew | Ends With | Code ends with the term.
 
 <aside class="notice">
-All predicates other than "eq" can be mixed.
+There is no "exact match" search because simply hitting https://www.emojidex.com/api/v1/emoji/#code 
+will achieve the same thing - it directly checks for the emoji with that code (replacing #code with 
+the code you are checking for).
 </aside>
 
 *Search Fields*
@@ -358,3 +349,10 @@ follows:
   * 絵文字: UTF/Unicode emoji with Japanese emoji codes
   * 絵文字デックス: emojidex original extended emoji with Japanese emoji codes
 
+## Favorites
+
+Favorites can only be accessed with a token. Without a token favorites can only be saved locally.
+
+## History
+
+History can only be accessed with a token. Without a toekn history can only be saved locally.
