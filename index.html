@@ -49,11 +49,11 @@
       <div class="content">
         <h1 id='introduction'>Introduction</h1><h2 id='about-emojidex'>About emojidex</h2>
 <p>emojidex is the worlds first emoji-as-a-service provider as well as an extremely Open Source 
-friendly set of tools and assets. We appreciate your interest in emjidex and want 
+friendly set of tools and assets. We appreciate your interest in emojidex and want 
 you to know that the vast majority of profit from emojidex are used to support a variety of Open 
-Source software projects, educational material development, research projects and more. By using
-emojidex in your project you are helping support Open Source, global education, and a variety of
-good and interesting scientific and engineering causes.  </p>
+Source software projects, educational material development and scientific / engineering projects.
+By using emojidex in your project you are helping support Open Source, global education, and a 
+variety of good and interesting scientific and engineering causes.  </p>
 <h2 id='the-emojidex-service'>The emojidex Service</h2>
 <p>emojidex is primarily based around the <a href="https://www.emojidex.com">emojidex service</a>. This service
 offers an API with listing, search and registration services. Some services require a token to 
@@ -300,49 +300,43 @@ Newer and more popular emoji will show up first.
 <blockquote>
 <p>Search for emoji with code containing &ldquo;heart&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_cont<span class="se">\]</span><span class="o">=</span>heart
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with code starting with &ldquo;heart&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_sw<span class="se">\]</span><span class="o">=</span>heart
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_sw</span><span class="o">=</span>heart
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with code ending with &ldquo;heart&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_ew<span class="se">\]</span><span class="o">=</span>heart
-</code></pre>
-
-<blockquote>
-<p>Search for emoji with the exact code of &ldquo;heart&rdquo;</p>
-</blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_eq<span class="se">\]</span><span class="o">=</span>heart
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_ew</span><span class="o">=</span>heart
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with codes containing &ldquo;heart&rdquo; in the category &ldquo;faces&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_cont<span class="se">\]</span><span class="o">=</span>heart -d <span class="se">\[</span>q<span class="se">\]\[</span>categories<span class="se">\]</span><span class="o">=</span><span class="se">\[</span>faces<span class="se">\]</span>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d <span class="nv">categories</span><span class="o">=</span><span class="se">\[</span>faces<span class="se">\]</span>
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with codes containing &ldquo;heart&rdquo; in either the category &ldquo;faces&rdquo; or &ldquo;abstract&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_cont<span class="se">\]</span><span class="o">=</span>heart -d <span class="se">\[</span>q<span class="se">\]\[</span>categories<span class="se">\]</span><span class="o">=</span><span class="se">\[</span>faces,abstract<span class="se">\]</span>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d <span class="nv">categories</span><span class="o">=</span><span class="se">\[</span>faces<span class="se">\]</span> -d <span class="nv">categories</span><span class="o">=</span><span class="se">\[</span>abstract<span class="se">\]</span>
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with tag &ldquo;weapon&rdquo; </p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>tags<span class="se">\]</span><span class="o">=</span><span class="se">\[</span>weapon<span class="se">\]</span>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">tags</span><span class="o">=</span><span class="se">\[</span>weapon<span class="se">\]</span>
 </code></pre>
 
 <blockquote>
 <p>Search for emoji where code contains &ldquo;rifle&rdquo;, has the tag &ldquo;weapon&rdquo;, and is in category &ldquo;tools&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="se">\[</span>q<span class="se">\]\[</span>code_cont<span class="se">\]</span><span class="o">=</span>rifle -d <span class="se">\[</span>q<span class="se">\]\[</span>tags<span class="se">\]</span><span class="o">=</span><span class="se">\[</span>weapon<span class="se">\]</span> -d <span class="se">\[</span>q<span class="se">\]\[</span>categories<span class="se">\]</span><span class="o">=</span><span class="se">\[</span>tools<span class="se">\]</span>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>rifle -d <span class="nv">tags</span><span class="o">=</span><span class="se">\[</span>weapon<span class="se">\]</span> -d <span class="nv">categories</span><span class="o">=</span><span class="se">\[</span>tools<span class="se">\]</span>
 </code></pre>
 
 <p>The basis for emoji searches is search by emoji code. Searches can be performed for 
@@ -357,10 +351,6 @@ specified the search will not be restricted to any categories or tags and will r
 all results for the term specified.</p>
 
 <p>The API endpoint for searches is /search/emoji.</p>
-
-<p><em>Prefix</em>
-All advanced search fields have a [q] prefix. The [q] prefix simply makes the distinction 
-that the argument being passed is a query term and not a control method or other argument.</p>
 
 <p><em>Predicates</em>
 Predicates are added to the code field to specify the search type, such as &ldquo;[q][code_cont]&rdquo; 
@@ -379,11 +369,6 @@ to &ldquo;query for codes which contain&rdquo; the specified term.</p>
 <td>Contains the search term somewhere in the code.</td>
 </tr>
 <tr>
-<td>eq</td>
-<td>Equals</td>
-<td>Is exactly equal to the term given. This parameter will nullify any other terms.</td>
-</tr>
-<tr>
 <td>sw</td>
 <td>Starts With</td>
 <td>Code starts with the term.</td>
@@ -396,7 +381,9 @@ to &ldquo;query for codes which contain&rdquo; the specified term.</p>
 </tbody></table>
 
 <p><aside class="notice">
-All predicates other than &ldquo;eq&rdquo; can be mixed.
+There is no &ldquo;exact match&rdquo; search because simply hitting https://www.emojidex.com/api/v1/emoji/#code 
+will achieve the same thing - it directly checks for the emoji with that code (replacing #code with 
+the code you are checking for).
 </aside></p>
 
 <p><em>Search Fields</em></p>
@@ -465,6 +452,10 @@ follows:</p>
 <li>絵文字: UTF/Unicode emoji with Japanese emoji codes</li>
 <li>絵文字デックス: emojidex original extended emoji with Japanese emoji codes</li>
 </ul>
+<h2 id='favorites'>Favorites</h2>
+<p>Favorites can only be accessed with a token. Without a token favorites can only be saved locally.</p>
+<h2 id='history'>History</h2>
+<p>History can only be accessed with a token. Without a toekn history can only be saved locally.</p>
 
           <h1 id='assets'>Assets</h1><h2 id='assets-cdn-address'>Assets [CDN] Address</h2>
 <p><code class="prettyprint">http://assets.emojidex.com</code></p>
