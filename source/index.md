@@ -26,7 +26,13 @@ friendly set of tools and assets. We appreciate your interest in emojidex and wa
 you to know that the vast majority of profit from emojidex are used to support a variety of Open 
 Source software projects, educational material development and scientific / engineering projects.
 By using emojidex in your project you are helping support Open Source, global education, and a 
-variety of good and interesting scientific and engineering causes.  
+variety of good and interesting scientific and engineering causes.
+
+This Document (Fixes/Ammendments)
+---------------------------------
+The source for this document can be found [here](https://github.com/emojidex/slate).  
+Amemendments and fixes are welcome! Please either fork/fix/push/pull requet or submit an issue 
+on github if you find anything lacking or requiring a cleaner/better explanation.
 
 The emojidex Service
 --------------------

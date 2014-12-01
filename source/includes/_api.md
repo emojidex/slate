@@ -18,11 +18,23 @@ PUT, POST, DELETE. You MUST be aware of what method you are using to make an API
 of the time only one HTTP method will perform the task you want in your query.
 
 ## API Keys
-Coming soon. For now you do not need to set an API key.
+API Keys offer general access to the API for a specific user. Each user is granted one and only 
+one API key. In the future app-specific keys will be issued along with auth provider independent 
+login tokens, but for the time being one single API key is granted and used. This API key 
+functionality will not be depricated in version 1 of the API, so there will be no need to 
+adjust for the addition of app-specific keys or auth-specific tokens.  
+  
+An API key is generated and passed as a response when a valid authorization is made through the 
+API. Alternatively, and with significantly less practicality to the average user;
+an API key may be generated and obtained from the User Settings screen on www.emojidex.com.  
+  
+An API key may be revoked from the User Settings, but not from the API. As a single API key is 
+granted per user and shared between apps, the revocation or re-generation of an API key will 
+require re-acquisition in all clients.
 
 ## Authentication
 
-> Token acquisition:
+> Key acquisition:
 
 ```ruby
 ```
@@ -31,10 +43,24 @@ Coming soon. For now you do not need to set an API key.
 ```
 
 ```shell
-curl www.emojidex.com/api/v1
+curl -X GET www.emojidex.com/api/v1/users/authenticate -d email=whoever@emojidex.com -d password=********
+# or
+curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d password=********
 ```
 
-> Token utilization:
+> When authentication succeeds the following JSON is returned:
+
+```json
+{"status":"verified","auth_token":"1234567890abcdef"}
+```
+
+> When authentication fails the follwing JSON is returned:
+
+```json
+{"status":"unverified","auth_token":null}
+```
+
+> Key utilization:
 
 ```ruby
 ```
@@ -43,7 +69,7 @@ curl www.emojidex.com/api/v1
 ```
 
 ```shell
-curl www.emojidex.com/api/v1
+curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=123456789 
 ```
 
 Not all API calls require authentication, but all API calls can be performed with authentication 
@@ -55,14 +81,6 @@ is the user name, and the auth_token can be obtained with an authorize request.
 DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password to the API when 
 you are obtaining an auth token. Store auth tokens as securely as possible!
 </aside>
-
-### Obtain a Token
-
-TODO
-
-
-### Using a Token
-TODO
 
 ## emoji Index
 
@@ -172,21 +190,6 @@ curl -X GET https://www.emojidex.com/api/v1/newest
 ```java
 ```
 
-> GET /emoji limit=50 page=2
-
-```shell
-curl -X GET https://www.emojidex.com/api/v1/newest -d page=2 -d limit=50
-```
-
-```ruby
-```
-
-```js
-```
-
-```java
-```
-
 Gets a general index of emoji sorted by registration date.  
 
 *Parameters*
@@ -202,21 +205,6 @@ page | integer | page number
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/popular
-```
-
-```ruby
-```
-
-```js
-```
-
-```java
-```
-
-> GET /emoji limit=50 page=2
-
-```shell
-curl -X GET https://www.emojidex.com/api/v1/popular -d page=2 -d limit=50
 ```
 
 ```ruby
