@@ -53,7 +53,11 @@ friendly set of tools and assets. We appreciate your interest in emojidex and wa
 you to know that the vast majority of profit from emojidex are used to support a variety of Open 
 Source software projects, educational material development and scientific / engineering projects.
 By using emojidex in your project you are helping support Open Source, global education, and a 
-variety of good and interesting scientific and engineering causes.  </p>
+variety of good and interesting scientific and engineering causes.</p>
+<h2 id='this-document-fixesammendments'>This Document (Fixes/Ammendments)</h2>
+<p>The source for this document can be found <a href="https://github.com/emojidex/slate">here</a>.<br>
+Amemendments and fixes are welcome! Please either fork/fix/push/pull requet or submit an issue 
+on github if you find anything lacking or requiring a cleaner/better explanation.</p>
 <h2 id='the-emojidex-service'>The emojidex Service</h2>
 <p>emojidex is primarily based around the <a href="https://www.emojidex.com">emojidex service</a>. This service
 offers an API with listing, search and registration services. Some services require a token to 
@@ -92,22 +96,48 @@ as possible.</p>
 PUT, POST, DELETE. You MUST be aware of what method you are using to make an API request, as most 
 of the time only one HTTP method will perform the task you want in your query.</p>
 <h2 id='api-keys'>API Keys</h2>
-<p>Coming soon. For now you do not need to set an API key.</p>
+<p>API Keys offer general access to the API for a specific user. Each user is granted one and only 
+one API key. In the future app-specific keys will be issued along with auth provider independent 
+login tokens, but for the time being one single API key is granted and used. This API key 
+functionality will not be depricated in version 1 of the API, so there will be no need to 
+adjust for the addition of app-specific keys or auth-specific tokens.  </p>
+
+<p>An API key is generated and passed as a response when a valid authorization is made through the 
+API. Alternatively, and with significantly less practicality to the average user;
+an API key may be generated and obtained from the User Settings screen on www.emojidex.com.  </p>
+
+<p>An API key may be revoked from the User Settings, but not from the API. As a single API key is 
+granted per user and shared between apps, the revocation or re-generation of an API key will 
+require re-acquisition in all clients.</p>
 <h2 id='authentication'>Authentication</h2>
 <blockquote>
-<p>Token acquisition:</p>
+<p>Key acquisition:</p>
 </blockquote>
-<pre><code class="highlight ruby"></code></pre>
-<pre><code class="highlight javascript"></code></pre>
-<pre><code class="highlight shell">curl www.emojidex.com/api/v1
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight javascript"><code></code></pre>
+<pre class="highlight shell"><code>curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">email</span><span class="o">=</span>whoever@emojidex.com -d <span class="nv">password</span><span class="o">=</span><span class="k">********</span>
+<span class="c"># or</span>
+curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">username</span><span class="o">=</span>WhoEver -d <span class="nv">password</span><span class="o">=</span><span class="k">********</span>
 </code></pre>
 
 <blockquote>
-<p>Token utilization:</p>
+<p>When authentication succeeds the following JSON is returned:</p>
 </blockquote>
-<pre><code class="highlight ruby"></code></pre>
-<pre><code class="highlight javascript"></code></pre>
-<pre><code class="highlight shell">curl www.emojidex.com/api/v1
+<pre class="highlight json"><code><span class="p">{</span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"verified"</span><span class="p">,</span><span class="s2">"auth_token"</span><span class="p">:</span><span class="s2">"1234567890abcdef"</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>When authentication fails the follwing JSON is returned:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"unverified"</span><span class="p">,</span><span class="s2">"auth_token"</span><span class="p">:</span><span class="kc">null</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Key utilization:</p>
+</blockquote>
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight javascript"><code></code></pre>
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">auth_token</span><span class="o">=</span>123456789 
 </code></pre>
 
 <p>Not all API calls require authentication, but all API calls can be performed with authentication 
@@ -119,28 +149,24 @@ is the user name, and the auth_token can be obtained with an authorize request.
 DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password to the API when 
 you are obtaining an auth token. Store auth tokens as securely as possible!
 </aside></p>
-<h3 id='obtain-a-token'>Obtain a Token</h3>
-<p>TODO</p>
-<h3 id='using-a-token'>Using a Token</h3>
-<p>TODO</p>
 <h2 id='emoji-index'>emoji Index</h2>
 <blockquote>
 <p>GET /emoji</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/emoji
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji
 </code></pre>
-<pre><code class="highlight ruby"></code></pre>
-<pre><code class="highlight javascript"></code></pre>
-<pre><code class="highlight java"></code></pre>
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight javascript"><code></code></pre>
+<pre class="highlight java"><code></code></pre>
 
 <blockquote>
 <p>GET /emoji limit=50 page=2</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/emoji -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
 </code></pre>
-<pre><code class="highlight ruby"></code></pre>
-<pre><code class="highlight javascript"></code></pre>
-<pre><code class="highlight java"></code></pre>
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight javascript"><code></code></pre>
+<pre class="highlight java"><code></code></pre>
 
 <p>Gets a general index of emoji.<br>
 <aside class="notice">
@@ -172,20 +198,20 @@ Newer and more popular emoji will show up first.
 <blockquote>
 <p>GET /emoji/detailed</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/emoji/detailed
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji/detailed
 </code></pre>
-<pre><code class="highlight ruby"></code></pre>
-<pre><code class="highlight javascript"></code></pre>
-<pre><code class="highlight java"></code></pre>
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight javascript"><code></code></pre>
+<pre class="highlight java"><code></code></pre>
 
 <blockquote>
 <p>GET /emoji/detailed limit=50 page=2</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/emoji/detailed -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji/detailed -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
 </code></pre>
-<pre><code class="highlight ruby"></code></pre>
-<pre><code class="highlight javascript"></code></pre>
-<pre><code class="highlight java"></code></pre>
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight javascript"><code></code></pre>
+<pre class="highlight java"><code></code></pre>
 
 <p>Gets a detailed index of emoji, wherein each emoji entry contains all the extended 
 information associated with that emoji.
@@ -218,20 +244,11 @@ Newer and more popular emoji will show up first.
 <blockquote>
 <p>GET /newest</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/newest
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/newest
 </code></pre>
-<pre><code class="highlight ruby"></code></pre>
-<pre><code class="highlight javascript"></code></pre>
-<pre><code class="highlight java"></code></pre>
-
-<blockquote>
-<p>GET /emoji limit=50 page=2</p>
-</blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/newest -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
-</code></pre>
-<pre><code class="highlight ruby"></code></pre>
-<pre><code class="highlight javascript"></code></pre>
-<pre><code class="highlight java"></code></pre>
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight javascript"><code></code></pre>
+<pre class="highlight java"><code></code></pre>
 
 <p>Gets a general index of emoji sorted by registration date.  </p>
 
@@ -259,20 +276,11 @@ Newer and more popular emoji will show up first.
 <blockquote>
 <p>GET /popular</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/popular
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/popular
 </code></pre>
-<pre><code class="highlight ruby"></code></pre>
-<pre><code class="highlight javascript"></code></pre>
-<pre><code class="highlight java"></code></pre>
-
-<blockquote>
-<p>GET /emoji limit=50 page=2</p>
-</blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/popular -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
-</code></pre>
-<pre><code class="highlight ruby"></code></pre>
-<pre><code class="highlight javascript"></code></pre>
-<pre><code class="highlight java"></code></pre>
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight javascript"><code></code></pre>
+<pre class="highlight java"><code></code></pre>
 
 <p>Gets a general index of emoji sorted by popularity.  </p>
 
@@ -300,43 +308,43 @@ Newer and more popular emoji will show up first.
 <blockquote>
 <p>Search for emoji with code containing &ldquo;heart&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with code starting with &ldquo;heart&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_sw</span><span class="o">=</span>heart
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_sw</span><span class="o">=</span>heart
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with code ending with &ldquo;heart&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_ew</span><span class="o">=</span>heart
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_ew</span><span class="o">=</span>heart
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with codes containing &ldquo;heart&rdquo; in the category &ldquo;faces&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d categories<span class="se">\[\]</span><span class="o">=</span>faces
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d categories<span class="se">\[\]</span><span class="o">=</span>faces
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with codes containing &ldquo;heart&rdquo; in either the category &ldquo;faces&rdquo; or &ldquo;abstract&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d categories<span class="se">\[\]</span><span class="o">=</span>faces -d categories<span class="se">\[\]</span><span class="o">=</span>abstract
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d categories<span class="se">\[\]</span><span class="o">=</span>faces -d categories<span class="se">\[\]</span><span class="o">=</span>abstract
 </code></pre>
 
 <blockquote>
 <p>Search for emoji with tag &ldquo;weapon&rdquo; </p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags<span class="se">\[\]</span><span class="o">=</span>weapon
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags<span class="se">\[\]</span><span class="o">=</span>weapon
 </code></pre>
 
 <blockquote>
 <p>Search for emoji where code contains &ldquo;rifle&rdquo;, has the tag &ldquo;weapon&rdquo;, and is in category &ldquo;tools&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>rifle -d tags<span class="se">\[\]</span><span class="o">=</span>weapon -d categories<span class="se">\[\]</span><span class="o">=</span>tools
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>rifle -d tags<span class="se">\[\]</span><span class="o">=</span>weapon -d categories<span class="se">\[\]</span><span class="o">=</span>tools
 </code></pre>
 
 <p>The basis for emoji searches is search by emoji code. Searches can be performed for 
@@ -432,13 +440,13 @@ the code you are checking for).
 <blockquote>
 <p>Get emoji for the user &ldquo;Zero&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/users/Zero/emoji
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/Zero/emoji
 </code></pre>
 
 <blockquote>
 <p>Get emoji for the user &ldquo;絵文字&rdquo;</p>
 </blockquote>
-<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/users/絵文字/emoji
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/絵文字/emoji
 </code></pre>
 
 <p>You can get all emoji registered by a specific user.<br>
@@ -473,17 +481,48 @@ ONLY use the S3 address if you absolutely need HTTPS/SSL AND you can not overrid
 certificate origin AND you are prepared to change references to that address at some point 
 in the future.
 </aside></p>
+<h2 id='asset-formats'>Asset Formats</h2>
+<p>All assets come in Frame Animated SVG and Animated PNG. Assets without animation will be 
+regular SVG or PNG. To generate Frame Animated SVG we recommend 
+<a href="https://github.com/Genshin/phantom_svg">Phantom SVG</a>. 
+To generate Animated PNG we recommend 
+<a href="https://github.com/apngasm/apngasm">apngasm</a>.</p>
+
+<p><aside class="warning">
+In general PNG will be <em>SMALLER</em> in file size than SVG. Prefer using PNG over SVG 
+unless you speifically need one image that will be displayed in many sizes.
+</aside></p>
+
+<p><aside class="warning">
+Formats other than SVG or PNG will NOT be made available at this time.
+</aside></p>
+
+<p><aside class="notice">
+There are no immediate plans to implent WebP (though if you submit a patch for 
+<a href="https://github.com/emojidex/emojidex-converter">emojidex-converter</a> we will 
+certainly consider it.
+</aside></p>
+
+<p><aside class="notice">
+NO, we will NOT offer animated GIF. Ever. Don&rsquo;t ask. Animated GIF is proven 
+to be inferior in quality, size and features when compared to Animated PNG. 
+If your platform does not support Animated PNG then submit a feature request 
+FOR YOUR PLATFORM. There are already issues up for 
+<a href="https://code.google.com/p/chromium/issues/detail?id=1171">Chrome</a>
+and 
+<a href="https://wpdev.uservoice.com/forums/257854-internet-explorer-platform/suggestions/6513393-apng-animated-png-images-support-firefox-and-sa">IE</a>.
+</aside></p>
 <h2 id='asset-access--layout'>Asset Access / Layout</h2>
 <blockquote>
 <p>Get the 32px PNG image for :blush:</p>
 </blockquote>
-<pre><code class="highlight plaintext">http://assets.emojidex.com/emoji/px32/blush.png
+<pre class="highlight plaintext"><code>http://assets.emojidex.com/emoji/px32/blush.png
 </code></pre>
 
 <blockquote>
 <p>Get the SVG image for :blush:</p>
 </blockquote>
-<pre><code class="highlight plaintext">http://assets.emojidex.com/emoji/blush.svg
+<pre class="highlight plaintext"><code>http://assets.emojidex.com/emoji/blush.svg
 </code></pre>
 
 <p>Assets can be found on the Content Delivery Network under structured 
@@ -499,11 +538,12 @@ images:<br>
 
 <p>PNG images come in a variety of sizes:<br>
 <code class="prettyprint">
-{ ldpi: 9, mdpi: 18, hdpi: 27, xhdpi: 36, px8: 8,
-  px16: 16, px32: 32, px64: 64, px128: 128, px256: 256 }
+{ ldpi: 13, mdpi: 18, hdpi: 27, xhdpi: 36, xxhdpi: 54, xxxhdpi: 72,
+  px8: 8, px16: 16, px32: 32, px64: 64, px128: 128, px256: 256, px512: 512,
+  hanko: 90, seal: 320 }
 </code><br>
 Each emoji size is squared (wide emoji coming soon!). An emoji in a particular size is always
-guarnteed to have the height specified for its size. For example, LDPI emoji are always 9px 
+guarnteed to have the height specified for its size. For example, LDPI emoji are always 13px 
 high.  </p>
 
 <table><thead>
@@ -532,6 +572,16 @@ high.  </p>
 <td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/xhdpi/blush.png" /></td>
 <td>xhdpi</td>
 <td>http://assets.emojidex.com/emoji/xhdpi/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/xxhdpi/blush.png" /></td>
+<td>xxhdpi</td>
+<td>http://assets.emojidex.com/emoji/xxhdpi/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/xxxhdpi/blush.png" /></td>
+<td>xxxhdpi</td>
+<td>http://assets.emojidex.com/emoji/xxxhdpi/blush.png</td>
 </tr>
 <tr>
 <td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px8/blush.png" /></td>
@@ -563,6 +613,21 @@ high.  </p>
 <td>px256</td>
 <td>http://assets.emojidex.com/emoji/px256/blush.png</td>
 </tr>
+<tr>
+<td><a href="http://assets.emojidex.com/emoji/px512/blush.png">(image too big, click here to see)</a></td>
+<td>px512</td>
+<td>http://assets.emojidex.com/emoji/px512/blush.png</td>
+</tr>
+<tr>
+<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/hanko/blush.png" /></td>
+<td>hanko</td>
+<td>http://assets.emojidex.com/emoji/hanko/blush.png</td>
+</tr>
+<tr>
+<td><a href="http://assets.emojidex.com/emoji/seal/blush.png">(image too big, click here to see)</a></td>
+<td>seal</td>
+<td>http://assets.emojidex.com/emoji/seal/blush.png</td>
+</tr>
 </tbody></table>
 
 <p><aside class="warning">
@@ -575,9 +640,21 @@ some emoji images please limit it to only a few (eg. 10 or less).
 </aside></p>
 
 <p>In general small text will usually be best with an emoji 
-size of about mdpi <img alt="blush emoji" src="http://assets.emojidex.com/emoji/mdpi/blush.png" />. Regular text, 
-as in text that is readable on most mobile handsets without zooming, will usually be around hdpi 
-<img alt="blush emoji" src="http://assets.emojidex.com/emoji/hdpi/blush.png" />.</p>
+size of about ldpi <img alt="blush emoji" src="http://assets.emojidex.com/emoji/ldpi/blush.png" /> 
+and web text will be around mdpi <img alt="blush emoji" src="http://assets.emojidex.com/emoji/mdpi/blush.png" />. 
+Thicker text readable on handsets will usually be around hdpi 
+<img alt="blush emoji" src="http://assets.emojidex.com/emoji/hdpi/blush.png" />. Android developers will note the 
+naming conventions coincide with standard asset quality naming conventions; they are in fact 
+sized to be compatible with Android standard sizing. iOS and other platforms should find this 
+sizing convention entirely compatible with native sizing guidelines.  </p>
+<h3 id='non-inline-emoji--emoji-as-media-assets'>non-inline emoji / emoji as Media Assets</h3>
+<p>Looking at the sizing chart you will notice the &ldquo;hanko&rdquo; and &ldquo;seal&rdquo; sizes. Hanko「はんこ」(Japanese 
+for &ldquo;stamp&rdquo;) is a mid-sized asset perfect for &ldquo;stamping&rdquo; on images or adding into multimedia 
+and non-text content. It may also be used as a smaller sized asset for messaging clients.  </p>
+
+<p>The &ldquo;seal&rdquo; size is made specifically for messaging clients and social media feeds to be sent as 
+individual images in timelines or as individual messages. It will perfectly occupy the width of 
+most messaging clients or social media feeds without distortion or any degrade in quality.</p>
 
       </div>
       <div class="dark-box">
