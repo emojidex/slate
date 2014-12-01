@@ -133,11 +133,11 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">usern
 </span></code></pre>
 
 <blockquote>
-<p>Key utilization:</p>
+<p>Key utilization example:</p>
 </blockquote>
 <pre class="highlight ruby"><code></code></pre>
 <pre class="highlight javascript"><code></code></pre>
-<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">auth_token</span><span class="o">=</span>123456789 
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">user</span><span class="o">=</span>WhoEver -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
 </code></pre>
 
 <p>Not all API calls require authentication, but all API calls can be performed with authentication 
