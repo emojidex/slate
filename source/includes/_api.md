@@ -60,7 +60,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d pa
 {"status":"unverified","auth_token":null}
 ```
 
-> Key utilization:
+> Key utilization example:
 
 ```ruby
 ```
@@ -69,7 +69,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d pa
 ```
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=123456789 
+curl -X GET https://www.emojidex.com/api/v1/users/favorites -d user=WhoEver -d auth_token=1234567890abcdef
 ```
 
 Not all API calls require authentication, but all API calls can be performed with authentication 
