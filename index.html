@@ -160,6 +160,15 @@ you are obtaining an auth token. Store auth tokens as securely as possible!
 <pre class="highlight java"><code></code></pre>
 
 <blockquote>
+<p>GET /emoji detailed=true</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji
+</code></pre>
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight javascript"><code></code></pre>
+<pre class="highlight java"><code></code></pre>
+
+<blockquote>
 <p>GET /emoji limit=50 page=2</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
@@ -193,51 +202,10 @@ Newer and more popular emoji will show up first.
 <td>integer</td>
 <td>page number</td>
 </tr>
-</tbody></table>
-<h2 id='detailed-emoji-index'>Detailed emoji index</h2>
-<blockquote>
-<p>GET /emoji/detailed</p>
-</blockquote>
-<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji/detailed
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight javascript"><code></code></pre>
-<pre class="highlight java"><code></code></pre>
-
-<blockquote>
-<p>GET /emoji/detailed limit=50 page=2</p>
-</blockquote>
-<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji/detailed -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight javascript"><code></code></pre>
-<pre class="highlight java"><code></code></pre>
-
-<p>Gets a detailed index of emoji, wherein each emoji entry contains all the extended 
-information associated with that emoji.
-<aside class="notice">
-This index is ordered by a combination of registration date and popularity. 
-Newer and more popular emoji will show up first.
-</aside></p>
-
-<p><em>Parameters</em></p>
-
-<table><thead>
 <tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>limit</td>
-<td>integer</td>
-<td>amount of emoji to return per page</td>
-</tr>
-<tr>
-<td>page</td>
-<td>integer</td>
-<td>page number</td>
+<td>detailed</td>
+<td>bool</td>
+<td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
 <h2 id='newest-emoji'>Newest emoji</h2>
@@ -271,6 +239,11 @@ Newer and more popular emoji will show up first.
 <td>integer</td>
 <td>page number</td>
 </tr>
+<tr>
+<td>detailed</td>
+<td>bool</td>
+<td>returns extra information such as upstream asset checksums[md5] when true</td>
+</tr>
 </tbody></table>
 <h2 id='popular-emoji'>Popular emoji</h2>
 <blockquote>
@@ -303,7 +276,32 @@ Newer and more popular emoji will show up first.
 <td>integer</td>
 <td>page number</td>
 </tr>
+<tr>
+<td>detailed</td>
+<td>bool</td>
+<td>returns extra information such as upstream asset checksums[md5] when true</td>
+</tr>
 </tbody></table>
+<h2 id='categories'>Categories</h2>
+<blockquote>
+<p>GET /categories</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/categories
+</code></pre>
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight javascript"><code></code></pre>
+<pre class="highlight java"><code></code></pre>
+
+<blockquote>
+<p>GET /categories locale=ja</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/categories -d <span class="nv">locale</span><span class="o">=</span>ja
+</code></pre>
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight javascript"><code></code></pre>
+<pre class="highlight java"><code></code></pre>
+
+<p>Gets a list of categoires, including category codes (used in searching) and [localized] titles.</p>
 <h2 id='search-for-emoji'>Search for emoji</h2>
 <blockquote>
 <p>Search for emoji with code containing &ldquo;heart&rdquo;</p>
@@ -435,6 +433,11 @@ the code you are checking for).
 <td>integer</td>
 <td>page number</td>
 </tr>
+<tr>
+<td>detailed</td>
+<td>bool</td>
+<td>returns extra information such as upstream asset checksums[md5] when true</td>
+</tr>
 </tbody></table>
 <h2 id='user-emoji'>User emoji</h2>
 <blockquote>
@@ -460,10 +463,88 @@ follows:</p>
 <li>絵文字: UTF/Unicode emoji with Japanese emoji codes</li>
 <li>絵文字デックス: emojidex original extended emoji with Japanese emoji codes</li>
 </ul>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>integer</td>
+<td>amount of emoji to return per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>page number</td>
+</tr>
+<tr>
+<td>detailed</td>
+<td>bool</td>
+<td>returns extra information such as upstream asset checksums[md5] when true</td>
+</tr>
+</tbody></table>
 <h2 id='favorites'>Favorites</h2>
-<p>Favorites can only be accessed with a token. Without a token favorites can only be saved locally.</p>
+<p>Favorites can only be accessed with a token. This resource requires authentication.</p>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>integer</td>
+<td>amount of emoji to return per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>page number</td>
+</tr>
+<tr>
+<td>detailed</td>
+<td>bool</td>
+<td>returns extra information such as upstream asset checksums[md5] when true</td>
+</tr>
+</tbody></table>
 <h2 id='history'>History</h2>
-<p>History can only be accessed with a token. Without a toekn history can only be saved locally.</p>
+<p>History can only be accessed with a token. This resource requires authentication.</p>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>integer</td>
+<td>amount of emoji to return per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>page number</td>
+</tr>
+<tr>
+<td>detailed</td>
+<td>bool</td>
+<td>returns extra information such as upstream asset checksums[md5] when true</td>
+</tr>
+</tbody></table>
 
           <h1 id='assets'>Assets</h1><h2 id='assets-cdn-address'>Assets [CDN] Address</h2>
 <p><code class="prettyprint">http://assets.emojidex.com</code></p>
