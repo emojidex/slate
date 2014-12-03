@@ -99,6 +99,21 @@ curl -X GET https://www.emojidex.com/api/v1/emoji
 ```java
 ```
 
+> GET /emoji detailed=true
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/emoji
+```
+
+```ruby
+```
+
+```js
+```
+
+```java
+```
+
 > GET /emoji limit=50 page=2
 
 ```shell
@@ -126,52 +141,8 @@ Name | Type | Description
 ---- | ---- | -----------
 limit | integer | amount of emoji to return per page
 page | integer | page number
+detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
-## Detailed emoji index
-
-> GET /emoji/detailed
-
-```shell
-curl -X GET https://www.emojidex.com/api/v1/emoji/detailed
-```
-
-```ruby
-```
-
-```js
-```
-
-```java
-```
-
-> GET /emoji/detailed limit=50 page=2
-
-```shell
-curl -X GET https://www.emojidex.com/api/v1/emoji/detailed -d page=2 -d limit=50
-```
-
-```ruby
-```
-
-```js
-```
-
-```java
-```
-
-Gets a detailed index of emoji, wherein each emoji entry contains all the extended 
-information associated with that emoji.
-<aside class="notice">
-This index is ordered by a combination of registration date and popularity. 
-Newer and more popular emoji will show up first.
-</aside>
-
-*Parameters*
-
-Name | Type | Description
----- | ---- | -----------
-limit | integer | amount of emoji to return per page
-page | integer | page number
 
 ## Newest emoji
 
@@ -198,6 +169,7 @@ Name | Type | Description
 ---- | ---- | -----------
 limit | integer | amount of emoji to return per page
 page | integer | page number
+detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
 ## Popular emoji
 
@@ -224,6 +196,42 @@ Name | Type | Description
 ---- | ---- | -----------
 limit | integer | amount of emoji to return per page
 page | integer | page number
+detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+
+Categories
+----------
+
+> GET /categories
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/categories
+```
+
+```ruby
+```
+
+```js
+```
+
+```java
+```
+
+> GET /categories locale=ja
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/categories -d locale=ja
+```
+
+```ruby
+```
+
+```js
+```
+
+```java
+```
+
+Gets a list of categoires, including category codes (used in searching) and [localized] titles.
 
 ## Search for emoji
 
@@ -312,6 +320,7 @@ Name | Type | Description
 ---- | ---- | -----------
 limit | integer | amount of emoji to return per page
 page | integer | page number
+detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
 ## User emoji
 
@@ -337,10 +346,34 @@ follows:
   * 絵文字: UTF/Unicode emoji with Japanese emoji codes
   * 絵文字デックス: emojidex original extended emoji with Japanese emoji codes
 
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+limit | integer | amount of emoji to return per page
+page | integer | page number
+detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+
 ## Favorites
 
-Favorites can only be accessed with a token. Without a token favorites can only be saved locally.
+Favorites can only be accessed with a token. This resource requires authentication.
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+limit | integer | amount of emoji to return per page
+page | integer | page number
+detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
 ## History
 
-History can only be accessed with a token. Without a toekn history can only be saved locally.
+History can only be accessed with a token. This resource requires authentication.
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+limit | integer | amount of emoji to return per page
+page | integer | page number
+detailed | bool | returns extra information such as upstream asset checksums[md5] when true
