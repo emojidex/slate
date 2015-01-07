@@ -102,7 +102,7 @@ curl -X GET https://www.emojidex.com/api/v1/emoji
 > GET /emoji detailed=true
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/emoji
+curl -X GET https://www.emojidex.com/api/v1/emoji -d detailed=true
 ```
 
 ```ruby
