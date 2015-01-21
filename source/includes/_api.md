@@ -51,13 +51,13 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d pa
 > When authentication succeeds the following JSON is returned:
 
 ```json
-{"status":"verified","auth_token":"1234567890abcdef"}
+{"auth_status":"verified","auth_token":"1234567890abcdef","auth_user":"MyUserName"}
 ```
 
 > When authentication fails the follwing JSON is returned:
 
 ```json
-{"status":"unverified","auth_token":null}
+{"auth_status":"unverified","auth_token":null}
 ```
 
 > Key utilization example:
@@ -69,7 +69,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d pa
 ```
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/users/favorites -d user=WhoEver -d auth_token=1234567890abcdef
+curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
 ```
 
 Not all API calls require authentication, but all API calls can be performed with authentication 
@@ -366,6 +366,17 @@ limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
+> Get history:
+```shell
+curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
+```
+
+> Add an emoji usage to history:
+```shell
+curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
+```
+
+
 ## History
 
 History can only be accessed with a token. This resource requires authentication.
@@ -377,3 +388,7 @@ Name | Type | Description
 limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/users/history -d auth_token=1234567890abcdef
+```
