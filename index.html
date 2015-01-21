@@ -123,13 +123,13 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">usern
 <blockquote>
 <p>When authentication succeeds the following JSON is returned:</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"verified"</span><span class="p">,</span><span class="s2">"auth_token"</span><span class="p">:</span><span class="s2">"1234567890abcdef"</span><span class="p">}</span><span class="w">
+<pre class="highlight json"><code><span class="p">{</span><span class="s2">"auth_status"</span><span class="p">:</span><span class="s2">"verified"</span><span class="p">,</span><span class="s2">"auth_token"</span><span class="p">:</span><span class="s2">"1234567890abcdef"</span><span class="p">,</span><span class="s2">"auth_user"</span><span class="p">:</span><span class="s2">"MyUserName"</span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <blockquote>
 <p>When authentication fails the follwing JSON is returned:</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"unverified"</span><span class="p">,</span><span class="s2">"auth_token"</span><span class="p">:</span><span class="kc">null</span><span class="p">}</span><span class="w">
+<pre class="highlight json"><code><span class="p">{</span><span class="s2">"auth_status"</span><span class="p">:</span><span class="s2">"unverified"</span><span class="p">,</span><span class="s2">"auth_token"</span><span class="p">:</span><span class="kc">null</span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <blockquote>
@@ -137,7 +137,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">usern
 </blockquote>
 <pre class="highlight ruby"><code></code></pre>
 <pre class="highlight javascript"><code></code></pre>
-<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">user</span><span class="o">=</span>WhoEver -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
 </code></pre>
 
 <p>Not all API calls require authentication, but all API calls can be performed with authentication 
@@ -517,6 +517,18 @@ follows:</p>
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
+
+<blockquote>
+<p>Get history:
+<code class="prettyprint">shell
+curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
+</code></p>
+
+<p>Add an emoji usage to history:
+<code class="prettyprint">shell
+curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
+</code></p>
+</blockquote>
 <h2 id='history'>History</h2>
 <p>History can only be accessed with a token. This resource requires authentication.</p>
 
@@ -545,6 +557,8 @@ follows:</p>
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/history -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
+</code></pre>
 
           <h1 id='assets'>Assets</h1><h2 id='assets-cdn-address'>Assets [CDN] Address</h2>
 <p><code class="prettyprint">http://assets.emojidex.com</code></p>
