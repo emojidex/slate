@@ -17,21 +17,6 @@ Throughout most of the API different actions are mapped to different HTTP Method
 PUT, POST, DELETE. You MUST be aware of what method you are using to make an API request, as most 
 of the time only one HTTP method will perform the task you want in your query.
 
-## API Keys
-API Keys offer general access to the API for a specific user. Each user is granted one and only 
-one API key. In the future app-specific keys will be issued along with auth provider independent 
-login tokens, but for the time being one single API key is granted and used. This API key 
-functionality will not be depricated in version 1 of the API, so there will be no need to 
-adjust for the addition of app-specific keys or auth-specific tokens.  
-  
-An API key is generated and passed as a response when a valid authorization is made through the 
-API. Alternatively, and with significantly less practicality to the average user;
-an API key may be generated and obtained from the User Settings screen on www.emojidex.com.  
-  
-An API key may be revoked from the User Settings, but not from the API. As a single API key is 
-granted per user and shared between apps, the revocation or re-generation of an API key will 
-require re-acquisition in all clients.
-
 ## Authentication
 
 > Key acquisition:
@@ -72,9 +57,32 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d pa
 curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
 ```
 
-Not all API calls require authentication, but all API calls can be performed with authentication 
-tokens included. Generally if a user has an auth token it should be used with every call.
+### API Keys / Auth Tokens
+Each user is granted an auth token which gives them access to their own personal resources. 
+Each user is granted one and only 
+one API key. In the future app-specific keys will be issued along with auth provider independent 
+login tokens, but for the time being one single API key is granted and used. This API key 
+functionality will not be depricated in version 1 of the API, so there will be no need to 
+adjust for the addition of app-specific keys or auth-specific tokens.  
+<aside class="notice">
+It should be noted that these resources do not include any personally identifying resources,
+nor any resources that allow a user to make payments or change account details such as 
+passwords. For Version 1 of the API, the worst that can happen from a stolen API Key is 
+having favorites added or removed, or items added to a users history. Reguardless, writing code 
+that attempts to mis-use API Keys is forbidden by the Terms of Use and may be met with legal 
+action. Keep your users keys safe, and do not mis-use them!
+</aside>
 
+API Keys are returned as a response from a valid authorization request. Users can view, re-set, 
+or revoke their individual API Key from the User Details section after they log in to the 
+emojidex web site. An API key may be revoked from the User Settings, but not from the API. 
+As a single API Key is granted per user and shared between apps, the revocation or 
+re-generation of an API Key will require re-acquisition in all clients.
+Not all API calls require authentication, but all API calls can and should be performed with 
+authentication tokens included. Generally, an auth token should be used with every API call 
+other than the initial authentication request.
+
+### Authenticating / Obtaining user auth token
 To authenticate you must add the "user" and "auth_token" fields to the request. The "user" field
 is the user name, and the auth_token can be obtained with an authorize request.
 <aside class="warning">
