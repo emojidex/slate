@@ -1,3 +1,11 @@
+---
+language_tabs:
+  - shell
+  - ruby
+  - js
+  - java
+---
+
 # API
 <aside class="notice">
 This documenation is for Version 1 of the API.
@@ -21,6 +29,12 @@ of the time only one HTTP method will perform the task you want in your query.
 
 > Key acquisition:
 
+```shell
+curl -X GET www.emojidex.com/api/v1/users/authenticate -d email=whoever@emojidex.com -d password=********
+# or
+curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d password=********
+```
+
 ```ruby
 ```
 
@@ -30,10 +44,7 @@ emojidex = new EmojidexClient();
 emojidex.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '******'});
 ```
 
-```shell
-curl -X GET www.emojidex.com/api/v1/users/authenticate -d email=whoever@emojidex.com -d password=********
-# or
-curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d password=********
+```java
 ```
 
 > When authentication succeeds the following JSON is returned:
@@ -50,6 +61,10 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d pa
 
 > Key utilization example:
 
+```shell
+curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
+```
+
 ```ruby
 ```
 
@@ -57,8 +72,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d pa
 // the emojidex web client will automatically insert auth keys for you
 ```
 
-```shell
-curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
+```java
 ```
 
 ### API Keys / Auth Tokens
@@ -228,6 +242,10 @@ curl -X GET https://www.emojidex.com/api/v1/categories
 ```
 
 ```js
+// categories should be pre-cached
+emojidex.categories
+// you can actively obtain categories from the server
+emojidex.get_categories();
 ```
 
 ```java
@@ -243,10 +261,7 @@ curl -X GET https://www.emojidex.com/api/v1/categories -d locale=ja
 ```
 
 ```js
-// categories are pre-cached on init
-emojidex.categories
-// or you can get categories on-demand
-emojidex.get_categories();
+emojidex.get_categories(null, {'locale': 'ja'});
 ```
 
 ```java
@@ -466,6 +481,7 @@ page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
 > Get history:
+
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/users/history -d auth_token=1234567890abcdef
 ```

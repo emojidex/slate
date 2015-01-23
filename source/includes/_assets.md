@@ -53,13 +53,13 @@ and
 
 > Get the 32px PNG image for :blush:
 
-```
+```text
 http://assets.emojidex.com/emoji/px32/blush.png
 ```
 
 > Get the SVG image for :blush:
 
-```
+```text
 http://assets.emojidex.com/emoji/blush.svg
 ```
 
@@ -75,7 +75,7 @@ images:
 ![blush emoji](http://assets.emojidex.com/emoji/blush.svg)
 
 PNG images come in a variety of sizes:  
-```
+```json
 { ldpi: 13, mdpi: 18, hdpi: 27, xhdpi: 36, xxhdpi: 54, xxxhdpi: 72,
   px8: 8, px16: 16, px32: 32, px64: 64, px128: 128, px256: 256, px512: 512,
   hanko: 90, seal: 320 }
