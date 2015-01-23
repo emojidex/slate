@@ -25,6 +25,9 @@ of the time only one HTTP method will perform the task you want in your query.
 ```
 
 ```js
+// Using the emojidex-web-client
+emojidex = new EmojidexClient();
+emojidex.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '******'});
 ```
 
 ```shell
@@ -51,6 +54,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d pa
 ```
 
 ```js
+// the emojidex web client will automatically insert auth keys for you
 ```
 
 ```shell
@@ -102,6 +106,7 @@ curl -X GET https://www.emojidex.com/api/v1/emoji
 ```
 
 ```js
+emojidex.get_index();
 ```
 
 ```java
@@ -117,6 +122,7 @@ curl -X GET https://www.emojidex.com/api/v1/emoji -d detailed=true
 ```
 
 ```js
+emojidex.get_index(null, {'detailed': true});
 ```
 
 ```java
@@ -132,6 +138,7 @@ curl -X GET https://www.emojidex.com/api/v1/emoji -d page=2 -d limit=50
 ```
 
 ```js
+emojidex.get_index(null, {'page': 2, 'limit': 50});
 ```
 
 ```java
@@ -164,6 +171,7 @@ curl -X GET https://www.emojidex.com/api/v1/newest
 ```
 
 ```js
+emojidex.get_newest();
 ```
 
 ```java
@@ -191,6 +199,7 @@ curl -X GET https://www.emojidex.com/api/v1/popular
 ```
 
 ```js
+emojidex.get_popular();
 ```
 
 ```java
@@ -234,6 +243,10 @@ curl -X GET https://www.emojidex.com/api/v1/categories -d locale=ja
 ```
 
 ```js
+// categories are pre-cached on init
+emojidex.categories
+// or you can get categories on-demand
+emojidex.get_categories();
 ```
 
 ```java
@@ -249,10 +262,18 @@ Gets a list of categoires, including category codes (used in searching) and [loc
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart
 ```
 
+```js
+emojidex.search("heart");
+```
+
 > Search for emoji with code starting with "heart"
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_sw=heart
+```
+
+```js
+emojidex.search_sw("heart");
 ```
 
 > Search for emoji with code ending with "heart"
@@ -261,10 +282,18 @@ curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_sw=heart
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_ew=heart
 ```
 
+```js
+emojidex.search_ew("heart");
+```
+
 > Search for emoji with codes containing "heart" in the category "faces"
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories\[\]=faces
+```
+
+```js
+emojidex.advanced_search("heart", [], ['faces']);
 ```
 
 > Search for emoji with codes containing "heart" in either the category "faces" or "abstract"
@@ -273,16 +302,28 @@ curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d c
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories\[\]=faces -d categories\[\]=abstract
 ```
 
+```js
+emojidex.advanced_search("heart", [], ['faces', 'abstract']);
+```
+
 > Search for emoji with tag "weapon" 
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags\[\]=weapon
 ```
 
+```js
+emojidex.tag_search("weapon");
+```
+
 > Search for emoji where code contains "rifle", has the tag "weapon", and is in category "tools"
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=rifle -d tags\[\]=weapon -d categories\[\]=tools
+```
+
+```js
+emojidex.advanced_search("rifle", ['weapon'], ['tools']);
 ```
 
 The basis for emoji searches is search by emoji code. Searches can be performed for 
@@ -338,10 +379,18 @@ detailed | bool | returns extra information such as upstream asset checksums[md5
 curl -X GET https://www.emojidex.com/api/v1/users/Zero/emoji
 ```
 
+```js
+emojidex.user_emoji("Zero");
+```
+
 > Get emoji for the user "絵文字"
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/users/絵文字/emoji
+```
+
+```js
+emojidex.user_emoji("絵文字");
 ```
 
 You can get all emoji registered by a specific user.  
@@ -374,16 +423,35 @@ limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
-> Get history:
+> Get favorites:
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
 ```
 
-> Add an emoji usage to history:
-```shell
-curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
+```js
+// favorites should be pre-cached on login/initialization
+emojidex.favorites
+// you can actively obtain favorites from the server
+emojidex.get_favorites();
 ```
 
+> Add an emoji to favorites:
+```shell
+curl -X POST https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef -d emoji_code=zebra
+```
+
+```js
+emojidex.set_favorites("zebra");
+```
+
+> Remove an emoji from favorites:
+```shell
+curl -X DELETE https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef -d emoji_code=zebra
+```
+
+```js
+emojidex.unset_favorites("zebra");
+```
 
 ## History
 
@@ -397,6 +465,23 @@ limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
+> Get history:
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/users/history -d auth_token=1234567890abcdef
+```
+
+```js
+// history is pre-cached on login/initialization
+emojidex.history
+// you can active obtain history from the server
+emojidex.get_history();
+```
+
+> Add an emoji to history:
+```shell
+curl -X POST https://www.emojidex.com/api/v1/users/history -d auth_token=1234567890abcdef -d emoji_code=zebra
+```
+
+```js
+emoji.set_history("zebra");
 ```
