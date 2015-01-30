@@ -3,6 +3,7 @@ language_tabs:
   - shell
   - ruby
   - js
+  - cpp
   - java
 ---
 
@@ -41,7 +42,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d pa
 ```js
 // Using the emojidex-web-client
 emojidex = new EmojidexClient();
-emojidex.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '******'});
+emojidex.User.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '******'});
 ```
 
 ```java
@@ -120,7 +121,7 @@ curl -X GET https://www.emojidex.com/api/v1/emoji
 ```
 
 ```js
-emojidex.get_index();
+emojidex.Indexes.index();
 ```
 
 ```java
@@ -136,7 +137,7 @@ curl -X GET https://www.emojidex.com/api/v1/emoji -d detailed=true
 ```
 
 ```js
-emojidex.get_index(null, {'detailed': true});
+emojidex.Indexes.index(null, {'detailed': true});
 ```
 
 ```java
@@ -152,7 +153,7 @@ curl -X GET https://www.emojidex.com/api/v1/emoji -d page=2 -d limit=50
 ```
 
 ```js
-emojidex.get_index(null, {'page': 2, 'limit': 50});
+emojidex.Indexes.index(null, {'page': 2, 'limit': 50});
 ```
 
 ```java
@@ -185,7 +186,7 @@ curl -X GET https://www.emojidex.com/api/v1/newest
 ```
 
 ```js
-emojidex.get_newest();
+emojidex.Indexes.newest();
 ```
 
 ```java
@@ -213,7 +214,7 @@ curl -X GET https://www.emojidex.com/api/v1/popular
 ```
 
 ```js
-emojidex.get_popular();
+emojidex.Indexes.popular();
 ```
 
 ```java
@@ -243,9 +244,9 @@ curl -X GET https://www.emojidex.com/api/v1/categories
 
 ```js
 // categories should be pre-cached
-emojidex.categories
+emojidex.Categories.all()
 // you can actively obtain categories from the server
-emojidex.get_categories();
+emojidex.Categories.get();
 ```
 
 ```java
@@ -261,7 +262,7 @@ curl -X GET https://www.emojidex.com/api/v1/categories -d locale=ja
 ```
 
 ```js
-emojidex.get_categories(null, {'locale': 'ja'});
+emojidex.Categories.get('ja');
 ```
 
 ```java
@@ -278,7 +279,7 @@ curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart
 ```
 
 ```js
-emojidex.search("heart");
+emojidex.Search.search("heart");
 ```
 
 > Search for emoji with code starting with "heart"
@@ -288,7 +289,7 @@ curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_sw=heart
 ```
 
 ```js
-emojidex.search_sw("heart");
+emojidex.Search.starting("heart");
 ```
 
 > Search for emoji with code ending with "heart"
@@ -298,7 +299,7 @@ curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_ew=heart
 ```
 
 ```js
-emojidex.search_ew("heart");
+emojidex.Search.ending("heart");
 ```
 
 > Search for emoji with codes containing "heart" in the category "faces"
@@ -308,7 +309,7 @@ curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d c
 ```
 
 ```js
-emojidex.advanced_search("heart", [], ['faces']);
+emojidex.Search.advanced("heart", [], ['faces']);
 ```
 
 > Search for emoji with codes containing "heart" in either the category "faces" or "abstract"
@@ -318,7 +319,7 @@ curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d c
 ```
 
 ```js
-emojidex.advanced_search("heart", [], ['faces', 'abstract']);
+emojidex.Search.advanced("heart", [], ['faces', 'abstract']);
 ```
 
 > Search for emoji with tag "weapon" 
@@ -328,7 +329,7 @@ curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags\[\]=weapon
 ```
 
 ```js
-emojidex.tag_search("weapon");
+emojidex.Search.tags(["weapon"]);
 ```
 
 > Search for emoji where code contains "rifle", has the tag "weapon", and is in category "tools"
@@ -338,7 +339,7 @@ curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=rifle -d t
 ```
 
 ```js
-emojidex.advanced_search("rifle", ['weapon'], ['tools']);
+emojidex.Search.advanced("rifle", ['weapon'], ['tools']);
 ```
 
 The basis for emoji searches is search by emoji code. Searches can be performed for 
@@ -395,7 +396,7 @@ curl -X GET https://www.emojidex.com/api/v1/users/Zero/emoji
 ```
 
 ```js
-emojidex.user_emoji("Zero");
+emojidex.Index.user("Zero");
 ```
 
 > Get emoji for the user "絵文字"
@@ -405,7 +406,7 @@ curl -X GET https://www.emojidex.com/api/v1/users/絵文字/emoji
 ```
 
 ```js
-emojidex.user_emoji("絵文字");
+emojidex.Index.user("絵文字");
 ```
 
 You can get all emoji registered by a specific user.  
@@ -445,9 +446,9 @@ curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=123456
 
 ```js
 // favorites should be pre-cached on login/initialization
-emojidex.favorites
+emojidex.User.Favorites.all()
 // you can actively obtain favorites from the server
-emojidex.get_favorites();
+emojidex.User.Favorites.get();
 ```
 
 > Add an emoji to favorites:
@@ -456,7 +457,7 @@ curl -X POST https://www.emojidex.com/api/v1/users/favorites -d auth_token=12345
 ```
 
 ```js
-emojidex.set_favorites("zebra");
+emojidex.User.Favorites.set("zebra");
 ```
 
 > Remove an emoji from favorites:
@@ -465,7 +466,7 @@ curl -X DELETE https://www.emojidex.com/api/v1/users/favorites -d auth_token=123
 ```
 
 ```js
-emojidex.unset_favorites("zebra");
+emojidex.User.Favorites.unset("zebra");
 ```
 
 ## History
@@ -488,9 +489,9 @@ curl -X GET https://www.emojidex.com/api/v1/users/history -d auth_token=12345678
 
 ```js
 // history is pre-cached on login/initialization
-emojidex.history
+emojidex.User.History.all()
 // you can active obtain history from the server
-emojidex.get_history();
+emojidex.User.History.get();
 ```
 
 > Add an emoji to history:
@@ -499,5 +500,5 @@ curl -X POST https://www.emojidex.com/api/v1/users/history -d auth_token=1234567
 ```
 
 ```js
-emoji.set_history("zebra");
+emoji.User.History.set("zebra");
 ```
