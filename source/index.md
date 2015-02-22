@@ -4,7 +4,7 @@ title: emojidex API Reference
 language_tabs:
   - shell
   - ruby
-  - js
+  - javascript
   - java
 
 toc_footers:

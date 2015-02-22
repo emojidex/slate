@@ -2,8 +2,7 @@
 language_tabs:
   - shell
   - ruby
-  - js
-  - cpp
+  - javascript
   - java
 ---
 
@@ -37,26 +36,28 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d pa
 ```
 
 ```ruby
+# coming soon
 ```
 
-```js
+```javascript
 // Using the emojidex-web-client
 emojidex = new EmojidexClient();
 emojidex.User.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '******'});
 ```
 
 ```java
+// coming soon
 ```
 
 > When authentication succeeds the following JSON is returned:
 
-```json
+```javascripton
 {"auth_status":"verified","auth_token":"1234567890abcdef","auth_user":"MyUserName"}
 ```
 
 > When authentication fails the follwing JSON is returned:
 
-```json
+```javascripton
 {"auth_status":"unverified","auth_token":null}
 ```
 
@@ -69,7 +70,7 @@ curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=123456
 ```ruby
 ```
 
-```js
+```javascript
 // the emojidex web client will automatically insert auth keys for you
 ```
 
@@ -109,6 +110,38 @@ DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password 
 you are obtaining an auth token. Store auth tokens as securely as possible!
 </aside>
 
+## emoji Information
+> Get information on the "sushi" emoji
+> GET /emoji/sushi
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/emoji/sushi
+```
+
+```ruby
+```
+
+```javascript
+```
+
+```java
+```
+
+> Information about the "sushi" emoji is retruned:
+
+```javascripton
+{"code":"sushi","moji":"🍣","unicode":"1f363","category":"food","tags":[]}
+```
+
+To get information about a particular emoji simply query they /emoji/(emoji code) endpoint, 
+replacing (emoji code) with the emoji code you want the information about.
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+
 ## emoji Index
 
 > GET /emoji
@@ -120,7 +153,7 @@ curl -X GET https://www.emojidex.com/api/v1/emoji
 ```ruby
 ```
 
-```js
+```javascript
 emojidex.Indexes.index();
 ```
 
@@ -136,7 +169,7 @@ curl -X GET https://www.emojidex.com/api/v1/emoji -d detailed=true
 ```ruby
 ```
 
-```js
+```javascript
 emojidex.Indexes.index(null, {'detailed': true});
 ```
 
@@ -152,7 +185,7 @@ curl -X GET https://www.emojidex.com/api/v1/emoji -d page=2 -d limit=50
 ```ruby
 ```
 
-```js
+```javascript
 emojidex.Indexes.index(null, {'page': 2, 'limit': 50});
 ```
 
@@ -185,7 +218,7 @@ curl -X GET https://www.emojidex.com/api/v1/newest
 ```ruby
 ```
 
-```js
+```javascript
 emojidex.Indexes.newest();
 ```
 
@@ -213,7 +246,7 @@ curl -X GET https://www.emojidex.com/api/v1/popular
 ```ruby
 ```
 
-```js
+```javascript
 emojidex.Indexes.popular();
 ```
 
@@ -242,7 +275,7 @@ curl -X GET https://www.emojidex.com/api/v1/categories
 ```ruby
 ```
 
-```js
+```javascript
 // categories should be pre-cached
 emojidex.Categories.all()
 // you can actively obtain categories from the server
@@ -261,7 +294,7 @@ curl -X GET https://www.emojidex.com/api/v1/categories -d locale=ja
 ```ruby
 ```
 
-```js
+```javascript
 emojidex.Categories.get('ja');
 ```
 
@@ -278,7 +311,7 @@ Gets a list of categoires, including category codes (used in searching) and [loc
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart
 ```
 
-```js
+```javascript
 emojidex.Search.search("heart");
 ```
 
@@ -288,7 +321,7 @@ emojidex.Search.search("heart");
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_sw=heart
 ```
 
-```js
+```javascript
 emojidex.Search.starting("heart");
 ```
 
@@ -298,7 +331,7 @@ emojidex.Search.starting("heart");
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_ew=heart
 ```
 
-```js
+```javascript
 emojidex.Search.ending("heart");
 ```
 
@@ -308,7 +341,7 @@ emojidex.Search.ending("heart");
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories\[\]=faces
 ```
 
-```js
+```javascript
 emojidex.Search.advanced("heart", [], ['faces']);
 ```
 
@@ -318,7 +351,7 @@ emojidex.Search.advanced("heart", [], ['faces']);
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories\[\]=faces -d categories\[\]=abstract
 ```
 
-```js
+```javascript
 emojidex.Search.advanced("heart", [], ['faces', 'abstract']);
 ```
 
@@ -328,7 +361,7 @@ emojidex.Search.advanced("heart", [], ['faces', 'abstract']);
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags\[\]=weapon
 ```
 
-```js
+```javascript
 emojidex.Search.tags(["weapon"]);
 ```
 
@@ -338,7 +371,7 @@ emojidex.Search.tags(["weapon"]);
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=rifle -d tags\[\]=weapon -d categories\[\]=tools
 ```
 
-```js
+```javascript
 emojidex.Search.advanced("rifle", ['weapon'], ['tools']);
 ```
 
@@ -395,7 +428,7 @@ detailed | bool | returns extra information such as upstream asset checksums[md5
 curl -X GET https://www.emojidex.com/api/v1/users/Zero/emoji
 ```
 
-```js
+```javascript
 emojidex.Index.user("Zero");
 ```
 
@@ -405,7 +438,7 @@ emojidex.Index.user("Zero");
 curl -X GET https://www.emojidex.com/api/v1/users/絵文字/emoji
 ```
 
-```js
+```javascript
 emojidex.Index.user("絵文字");
 ```
 
@@ -444,7 +477,7 @@ detailed | bool | returns extra information such as upstream asset checksums[md5
 curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
 ```
 
-```js
+```javascript
 // favorites should be pre-cached on login/initialization
 emojidex.User.Favorites.all()
 // you can actively obtain favorites from the server
@@ -456,7 +489,7 @@ emojidex.User.Favorites.get();
 curl -X POST https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef -d emoji_code=zebra
 ```
 
-```js
+```javascript
 emojidex.User.Favorites.set("zebra");
 ```
 
@@ -465,7 +498,7 @@ emojidex.User.Favorites.set("zebra");
 curl -X DELETE https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef -d emoji_code=zebra
 ```
 
-```js
+```javascript
 emojidex.User.Favorites.unset("zebra");
 ```
 
@@ -487,7 +520,7 @@ detailed | bool | returns extra information such as upstream asset checksums[md5
 curl -X GET https://www.emojidex.com/api/v1/users/history -d auth_token=1234567890abcdef
 ```
 
-```js
+```javascript
 // history is pre-cached on login/initialization
 emojidex.User.History.all()
 // you can active obtain history from the server
@@ -499,6 +532,6 @@ emojidex.User.History.get();
 curl -X POST https://www.emojidex.com/api/v1/users/history -d auth_token=1234567890abcdef -d emoji_code=zebra
 ```
 
-```js
+```javascript
 emoji.User.History.set("zebra");
 ```
