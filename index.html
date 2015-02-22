@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby","js","java"]);
+          setupLanguages(["shell","ruby","javascript","java"]);
         });
       </script>
   </head>
@@ -30,7 +30,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="js">js</a>
+              <a href="#" data-language-name="javascript">javascript</a>
               <a href="#" data-language-name="java">java</a>
         </div>
         <div class="search">
@@ -103,24 +103,26 @@ of the time only one HTTP method will perform the task you want in your query.</
 <span class="c"># or</span>
 curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">username</span><span class="o">=</span>WhoEver -d <span class="nv">password</span><span class="o">=</span><span class="k">********</span>
 </code></pre>
-<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight ruby"><span class="c1"># coming soon</span>
+</code></pre>
 <pre><code class="highlight javascript"><span class="c1">// Using the emojidex-web-client</span>
 <span class="nx">emojidex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EmojidexClient</span><span class="p">();</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">login</span><span class="p">({</span><span class="s1">'authtype'</span><span class="p">:</span> <span class="s1">'plain'</span><span class="p">,</span> <span class="s1">'username'</span><span class="p">:</span> <span class="s1">'MeMeMe'</span><span class="p">,</span> <span class="s1">'password'</span><span class="p">:</span> <span class="s1">'******'</span><span class="p">});</span>
 </code></pre>
-<pre><code class="highlight java"></code></pre>
+<pre><code class="highlight java"><span class="c1">// coming soon</span>
+</code></pre>
 
 <blockquote>
 <p>When authentication succeeds the following JSON is returned:</p>
 </blockquote>
-<pre><code class="highlight json"><span class="p">{</span><span class="s2">"auth_status"</span><span class="p">:</span><span class="s2">"verified"</span><span class="p">,</span><span class="s2">"auth_token"</span><span class="p">:</span><span class="s2">"1234567890abcdef"</span><span class="p">,</span><span class="s2">"auth_user"</span><span class="p">:</span><span class="s2">"MyUserName"</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre><code class="highlight plaintext">{"auth_status":"verified","auth_token":"1234567890abcdef","auth_user":"MyUserName"}
+</code></pre>
 
 <blockquote>
 <p>When authentication fails the follwing JSON is returned:</p>
 </blockquote>
-<pre><code class="highlight json"><span class="p">{</span><span class="s2">"auth_status"</span><span class="p">:</span><span class="s2">"unverified"</span><span class="p">,</span><span class="s2">"auth_token"</span><span class="p">:</span><span class="kc">null</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre><code class="highlight plaintext">{"auth_status":"unverified","auth_token":null}
+</code></pre>
 
 <blockquote>
 <p>Key utilization example:</p>
@@ -162,6 +164,41 @@ is the user name, and the auth_token can be obtained with an authorize request.
 DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password to the API when 
 you are obtaining an auth token. Store auth tokens as securely as possible!
 </aside></p>
+<h2 id='emoji-information'>emoji Information</h2>
+<blockquote>
+<p>Get information on the &ldquo;sushi&rdquo; emoji
+GET /emoji/sushi</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/emoji/sushi
+</code></pre>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight javascript"></code></pre>
+<pre><code class="highlight java"></code></pre>
+
+<blockquote>
+<p>Information about the &ldquo;sushi&rdquo; emoji is retruned:</p>
+</blockquote>
+<pre><code class="highlight plaintext">{"code":"sushi","moji":"🍣","unicode":"1f363","category":"food","tags":[]}
+</code></pre>
+
+<p>To get information about a particular emoji simply query they /emoji/(emoji code) endpoint, 
+replacing (emoji code) with the emoji code you want the information about.</p>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>detailed</td>
+<td>bool</td>
+<td>returns extra information such as upstream asset checksums[md5] when true</td>
+</tr>
+</tbody></table>
 <h2 id='emoji-index'>emoji Index</h2>
 <blockquote>
 <p>GET /emoji</p>
@@ -834,7 +871,7 @@ most messaging clients or social media feeds without distortion or any degrade i
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="js">js</a>
+                <a href="#" data-language-name="javascript">javascript</a>
                 <a href="#" data-language-name="java">java</a>
           </div>
       </div>
