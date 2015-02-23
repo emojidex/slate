@@ -672,20 +672,16 @@ follows:</p>
 </code></pre>
 
           <h1 id='assets'>Assets</h1><h2 id='assets-cdn-address'>Assets [CDN] Address</h2>
-<p><code class="prettyprint">http://assets.emojidex.com</code></p>
+<p><code class="prettyprint">http://cdn.emojidex.com</code></p>
 
-<p>Note that this is not (currently) an HTTPS address. Assets are hosted in an S3 bucket. 
-In the future we will try to rig SSL up to the assets subdomain but at the moment SSL 
-can optionally be used by allowing certs from *.s3.amazonaws.com. You could directly 
-access assets by using the the Amazon S3 address but we DO NOT recommend it:</p>
+<p>Note that this is not (currently) an HTTPS address. Assets are currently hosted on 
+cloud front with an S3 backend. To get the HTTPS address you need to either query the 
+enviornment information through the API or simply use the CDN address and accept 
+certs from cloudfront.</p>
 
-<p><code class="prettyprint">https://s3-us-west-2.amazonaws.com/assets.emojidex.com/</code></p>
-
-<aside class="warning">
-The S3 address may change at some point. DO NOT use the S3 address in any static content. 
-ONLY use the S3 address if you absolutely need HTTPS/SSL AND you can not override the 
-certificate origin AND you are prepared to change references to that address at some point 
-in the future.
+<aside class="notice">
+The S3 instance at assets.emojidex.com may also be used but it will likely be much 
+slower. There is no real benefit to using assets.emojidex.com over cdn.emojidex.com.
 </aside>
 <h2 id='asset-formats'>Asset Formats</h2>
 <p>All assets come in Frame Animated SVG and Animated PNG. Assets without animation will be 
