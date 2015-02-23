@@ -1,20 +1,16 @@
 #Assets
 
 ## Assets [CDN] Address
-`http://assets.emojidex.com`
+`http://cdn.emojidex.com`
 
-Note that this is not (currently) an HTTPS address. Assets are hosted in an S3 bucket. 
-In the future we will try to rig SSL up to the assets subdomain but at the moment SSL 
-can optionally be used by allowing certs from \*.s3.amazonaws.com. You could directly 
-access assets by using the the Amazon S3 address but we DO NOT recommend it:
+Note that this is not (currently) an HTTPS address. Assets are currently hosted on 
+cloud front with an S3 backend. To get the HTTPS address you need to either query the 
+enviornment information through the API or simply use the CDN address and accept 
+certs from cloudfront.
 
-`https://s3-us-west-2.amazonaws.com/assets.emojidex.com/`
-
-<aside class="warning">
-The S3 address may change at some point. DO NOT use the S3 address in any static content. 
-ONLY use the S3 address if you absolutely need HTTPS/SSL AND you can not override the 
-certificate origin AND you are prepared to change references to that address at some point 
-in the future.
+<aside class="notice">
+The S3 instance at assets.emojidex.com may also be used but it will likely be much 
+slower. There is no real benefit to using assets.emojidex.com over cdn.emojidex.com.
 </aside>
 
 ## Asset Formats
