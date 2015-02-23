@@ -112,6 +112,7 @@ you are obtaining an auth token. Store auth tokens as securely as possible!
 
 ## emoji Information
 > Get information on the "sushi" emoji
+
 > GET /emoji/sushi
 
 ```shell
@@ -473,6 +474,7 @@ page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
 > Get favorites:
+
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
 ```
@@ -485,6 +487,7 @@ emojidex.User.Favorites.get();
 ```
 
 > Add an emoji to favorites:
+
 ```shell
 curl -X POST https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef -d emoji_code=zebra
 ```
@@ -494,6 +497,7 @@ emojidex.User.Favorites.set("zebra");
 ```
 
 > Remove an emoji from favorites:
+
 ```shell
 curl -X DELETE https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef -d emoji_code=zebra
 ```
@@ -528,6 +532,7 @@ emojidex.User.History.get();
 ```
 
 > Add an emoji to history:
+
 ```shell
 curl -X POST https://www.emojidex.com/api/v1/users/history -d auth_token=1234567890abcdef -d emoji_code=zebra
 ```
