@@ -166,8 +166,9 @@ you are obtaining an auth token. Store auth tokens as securely as possible!
 </aside></p>
 <h2 id='emoji-information'>emoji Information</h2>
 <blockquote>
-<p>Get information on the &ldquo;sushi&rdquo; emoji
-GET /emoji/sushi</p>
+<p>Get information on the &ldquo;sushi&rdquo; emoji</p>
+
+<p>GET /emoji/sushi</p>
 </blockquote>
 <pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/emoji/sushi
 </code></pre>
@@ -597,11 +598,10 @@ follows:</p>
 </tbody></table>
 
 <blockquote>
-<p>Get favorites:
-<code class="prettyprint">shell
-curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
-</code></p>
+<p>Get favorites:</p>
 </blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
+</code></pre>
 <pre><code class="highlight javascript"><span class="c1">// favorites should be pre-cached on login/initialization</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">all</span><span class="p">()</span>
 <span class="c1">// you can actively obtain favorites from the server</span>
@@ -609,20 +609,18 @@ curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=123456
 </code></pre>
 
 <blockquote>
-<p>Add an emoji to favorites:
-<code class="prettyprint">shell
-curl -X POST https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef -d emoji_code=zebra
-</code></p>
+<p>Add an emoji to favorites:</p>
 </blockquote>
+<pre><code class="highlight shell">curl -X POST https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef -d <span class="nv">emoji_code</span><span class="o">=</span>zebra
+</code></pre>
 <pre><code class="highlight javascript"><span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
 </code></pre>
 
 <blockquote>
-<p>Remove an emoji from favorites:
-<code class="prettyprint">shell
-curl -X DELETE https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef -d emoji_code=zebra
-</code></p>
+<p>Remove an emoji from favorites:</p>
 </blockquote>
+<pre><code class="highlight shell">curl -X DELETE https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef -d <span class="nv">emoji_code</span><span class="o">=</span>zebra
+</code></pre>
 <pre><code class="highlight javascript"><span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">unset</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
 </code></pre>
 <h2 id='history'>History</h2>
@@ -666,11 +664,10 @@ curl -X DELETE https://www.emojidex.com/api/v1/users/favorites -d auth_token=123
 </code></pre>
 
 <blockquote>
-<p>Add an emoji to history:
-<code class="prettyprint">shell
-curl -X POST https://www.emojidex.com/api/v1/users/history -d auth_token=1234567890abcdef -d emoji_code=zebra
-</code></p>
+<p>Add an emoji to history:</p>
 </blockquote>
+<pre><code class="highlight shell">curl -X POST https://www.emojidex.com/api/v1/users/history -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef -d <span class="nv">emoji_code</span><span class="o">=</span>zebra
+</code></pre>
 <pre><code class="highlight javascript"><span class="nx">emoji</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">History</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
 </code></pre>
 
