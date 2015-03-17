@@ -51,13 +51,13 @@ emojidex.User.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '***
 
 > When authentication succeeds the following JSON is returned:
 
-```javascripton
+```json
 {"auth_status":"verified","auth_token":"1234567890abcdef","auth_user":"MyUserName"}
 ```
 
 > When authentication fails the follwing JSON is returned:
 
-```javascripton
+```json
 {"auth_status":"unverified","auth_token":null}
 ```
 
@@ -110,6 +110,79 @@ DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password 
 you are obtaining an auth token. Store auth tokens as securely as possible!
 </aside>
 
+## emoji Seeds
+> Get all UTF [standrd] emoji
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/utf_emoji
+```
+
+> Get all emojidex brand Extended emoji
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/extended_emoji
+```
+
+> Get all UTF [standard] emoji with Japanese codes
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/utf_emoji -d locale=ja
+```
+
+> Get all emojidex brand Extended emoji with Japanese codes
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/extended_emoji -d locale=ja
+```
+
+> Get moji code indexes
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/moji_codes
+```
+
+> The returned data contains three major indexes.
+
+```json
+/* ... indicates truncation, the actual data does not have a ... */
+{
+  /* useful for REGEX checking/filtering */
+  "moji_string":"⛲⛳⛺⛽✅✉✌〽️...",
+  /* useful for manual scanning */
+  "moji_array":["️1️⃣","️2️⃣","️3️⃣","️4️⃣","️5️⃣","️6️⃣","️7️⃣","️8️⃣", ...],
+  /* useful for mapping characters to short codes or for a very basic index */
+  "moji_index":{"⛲":"fountain","⛳":"golf","⛺":"tent","⛽":"fuelpump", ...}
+}
+```
+
+> Get moji code indexes with Japanese codes
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/moji_codes -d locale=ja
+```
+
+Generally you'll want to have a selection of emoji available immediately. Usually that will at least 
+consist of the standardized UTF/Unicode emoji. A semi-static index is available at api/v1/utf_emoji .
+If you only need the codes, a combined string for regex filtering, or an index of character code to 
+emoji short code, these all come in the data available from api/v1/moji_codes . The emojidex branded 
+extended emoji are also available from api/v1/extended_emoji. All of these end points are compatible 
+with the locale option.
+
+<aside class="notice">
+All these calls give very long JSON responses.
+</aside>
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+locale | string | the locale/languge code (EG: "ja" or "en")
+
+<aside class="notice">
+All emoji details from seeds contain all detailed information. There is no enabling or disabling 
+extended details with these calls.
+</aside>
+
 ## emoji Information
 > Get information on the "sushi" emoji
 
@@ -130,7 +203,7 @@ curl -X GET https://www.emojidex.com/api/v1/emoji/sushi
 
 > Information about the "sushi" emoji is retruned:
 
-```javascripton
+```json
 {"code":"sushi","moji":"🍣","unicode":"1f363","category":"food","tags":[]}
 ```
 
@@ -452,6 +525,9 @@ follows:
   * emojidex: All emojidex original extended emoji with English emoji codes
   * 絵文字: UTF/Unicode emoji with Japanese emoji codes
   * 絵文字デックス: emojidex original extended emoji with Japanese emoji codes
+
+However, this information can also be obtained from the emoji Seed paths in one 
+call without pagination (see above).
 
 *Parameters*
 
