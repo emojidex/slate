@@ -47,31 +47,42 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1><h2 id='about-emojidex'>About emojidex</h2>
+        <h1 id="introduction">Introduction</h1>
+
+<h2 id="about-emojidex">About emojidex</h2>
+
 <p>emojidex is the worlds first emoji-as-a-service provider as well as an extremely Open Source 
 friendly set of tools and assets. We appreciate your interest in emojidex and want 
 you to know that the vast majority of profit from emojidex are used to support a variety of Open 
 Source software projects, educational material development and scientific / engineering projects.
 By using emojidex in your project you are helping support Open Source, global education, and a 
 variety of good and interesting scientific and engineering causes.</p>
-<h2 id='this-document-fixesammendments'>This Document (Fixes/Ammendments)</h2>
+
+<h2 id="this-document-(fixes/ammendments)">This Document (Fixes/Ammendments)</h2>
+
 <p>The source for this document can be found <a href="https://github.com/emojidex/slate">here</a>.<br>
 Amemendments and fixes are welcome! Please either fork/fix/push/pull requet or submit an issue 
 on github if you find anything lacking or requiring a cleaner/better explanation.</p>
-<h2 id='the-emojidex-service'>The emojidex Service</h2>
+
+<h2 id="the-emojidex-service">The emojidex Service</h2>
+
 <p>emojidex is primarily based around the <a href="https://www.emojidex.com">emojidex service</a>. This service
 offers an API with listing, search and registration services. Some services require a token to 
 access [registration for example] or for certain types of access [search with over 100 results 
 per page and other queries that could be overused]. These limitations are only to prevent abuse 
 or overuse of the system.</p>
-<h2 id='emojidex-tools-and-clients'>emojidex Tools and Clients</h2>
+
+<h2 id="emojidex-tools-and-clients">emojidex Tools and Clients</h2>
+
 <p>emojidex offers a set of clients and tools that can be found in the 
 <a href="https://github.com/emojidex/">emojidex organization</a> on github. The core tool and model for 
 emojidex is the <a href="https://github.com/emojidex/emojidex">emojidex gem for Ruby</a>. This is the basis 
 of not only online and backend tools but also the majority of the tools for emojidex such as the 
 converter and the desktop client/editor. For Java/Android there&rsquo;s 
 <a href="https://github.com/emojidex/emojidex">emojidex android</a>. </p>
-<h2 id='emojidex-on-a-web-site'>emojidex on a Web Site</h2>
+
+<h2 id="emojidex-on-a-web-site">emojidex on a Web Site</h2>
+
 <p>The <a href="https://github.com/emojidex/emojidex-coffee">emojidex Coffee</a> client is a front end client 
 and tool set, developed in Coffee Script, and distributed as a jQuery plug-in. Using emojidex 
 to automatically convert emoji character codes on your web site and use emoji assets in or as
@@ -79,23 +90,30 @@ widgets, and to enter and parse text with emoji is made as easy as simple as pos
 are obtained from the content delivery network for the emojidex Service so you don&rsquo;t need to 
 cache any emoji on your server or worry about any assets or images on your own server.</p>
 
-          <h1 id='api'>API</h1>
+          <h1 id="api">API</h1>
+
 <aside class="notice">
 This documenation is for Version 1 of the API.
 </aside>
 
 <p>This documentation covers access and usage of emojidex service utilizing the API and CDN.</p>
-<h2 id='http-requests'>HTTP Requests</h2>
+
+<h2 id="http-requests">HTTP Requests</h2>
+
 <p><code class="prettyprint">https://www.emojidex.com/api/v1</code></p>
 
 <p>The API must always be called through HTTPS/SSL. This is to prevent leaking of user auth 
 tokens and generally to keep as much information as to how users use emojidex as private 
 as possible.</p>
-<h2 id='http-methods'>HTTP Methods</h2>
+
+<h2 id="http-methods">HTTP Methods</h2>
+
 <p>Throughout most of the API different actions are mapped to different HTTP Methods, such as GET, 
 PUT, POST, DELETE. You MUST be aware of what method you are using to make an API request, as most 
 of the time only one HTTP method will perform the task you want in your query.</p>
-<h2 id='authentication'>Authentication</h2>
+
+<h2 id="authentication">Authentication</h2>
+
 <blockquote>
 <p>Key acquisition:</p>
 </blockquote>
@@ -115,14 +133,14 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">usern
 <blockquote>
 <p>When authentication succeeds the following JSON is returned:</p>
 </blockquote>
-<pre><code class="highlight plaintext">{"auth_status":"verified","auth_token":"1234567890abcdef","auth_user":"MyUserName"}
-</code></pre>
+<pre><code class="highlight json"><span class="p">{</span><span class="s2">"auth_status"</span><span class="p">:</span><span class="s2">"verified"</span><span class="p">,</span><span class="s2">"auth_token"</span><span class="p">:</span><span class="s2">"1234567890abcdef"</span><span class="p">,</span><span class="s2">"auth_user"</span><span class="p">:</span><span class="s2">"MyUserName"</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <blockquote>
 <p>When authentication fails the follwing JSON is returned:</p>
 </blockquote>
-<pre><code class="highlight plaintext">{"auth_status":"unverified","auth_token":null}
-</code></pre>
+<pre><code class="highlight json"><span class="p">{</span><span class="s2">"auth_status"</span><span class="p">:</span><span class="s2">"unverified"</span><span class="p">,</span><span class="s2">"auth_token"</span><span class="p">:</span><span class="kc">null</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <blockquote>
 <p>Key utilization example:</p>
@@ -133,7 +151,9 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">usern
 <pre><code class="highlight javascript"><span class="c1">// the emojidex web client will automatically insert auth keys for you</span>
 </code></pre>
 <pre><code class="highlight java"></code></pre>
-<h3 id='api-keys--auth-tokens'>API Keys / Auth Tokens</h3>
+
+<h3 id="api-keys-/-auth-tokens">API Keys / Auth Tokens</h3>
+
 <p>Each user is granted an auth token which gives them access to their own personal resources. 
 Each user is granted one and only 
 one API key. In the future app-specific keys will be issued along with auth provider independent 
@@ -157,14 +177,102 @@ re-generation of an API Key will require re-acquisition in all clients.
 Not all API calls require authentication, but all API calls can and should be performed with 
 authentication tokens included. Generally, an auth token should be used with every API call 
 other than the initial authentication request.</p>
-<h3 id='authenticating--obtaining-user-auth-token'>Authenticating / Obtaining user auth token</h3>
+
+<h3 id="authenticating-/-obtaining-user-auth-token">Authenticating / Obtaining user auth token</h3>
+
 <p>To authenticate you must add the &ldquo;user&rdquo; and &ldquo;auth_token&rdquo; fields to the request. The &ldquo;user&rdquo; field
 is the user name, and the auth_token can be obtained with an authorize request.
 <aside class="warning">
 DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password to the API when 
 you are obtaining an auth token. Store auth tokens as securely as possible!
 </aside></p>
-<h2 id='emoji-information'>emoji Information</h2>
+
+<h2 id="emoji-seeds">emoji Seeds</h2>
+
+<blockquote>
+<p>Get all UTF [standrd] emoji</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/utf_emoji
+</code></pre>
+
+<blockquote>
+<p>Get all emojidex brand Extended emoji</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/extended_emoji
+</code></pre>
+
+<blockquote>
+<p>Get all UTF [standard] emoji with Japanese codes</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/utf_emoji -d <span class="nv">locale</span><span class="o">=</span>ja
+</code></pre>
+
+<blockquote>
+<p>Get all emojidex brand Extended emoji with Japanese codes</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/extended_emoji -d <span class="nv">locale</span><span class="o">=</span>ja
+</code></pre>
+
+<blockquote>
+<p>Get moji code indexes</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/moji_codes
+</code></pre>
+
+<blockquote>
+<p>The returned data contains three major indexes.</p>
+</blockquote>
+<pre><code class="highlight json"><span class="err">/*</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="err">indicates</span><span class="w"> </span><span class="err">truncation,</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">actual</span><span class="w"> </span><span class="err">data</span><span class="w"> </span><span class="err">does</span><span class="w"> </span><span class="err">not</span><span class="w"> </span><span class="err">have</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="err">*/</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="err">/*</span><span class="w"> </span><span class="err">useful</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">REGEX</span><span class="w"> </span><span class="err">checking/filtering</span><span class="w"> </span><span class="err">*/</span><span class="w">
+  </span><span class="s2">"moji_string"</span><span class="p">:</span><span class="s2">"⛲⛳⛺⛽✅✉✌〽️..."</span><span class="p">,</span><span class="w">
+  </span><span class="err">/*</span><span class="w"> </span><span class="err">useful</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">manual</span><span class="w"> </span><span class="err">scanning</span><span class="w"> </span><span class="err">*/</span><span class="w">
+  </span><span class="s2">"moji_array"</span><span class="p">:[</span><span class="s2">"️1️⃣"</span><span class="p">,</span><span class="s2">"️2️⃣"</span><span class="p">,</span><span class="s2">"️3️⃣"</span><span class="p">,</span><span class="s2">"️4️⃣"</span><span class="p">,</span><span class="s2">"️5️⃣"</span><span class="p">,</span><span class="s2">"️6️⃣"</span><span class="p">,</span><span class="s2">"️7️⃣"</span><span class="p">,</span><span class="s2">"️8️⃣"</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">],</span><span class="w">
+  </span><span class="err">/*</span><span class="w"> </span><span class="err">useful</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">mapping</span><span class="w"> </span><span class="err">characters</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">short</span><span class="w"> </span><span class="err">codes</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">very</span><span class="w"> </span><span class="err">basic</span><span class="w"> </span><span class="err">index</span><span class="w"> </span><span class="err">*/</span><span class="w">
+  </span><span class="s2">"moji_index"</span><span class="p">:{</span><span class="s2">"⛲"</span><span class="p">:</span><span class="s2">"fountain"</span><span class="p">,</span><span class="s2">"⛳"</span><span class="p">:</span><span class="s2">"golf"</span><span class="p">,</span><span class="s2">"⛺"</span><span class="p">:</span><span class="s2">"tent"</span><span class="p">,</span><span class="s2">"⛽"</span><span class="p">:</span><span class="s2">"fuelpump"</span><span class="p">,</span><span class="w"> </span><span class="err">...}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Get moji code indexes with Japanese codes</p>
+</blockquote>
+<pre><code class="highlight shell">curl -X GET https://www.emojidex.com/api/v1/moji_codes -d <span class="nv">locale</span><span class="o">=</span>ja
+</code></pre>
+
+<p>Generally you&rsquo;ll want to have a selection of emoji available immediately. Usually that will at least 
+consist of the standardized UTF/Unicode emoji. A semi-static index is available at api/v1/utf_emoji .
+If you only need the codes, a combined string for regex filtering, or an index of character code to 
+emoji short code, these all come in the data available from api/v1/moji_codes . The emojidex branded 
+extended emoji are also available from api/v1/extended_emoji. All of these end points are compatible 
+with the locale option.</p>
+
+<aside class="notice">
+All these calls give very long JSON responses.
+</aside>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>locale</td>
+<td>string</td>
+<td>the locale/languge code (EG: &ldquo;ja&rdquo; or &ldquo;en&rdquo;)</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+All emoji details from seeds contain all detailed information. There is no enabling or disabling 
+extended details with these calls.
+</aside>
+
+<h2 id="emoji-information">emoji Information</h2>
+
 <blockquote>
 <p>Get information on the &ldquo;sushi&rdquo; emoji</p>
 
@@ -179,8 +287,8 @@ you are obtaining an auth token. Store auth tokens as securely as possible!
 <blockquote>
 <p>Information about the &ldquo;sushi&rdquo; emoji is retruned:</p>
 </blockquote>
-<pre><code class="highlight plaintext">{"code":"sushi","moji":"🍣","unicode":"1f363","category":"food","tags":[]}
-</code></pre>
+<pre><code class="highlight json"><span class="p">{</span><span class="s2">"code"</span><span class="p">:</span><span class="s2">"sushi"</span><span class="p">,</span><span class="s2">"moji"</span><span class="p">:</span><span class="s2">"🍣"</span><span class="p">,</span><span class="s2">"unicode"</span><span class="p">:</span><span class="s2">"1f363"</span><span class="p">,</span><span class="s2">"category"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="s2">"tags"</span><span class="p">:[]}</span><span class="w">
+</span></code></pre>
 
 <p>To get information about a particular emoji simply query they /emoji/(emoji code) endpoint, 
 replacing (emoji code) with the emoji code you want the information about.</p>
@@ -200,7 +308,9 @@ replacing (emoji code) with the emoji code you want the information about.</p>
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
-<h2 id='emoji-index'>emoji Index</h2>
+
+<h2 id="emoji-index">emoji Index</h2>
+
 <blockquote>
 <p>GET /emoji</p>
 </blockquote>
@@ -262,7 +372,9 @@ Newer and more popular emoji will show up first.
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
-<h2 id='newest-emoji'>Newest emoji</h2>
+
+<h2 id="newest-emoji">Newest emoji</h2>
+
 <blockquote>
 <p>GET /newest</p>
 </blockquote>
@@ -300,7 +412,9 @@ Newer and more popular emoji will show up first.
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
-<h2 id='popular-emoji'>Popular emoji</h2>
+
+<h2 id="popular-emoji">Popular emoji</h2>
+
 <blockquote>
 <p>GET /popular</p>
 </blockquote>
@@ -338,7 +452,9 @@ Newer and more popular emoji will show up first.
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
-<h2 id='categories'>Categories</h2>
+
+<h2 id="categories">Categories</h2>
+
 <blockquote>
 <p>GET /categories</p>
 </blockquote>
@@ -363,7 +479,9 @@ Newer and more popular emoji will show up first.
 <pre><code class="highlight java"></code></pre>
 
 <p>Gets a list of categoires, including category codes (used in searching) and [localized] titles.</p>
-<h2 id='search-for-emoji'>Search for emoji</h2>
+
+<h2 id="search-for-emoji">Search for emoji</h2>
+
 <blockquote>
 <p>Search for emoji with code containing &ldquo;heart&rdquo;</p>
 </blockquote>
@@ -514,7 +632,9 @@ the code you are checking for).
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
-<h2 id='user-emoji'>User emoji</h2>
+
+<h2 id="user-emoji">User emoji</h2>
+
 <blockquote>
 <p>Get emoji for the user &ldquo;Zero&rdquo;</p>
 </blockquote>
@@ -543,6 +663,9 @@ follows:</p>
 <li>絵文字デックス: emojidex original extended emoji with Japanese emoji codes</li>
 </ul>
 
+<p>However, this information can also be obtained from the emoji Seed paths in one 
+call without pagination (see above).</p>
+
 <p><em>Parameters</em></p>
 
 <table><thead>
@@ -568,7 +691,9 @@ follows:</p>
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
-<h2 id='favorites'>Favorites</h2>
+
+<h2 id="favorites">Favorites</h2>
+
 <p>Favorites can only be accessed with a token. This resource requires authentication.</p>
 
 <p><em>Parameters</em></p>
@@ -623,7 +748,9 @@ follows:</p>
 </code></pre>
 <pre><code class="highlight javascript"><span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">unset</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
 </code></pre>
-<h2 id='history'>History</h2>
+
+<h2 id="history">History</h2>
+
 <p>History can only be accessed with a token. This resource requires authentication.</p>
 
 <p><em>Parameters</em></p>
@@ -671,7 +798,10 @@ follows:</p>
 <pre><code class="highlight javascript"><span class="nx">emoji</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">History</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
 </code></pre>
 
-          <h1 id='assets'>Assets</h1><h2 id='assets-cdn-address'>Assets [CDN] Address</h2>
+          <h1 id="assets">Assets</h1>
+
+<h2 id="assets-[cdn]-address">Assets [CDN] Address</h2>
+
 <p><code class="prettyprint">http://cdn.emojidex.com</code></p>
 
 <p>Note that this is not (currently) an HTTPS address. Assets are currently hosted on 
@@ -683,7 +813,9 @@ certs from cloudfront.</p>
 The S3 instance at assets.emojidex.com may also be used but it will likely be much 
 slower. There is no real benefit to using assets.emojidex.com over cdn.emojidex.com.
 </aside>
-<h2 id='asset-formats'>Asset Formats</h2>
+
+<h2 id="asset-formats">Asset Formats</h2>
+
 <p>All assets come in Frame Animated SVG and Animated PNG. Assets without animation will be 
 regular SVG or PNG. To generate Frame Animated SVG we recommend 
 <a href="https://github.com/Genshin/phantom_svg">Phantom SVG</a>. 
@@ -714,7 +846,9 @@ FOR YOUR PLATFORM. There are already issues up for
 and 
 [IE](https://wpdev.uservoice.com/forums/257854-internet-explorer-platform/suggestions/6513393-apng-animated-png-images-support-firefox-and-sa).
 </aside>
-<h2 id='asset-access--layout'>Asset Access / Layout</h2>
+
+<h2 id="asset-access-/-layout">Asset Access / Layout</h2>
+
 <blockquote>
 <p>Get the 32px PNG image for :blush:</p>
 </blockquote>
@@ -850,7 +984,9 @@ Thicker text readable on handsets will usually be around hdpi
 naming conventions coincide with standard asset quality naming conventions; they are in fact 
 sized to be compatible with Android standard sizing. iOS and other platforms should find this 
 sizing convention entirely compatible with native sizing guidelines.  </p>
-<h3 id='non-inline-emoji--emoji-as-media-assets'>non-inline emoji / emoji as Media Assets</h3>
+
+<h3 id="non-inline-emoji-/-emoji-as-media-assets">non-inline emoji / emoji as Media Assets</h3>
+
 <p>Looking at the sizing chart you will notice the &ldquo;hanko&rdquo; and &ldquo;seal&rdquo; sizes. Hanko「はんこ」(Japanese 
 for &ldquo;stamp&rdquo;) is a mid-sized asset perfect for &ldquo;stamping&rdquo; on images or adding into multimedia 
 and non-text content. It may also be used as a smaller sized asset for messaging clients.  </p>

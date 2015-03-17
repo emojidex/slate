@@ -46,7 +46,8 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='client-module-overview'>Client Module Overview</h1>
+        <h1 id="client-module-overview">Client Module Overview</h1>
+
 <p>emojidex tools are generally developed with the same composition. Each Module implements a
 Collection class which is used to store and access all the emoji information. Extensions to 
 this class may enables acquisition of assets and caching when appropriate. Different modules 
@@ -73,7 +74,9 @@ and tools are [optionally] installed by the user and should not be bundled with 
 Instead, include the libary to enable automatic acquisition and display of emoji, and let the user 
 install emojidex clients/tools themselves if they want to input / search / editors etc.</li>
 </ul>
-<h1 id='collections'>Collections</h1>
+
+<h1 id="collections">Collections</h1>
+
 <p>Tools handle emoji in collections. Whenever possible all the emoji the user has used or viewed are 
 kept in a local collection cache [usually in a folder named &ldquo;emojidex&rdquo; or a hidden folder named 
 &ldquo;.emojidex&rdquo;]. Each collection folder for each client will share the same layout and same types of 
@@ -81,12 +84,16 @@ commonly parsible files.</p>
 
 <p>emoji are generally obtained from emojidex from the master collection, but there are two special 
 static collections; the UTF and Extended collections.</p>
-<h2 id='emojidex-collection'>emojidex Collection</h2>
+
+<h2 id="emojidex-collection">emojidex Collection</h2>
+
 <p>These are all the emoji available on the emojidex service, searchable and indexed in the emojidex 
 API. This collection DOES contain the UTF and Extended emoji - so in general this is the only 
 collection you ever need to worry about. The UTF and Extended collections generally exist only for 
 seeding and for clients with Closed Licenses who are not using the emojidex service.</p>
-<h2 id='utf-collection'>UTF Collection</h2>
+
+<h2 id="utf-collection">UTF Collection</h2>
+
 <p>The UTF collection contains a completely original set of all the emoji with UTF codes (the Unicode 
 Standard emoji). The index can be found at http://assets.emojidex.com/utf/emoji.json and assets 
 can be found at standard locations, with SVG found at 
@@ -98,7 +105,9 @@ http://assets.emojidex.com/utf/px32/{:emoji_code}.png .</p>
 This collection can be found within the emojidex Collection by obtaining emoji from the &ldquo;emoji&rdquo; 
 or &ldquo;絵文字&rdquo; users. See the API documentation [User Emoji](/#user-emoji) section for details.
 </aside>
-<h2 id='extended-collection'>Extended Collection</h2>
+
+<h2 id="extended-collection">Extended Collection</h2>
+
 <p>The Extended collection contains a completely original set of all the emoji we wanted to see. 
 Extended emoji DO NOT have UTF/Unicode entries. The index can be found at 
 http://assets.emojidex.com/extended/emoji.json and assets 
@@ -111,7 +120,9 @@ http://assets.emojidex.com/extended/px32/{:emoji_code}.png .</p>
 This collection can be found within the emojidex Collection by obtaining emoji from the &ldquo;emojidex&rdquo; 
 or &ldquo;絵文字デックス&rdquo; users. See the API documentation [User Emoji](/#user-emoji) section for details.
 </aside>
-<h2 id='utfextended-packages'>UTF/Extended Packages</h2>
+
+<h2 id="utf/extended-packages">UTF/Extended Packages</h2>
+
 <p>The UTF and Extended emoji are also available in static git repositories or as Ruby gems.
 <a href="https://github.com/emojidex/emojidex-vectors">emojidex-vectors</a> and 
 <a href="https://github.com/emojidex/emojidex-rasters">emojidex-rasters</a> repositories hold vectors and 
