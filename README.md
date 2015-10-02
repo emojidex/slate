@@ -53,7 +53,7 @@ Or use the included Dockerfile! (must install Docker first)
 
 ```shell
 docker build -t slate .
-docker run -d -p 4567:4567 slate
+docker run -d -p 4567:4567 --name slate -v $(pwd)/source:/app/source slate
 ```
 
 You can now see the docs at <http://localhost:4567>. Whoa! That was fast!
@@ -80,6 +80,23 @@ Examples of Slate in the Wild
 * [Codestar Framework Docs](http://codestarframework.com/documentation/)
 * [Buddycloud API](http://buddycloud.com/api)
 * [Crafty Clicks API](https://craftyclicks.co.uk/api/)
+* [Paracel API Reference](http://paracel.io/docs/api_reference.html)
+* [Switch Payments Documentation](http://switchpayments.com/docs/) & [API](http://switchpayments.com/developers/)
+* [Coinbase API Reference](https://developers.coinbase.com/api)
+* [Whispir.io API](https://whispir.github.io/api)
+* [NASA API](https://data.nasa.gov/developer/external/planetary/)
+* [CardPay API](https://developers.cardpay.com/)
+* [IBM Cloudant](https://docs-testb.cloudant.com/content-review/_design/couchapp/index.html)
+* [Bitrix basis components](http://bbc.bitrix.expert/)
+* [viagogo API Documentation](http://developer.viagogo.net/)
+* [Fidor Bank API Documentation](http://docs.fidor.de/)
+* [Market Prophit API Documentation](http://developer.marketprophit.com/)
+* [OAuth.io API Documentation](http://docs.oauth.io/)
+* [Aircall for Developers](http://developer.aircall.io/)
+* [SupportKit API Docs](http://docs.supportkit.io/)
+* [SocialRadar's LocationKit Docs](https://docs.locationkit.io/)
+* [SafetyCulture API Documentation](https://developer.safetyculture.io/)
+* [hosting.de API Documentation](https://www.hosting.de/docs/api/)
 
 (Feel free to add your site to this list in a pull request!)
 
@@ -92,7 +109,7 @@ Just [submit a issue](https://github.com/tripit/slate/issues) to the Slate Githu
 Contributors
 --------------------
 
-Slate was built by [Robert Lord](http://lord.io) while at [TripIt](http://tripit.com).
+Slate was built by [Robert Lord](https://lord.io) while at [TripIt](http://tripit.com).
 
 Thanks to the following people who have submitted major pull requests:
 
