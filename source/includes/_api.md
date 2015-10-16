@@ -136,7 +136,7 @@ Name | Type | Description
 username | string | The username registered to the user (paired with password or auth_token)
 email | string | The e-mail address of the user (paired with password)
 password | string | The password of the user (paired with username or e-mail)
-auth_token | string | The authentication token (paired with username)
+token | string | The authentication token (paired with username)
 
 Upon a successful authentication request the following information will be returned:
 <aside class="warning">
