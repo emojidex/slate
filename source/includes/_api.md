@@ -27,7 +27,7 @@ of the time only one HTTP method will perform the task you want in your query.
 
 ## Authentication
 
-> Key acquisition:
+> Token acquisition:
 
 ```shell
 curl -X GET www.emojidex.com/api/v1/users/authenticate -d email=whoever@emojidex.com -d password=********
@@ -49,10 +49,29 @@ emojidex.User.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '***
 // coming soon
 ```
 
-> When authentication succeeds the following JSON is returned:
+> Token confirmation:
+
+```shell
+curl -X GET www.emojidex.com/api/v1/users/authenticate -d user=MeMeMe -d token=0123456789abcdef
+```
+
+```ruby
+# coming soon
+```
+
+```javascript
+// Using the emojidex-web-client
+// coming soon
+```
+
+```java
+// coming soon
+```
+
+> When authentication / confirmation succeeds something like the following JSON is returned:
 
 ```json
-{"auth_status":"verified","auth_token":"1234567890abcdef","auth_user":"MyUserName"}
+{"auth_status":"verified","auth_user":"MyUserName","auth_token":"0123456789abcdef","pro":false,"pro_exp":null,"premium":true,"premium_exp":1467431422}
 ```
 
 > When authentication fails the follwing JSON is returned:
@@ -77,34 +96,49 @@ curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=123456
 ```java
 ```
 
-### API Keys / Auth Tokens
+### Auth Tokens
 Each user is granted an auth token which gives them access to their own personal resources. 
-Each user is granted one and only 
-one API key. In the future app-specific keys will be issued along with auth provider independent 
-login tokens, but for the time being one single API key is granted and used. This API key 
-functionality will not be depricated in version 1 of the API, so there will be no need to 
-adjust for the addition of app-specific keys or auth-specific tokens.  
+Each user account is granted one and only one token which can be used by multiple clients, 
+does not expire, but can be refreshed/changed.  
+  
 <aside class="notice">
-It should be noted that these resources do not include any personally identifying resources,
+The tokens issued and used in V1 of the API are "level 1" tokens. 
+They do not grant access to any resources which contain personally identifying information,
 nor any resources that allow a user to make payments or change account details such as 
-passwords. For Version 1 of the API, the worst that can happen from a stolen API Key is 
-having favorites added or removed, or items added to a users history. Reguardless, writing code 
-that attempts to mis-use API Keys is forbidden by the Terms of Use and may be met with legal 
-action. Keep your users keys safe, and do not mis-use them!
+passwords. The worst that can happen from a stolen token is having favorites added or removed, 
+or items added to a users history.
 </aside>
 
-API Keys are returned as a response from a valid authorization request. Users can view, re-set, 
-or revoke their individual API Key from the User Details section after they log in to the 
-emojidex web site. An API key may be revoked from the User Settings, but not from the API. 
-As a single API Key is granted per user and shared between apps, the revocation or 
-re-generation of an API Key will require re-acquisition in all clients.
-Not all API calls require authentication, but all API calls can and should be performed with 
-authentication tokens included. Generally, an auth token should be used with every API call 
-other than the initial authentication request.
+<aside class="warning">
+Utilizing auth tokens to add or remove favorites or add to history without a users consent may 
+violate usage licenses of emojidex. emojidex may take legal action against anyone found abusing 
+access to users auth tokens without first notifying the user and/or obtaining their consent.
+</aside>
 
-### Authenticating / Obtaining user auth token
-To authenticate you must add the "user" and "auth_token" fields to the request. The "user" field
-is the user name, and the auth_token can be obtained with an authorize request.
+Tokens are returned as a response from a valid authorization request. Users can view, re-set, 
+or revoke their auth token from the User Details section after they log in to the 
+emojidex web site. Auth tokens can not be changed through the API. 
+As a single auth token is granted per user and shared between apps, the revocation or 
+re-generation of a token will require re-acquisition in all clients.
+Not all API calls require authentication, but all API calls can and should be performed with 
+authentication tokens included when a token is available. 
+
+### Authenticating / Obtaining a user auth token from the API
+You can authenticate through the API using a username and password or e-mail and password. 
+It is also possible to check authentication and update user details using the username and token. 
+To authenticate you must make a call to /api/v1/users/authenticate with an appropriate 
+combination of the following parameters:
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+username | string | The username registered to the user (paired with password or auth_token)
+email | string | The e-mail address of the user (paired with password)
+password | string | The password of the user (paired with username or e-mail)
+auth_token | string | The authentication token (paired with username)
+
+Upon a successful authentication request the following information will be returned:
 <aside class="warning">
 DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password to the API when 
 you are obtaining an auth token. Store auth tokens as securely as possible!
