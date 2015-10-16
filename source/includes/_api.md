@@ -20,10 +20,10 @@ The API must always be called through HTTPS/SSL. This is to prevent leaking of u
 tokens and generally to keep as much information as to how users use emojidex as private 
 as possible.
 
-## HTTP Methods
-Throughout most of the API different actions are mapped to different HTTP Methods, such as GET, 
-PUT, POST, DELETE. You MUST be aware of what method you are using to make an API request, as most 
-of the time only one HTTP method will perform the task you want in your query.
+## HTTP Verbs
+Throughout most of the API different actions are mapped to different HTTP verbs, such as GET, 
+PUT, POST, DELETE. You MUST be aware of what verb you are using to make an API request, as most 
+of the time only one HTTP verb will perform the task you want in your query.
 
 ## Authentication
 
