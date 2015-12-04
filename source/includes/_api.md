@@ -33,6 +33,10 @@ of the time only one HTTP verb will perform the task you want in your query.
 curl -X GET www.emojidex.com/api/v1/users/authenticate -d email=whoever@emojidex.com -d password=********
 # or
 curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=WhoEver -d password=********
+# or
+curl -X GET www.emojidex.com/api/v1/users/authenticate -d user=whoever@emojidex.com -d password=********
+# or
+curl -X GET www.emojidex.com/api/v1/users/authenticate -d user=WhoEver -d password=********
 ```
 
 ```ruby
@@ -52,7 +56,7 @@ emojidex.User.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '***
 > Token confirmation:
 
 ```shell
-curl -X GET www.emojidex.com/api/v1/users/authenticate -d user=MeMeMe -d token=0123456789abcdef
+curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=MeMeMe -d token=0123456789abcdef
 ```
 
 ```ruby
@@ -80,7 +84,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d user=MeMeMe -d token=0
 {"auth_status":"unverified","auth_token":null}
 ```
 
-> Key utilization example:
+> Token utilization example:
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
@@ -133,10 +137,17 @@ combination of the following parameters:
 
 Name | Type | Description
 ---- | ---- | -----------
-username | string | The username registered to the user (paired with password or auth_token)
+username | string | The username registered to the user (paired with password or token)
 email | string | The e-mail address of the user (paired with password)
+user | string | The username or e-mail address of the user (paired with password)
 password | string | The password of the user (paired with username or e-mail)
 token | string | The authentication token (paired with username)
+
+<aside class="notice">
+There is no inherent demerit to using "user" rather than "username" or "email", but we 
+generally recommend using a username as it is not directly personally identifying and 
+it is the only part of a user account that can not be changed and remains static.
+</aside>
 
 Upon a successful authentication request the following information will be returned:
 <aside class="warning">
@@ -620,13 +631,44 @@ emojidex.User.Favorites.unset("zebra");
 
 History can only be accessed with a token. This resource requires authentication.
 
+Obtaining history:
+You can obtain history by performing a GET on the users/history endpoint with a valid auth_token
+
 *Parameters*
 
 Name | Type | Description
 ---- | ---- | -----------
+auth_token | string | the auth token of the user whos history you wish to obtain
 limit | integer | amount of emoji to return per page
 page | integer | page number
-detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+
+
+*Return Status*
+
+HTTP | Message
+---- | -------
+200  | an array containing emoji codes and times and dates used
+401  | {"status":"wrong authentication token"}
+
+Adding to history:
+Whenever a user uses an emoji you should append to their history by performing a POST on the 
+users/history endpoint with the auth_token of the user and the emoji_code of the emoji being 
+added.
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+auth_token | string | the auth token of the user whos history you wish to append to
+emoji_code | string | the code of the emoji you wish to append to the users history
+
+*Return Status*
+
+HTTP | Message
+---- | -------
+200  | an updated history entry for only the emoji appended
+401  | {"status":"wrong authentication token"}
+422  | {"status":"invalid emoji code"}
 
 > Get history:
 
@@ -649,4 +691,9 @@ curl -X POST https://www.emojidex.com/api/v1/users/history -d auth_token=1234567
 
 ```javascript
 emoji.User.History.set("zebra");
+```
+
+> A successful registration will return the updated history entry:
+```
+{"emoji_code":"zebra","times_used":1,"last_used":"2015-11-30T04:18:23.647+00:00"}
 ```
