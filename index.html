@@ -120,6 +120,10 @@ of the time only one HTTP verb will perform the task you want in your query.</p>
 <pre class="highlight shell"><code>curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">email</span><span class="o">=</span>whoever@emojidex.com -d <span class="nv">password</span><span class="o">=</span><span class="k">********</span>
 <span class="c"># or</span>
 curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">username</span><span class="o">=</span>WhoEver -d <span class="nv">password</span><span class="o">=</span><span class="k">********</span>
+<span class="c"># or</span>
+curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">user</span><span class="o">=</span>whoever@emojidex.com -d <span class="nv">password</span><span class="o">=</span><span class="k">********</span>
+<span class="c"># or</span>
+curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">user</span><span class="o">=</span>WhoEver -d <span class="nv">password</span><span class="o">=</span><span class="k">********</span>
 </code></pre>
 <pre class="highlight ruby"><code><span class="c1"># coming soon</span>
 </code></pre>
@@ -133,7 +137,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">usern
 <blockquote>
 <p>Token confirmation:</p>
 </blockquote>
-<pre class="highlight shell"><code>curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">user</span><span class="o">=</span>MeMeMe -d <span class="nv">token</span><span class="o">=</span>0123456789abcdef
+<pre class="highlight shell"><code>curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">username</span><span class="o">=</span>MeMeMe -d <span class="nv">token</span><span class="o">=</span>0123456789abcdef
 </code></pre>
 <pre class="highlight ruby"><code><span class="c1"># coming soon</span>
 </code></pre>
@@ -156,7 +160,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">usern
 </span></code></pre>
 
 <blockquote>
-<p>Key utilization example:</p>
+<p>Token utilization example:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
 </code></pre>
@@ -212,12 +216,17 @@ combination of the following parameters:</p>
 <tr>
 <td>username</td>
 <td>string</td>
-<td>The username registered to the user (paired with password or auth_token)</td>
+<td>The username registered to the user (paired with password or token)</td>
 </tr>
 <tr>
 <td>email</td>
 <td>string</td>
 <td>The e-mail address of the user (paired with password)</td>
+</tr>
+<tr>
+<td>user</td>
+<td>string</td>
+<td>The username or e-mail address of the user (paired with password)</td>
 </tr>
 <tr>
 <td>password</td>
@@ -230,6 +239,12 @@ combination of the following parameters:</p>
 <td>The authentication token (paired with username)</td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+There is no inherent demerit to using &ldquo;user&rdquo; rather than &ldquo;username&rdquo; or &ldquo;email&rdquo;, but we 
+generally recommend using a username as it is not directly personally identifying and 
+it is the only part of a user account that can not be changed and remains static.
+</aside>
 
 <p>Upon a successful authentication request the following information will be returned:
 <aside class="warning">
@@ -407,6 +422,11 @@ Newer and more popular emoji will show up first.
 </tr>
 </thead><tbody>
 <tr>
+<td>category</td>
+<td>string</td>
+<td>the category code (EG: &ldquo;faces&rdquo; or &ldquo;food&rdquo;) you wish to limit the index to</td>
+</tr>
+<tr>
 <td>limit</td>
 <td>integer</td>
 <td>amount of emoji to return per page</td>
@@ -447,6 +467,11 @@ Newer and more popular emoji will show up first.
 </tr>
 </thead><tbody>
 <tr>
+<td>category</td>
+<td>string</td>
+<td>the category code (EG: &ldquo;faces&rdquo; or &ldquo;food&rdquo;) you wish to limit the index to</td>
+</tr>
+<tr>
 <td>limit</td>
 <td>integer</td>
 <td>amount of emoji to return per page</td>
@@ -486,6 +511,11 @@ Newer and more popular emoji will show up first.
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>category</td>
+<td>string</td>
+<td>the category code (EG: &ldquo;faces&rdquo; or &ldquo;food&rdquo;) you wish to limit the index to</td>
+</tr>
 <tr>
 <td>limit</td>
 <td>integer</td>
@@ -744,34 +774,6 @@ call without pagination (see above).</p>
 
 <h2 id="favorites">Favorites</h2>
 
-<p>Favorites can only be accessed with a token. This resource requires authentication.</p>
-
-<p><em>Parameters</em></p>
-
-<table><thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>limit</td>
-<td>integer</td>
-<td>amount of emoji to return per page</td>
-</tr>
-<tr>
-<td>page</td>
-<td>integer</td>
-<td>page number</td>
-</tr>
-<tr>
-<td>detailed</td>
-<td>bool</td>
-<td>returns extra information such as upstream asset checksums[md5] when true</td>
-</tr>
-</tbody></table>
-
 <blockquote>
 <p>Get favorites:</p>
 </blockquote>
@@ -799,9 +801,11 @@ call without pagination (see above).</p>
 <pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">unset</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
 </code></pre>
 
-<h2 id="history">History</h2>
+<p>Favorites can only be accessed with a token. This resource requires authentication.</p>
 
-<p>History can only be accessed with a token. This resource requires authentication.</p>
+<p><strong>Obtaining favorites:</strong><br>
+You can obtain favorites by performing a GET on the users/favorites endpoint with a valid 
+auth_token.</p>
 
 <p><em>Parameters</em></p>
 
@@ -829,6 +833,73 @@ call without pagination (see above).</p>
 </tr>
 </tbody></table>
 
+<p><em>Return Status</em></p>
+
+<table><thead>
+<tr>
+<th>HTTP</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>an array of user favorites</td>
+</tr>
+<tr>
+<td>401</td>
+<td>{&ldquo;status&rdquo;:&ldquo;wrong authentication token&rdquo;}</td>
+</tr>
+</tbody></table>
+
+<p><strong>Adding to favorites:</strong><br>
+You can add an emoji to a users favorites by performing a POST against the users/favorites 
+endpoint with a valid auth_token and the emoji_code.</p>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>auth_token</td>
+<td>string</td>
+<td>the auth token of the user whos favorites you wish to append to</td>
+</tr>
+<tr>
+<td>emoji_code</td>
+<td>string</td>
+<td>the code of the emoji you wish to append to the users favorites</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Status</em></p>
+
+<table><thead>
+<tr>
+<th>HTTP</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>up to date details for the given emoji</td>
+</tr>
+<tr>
+<td>202</td>
+<td>{&ldquo;status&rdquo;:&ldquo;emoji already in user favorites&rdquo;}</td>
+</tr>
+<tr>
+<td>401</td>
+<td>{&ldquo;status&rdquo;:&ldquo;wrong authentication token&rdquo;}</td>
+</tr>
+</tbody></table>
+
+<h2 id="history">History</h2>
+
 <blockquote>
 <p>Get history:</p>
 </blockquote>
@@ -847,6 +918,110 @@ call without pagination (see above).</p>
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">emoji</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">History</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
 </code></pre>
+
+<blockquote>
+<p>A successful registration will return the updated history entry:
+<code class="prettyprint">
+{&quot;emoji_code&quot;:&quot;zebra&quot;,&quot;times_used&quot;:1,&quot;last_used&quot;:&quot;2015-11-30T04:18:23.647+00:00&quot;}
+</code></p>
+</blockquote>
+
+<p>History can only be accessed with a token. This resource requires authentication.</p>
+
+<p><strong>Obtaining history:</strong><br>
+You can obtain history by performing a GET on the users/history endpoint with a valid auth_token.</p>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>auth_token</td>
+<td>string</td>
+<td>the auth token of the user whos history you wish to obtain</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>integer</td>
+<td>amount of emoji to return per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>page number</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Status</em></p>
+
+<table><thead>
+<tr>
+<th>HTTP</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>an array containing emoji codes and times and dates used</td>
+</tr>
+<tr>
+<td>401</td>
+<td>{&ldquo;status&rdquo;:&ldquo;wrong authentication token&rdquo;}</td>
+</tr>
+</tbody></table>
+
+<p><strong>Adding to history:</strong><br>
+Whenever a user uses an emoji you should append to their history by performing a POST on the 
+users/history endpoint with the auth_token of the user and the emoji_code of the emoji being 
+added.</p>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>auth_token</td>
+<td>string</td>
+<td>the auth token of the user whos history you wish to append to</td>
+</tr>
+<tr>
+<td>emoji_code</td>
+<td>string</td>
+<td>the code of the emoji you wish to append to the users history</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Status</em></p>
+
+<table><thead>
+<tr>
+<th>HTTP</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>an updated history entry for only the emoji appended</td>
+</tr>
+<tr>
+<td>401</td>
+<td>{&ldquo;status&rdquo;:&ldquo;wrong authentication token&rdquo;}</td>
+</tr>
+<tr>
+<td>422</td>
+<td>{&ldquo;status&rdquo;:&ldquo;invalid emoji code&rdquo;}</td>
+</tr>
+</tbody></table>
 
           <h1 id="assets">Assets</h1>
 
