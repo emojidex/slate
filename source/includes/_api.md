@@ -321,6 +321,7 @@ Newer and more popular emoji will show up first.
 
 Name | Type | Description
 ---- | ---- | -----------
+category | string | the category code (EG: "faces" or "food") you wish to limit the index to
 limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
@@ -350,6 +351,7 @@ Gets a general index of emoji sorted by registration date.
 
 Name | Type | Description
 ---- | ---- | -----------
+category | string | the category code (EG: "faces" or "food") you wish to limit the index to
 limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
@@ -378,6 +380,7 @@ Gets a general index of emoji sorted by popularity.
 
 Name | Type | Description
 ---- | ---- | -----------
+category | string | the category code (EG: "faces" or "food") you wish to limit the index to
 limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
@@ -584,16 +587,6 @@ detailed | bool | returns extra information such as upstream asset checksums[md5
 
 ## Favorites
 
-Favorites can only be accessed with a token. This resource requires authentication.
-
-*Parameters*
-
-Name | Type | Description
----- | ---- | -----------
-limit | integer | amount of emoji to return per page
-page | integer | page number
-detailed | bool | returns extra information such as upstream asset checksums[md5] when true
-
 > Get favorites:
 
 ```shell
@@ -627,48 +620,47 @@ curl -X DELETE https://www.emojidex.com/api/v1/users/favorites -d auth_token=123
 emojidex.User.Favorites.unset("zebra");
 ```
 
-## History
+Favorites can only be accessed with a token. This resource requires authentication.
 
-History can only be accessed with a token. This resource requires authentication.
-
-Obtaining history:
-You can obtain history by performing a GET on the users/history endpoint with a valid auth_token
+**Obtaining favorites:**  
+You can obtain favorites by performing a GET on the users/favorites endpoint with a valid 
+auth_token.
 
 *Parameters*
 
 Name | Type | Description
 ---- | ---- | -----------
-auth_token | string | the auth token of the user whos history you wish to obtain
 limit | integer | amount of emoji to return per page
 page | integer | page number
-
+detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
 *Return Status*
 
 HTTP | Message
 ---- | -------
-200  | an array containing emoji codes and times and dates used
+200  | an array of user favorites
 401  | {"status":"wrong authentication token"}
 
-Adding to history:
-Whenever a user uses an emoji you should append to their history by performing a POST on the 
-users/history endpoint with the auth_token of the user and the emoji_code of the emoji being 
-added.
+**Adding to favorites:**  
+You can add an emoji to a users favorites by performing a POST against the users/favorites 
+endpoint with a valid auth_token and the emoji_code.
 
 *Parameters*
 
 Name | Type | Description
 ---- | ---- | -----------
-auth_token | string | the auth token of the user whos history you wish to append to
-emoji_code | string | the code of the emoji you wish to append to the users history
+auth_token | string | the auth token of the user whos favorites you wish to append to
+emoji_code | string | the code of the emoji you wish to append to the users favorites
 
 *Return Status*
 
 HTTP | Message
 ---- | -------
-200  | an updated history entry for only the emoji appended
+201  | up to date details for the given emoji
+202  | {"status":"emoji already in user favorites"}
 401  | {"status":"wrong authentication token"}
-422  | {"status":"invalid emoji code"}
+
+## History
 
 > Get history:
 
@@ -697,3 +689,44 @@ emoji.User.History.set("zebra");
 ```
 {"emoji_code":"zebra","times_used":1,"last_used":"2015-11-30T04:18:23.647+00:00"}
 ```
+
+History can only be accessed with a token. This resource requires authentication.
+
+**Obtaining history:**  
+You can obtain history by performing a GET on the users/history endpoint with a valid auth_token.
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+auth_token | string | the auth token of the user whos history you wish to obtain
+limit | integer | amount of emoji to return per page
+page | integer | page number
+
+
+*Return Status*
+
+HTTP | Message
+---- | -------
+201  | an array containing emoji codes and times and dates used
+401  | {"status":"wrong authentication token"}
+
+**Adding to history:**  
+Whenever a user uses an emoji you should append to their history by performing a POST on the 
+users/history endpoint with the auth_token of the user and the emoji_code of the emoji being 
+added.
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+auth_token | string | the auth token of the user whos history you wish to append to
+emoji_code | string | the code of the emoji you wish to append to the users history
+
+*Return Status*
+
+HTTP | Message
+---- | -------
+200  | an updated history entry for only the emoji appended
+401  | {"status":"wrong authentication token"}
+422  | {"status":"invalid emoji code"}

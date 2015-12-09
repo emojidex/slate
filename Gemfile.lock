@@ -137,7 +137,7 @@ DEPENDENCIES
   rake (~> 10.4.2)
   redcarpet (~> 3.3.2)
   rouge (~> 1.9.0)
-  therubyracer (~> 0.12.1)
+  therubyracer (~> 0.12.2)
 
 BUNDLED WITH
    1.10.6
