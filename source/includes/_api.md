@@ -76,7 +76,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=MeMeMe -d tok
 
 ```json
 {"auth_status":"verified","auth_user":"MyUserName","auth_token":"0123456789abcdef",
-"pro":false,"pro_exp":null,"premium":true,"premium_exp":1467431422}
+"pro":false,"pro_exp":null,"premium":true,"premium_exp":1467431422, "r18":false}
 ```
 
 > When authentication fails the follwing JSON is returned:
