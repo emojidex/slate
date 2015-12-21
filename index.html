@@ -150,7 +150,8 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">user<
 <blockquote>
 <p>When authentication / confirmation succeeds something like the following JSON is returned:</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="nt">"auth_status"</span><span class="p">:</span><span class="s2">"verified"</span><span class="p">,</span><span class="nt">"auth_user"</span><span class="p">:</span><span class="s2">"MyUserName"</span><span class="p">,</span><span class="nt">"auth_token"</span><span class="p">:</span><span class="s2">"0123456789abcdef"</span><span class="p">,</span><span class="nt">"pro"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">"pro_exp"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"premium"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"premium_exp"</span><span class="p">:</span><span class="mi">1467431422</span><span class="p">}</span><span class="w">
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"auth_status"</span><span class="p">:</span><span class="s2">"verified"</span><span class="p">,</span><span class="nt">"auth_user"</span><span class="p">:</span><span class="s2">"MyUserName"</span><span class="p">,</span><span class="nt">"auth_token"</span><span class="p">:</span><span class="s2">"0123456789abcdef"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"pro"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">"pro_exp"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"premium"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"premium_exp"</span><span class="p">:</span><span class="mi">1467431422</span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <blockquote>
@@ -246,11 +247,23 @@ generally recommend using a username as it is not directly personally identifyin
 it is the only part of a user account that can not be changed and remains static.
 </aside>
 
-<p>Upon a successful authentication request the following information will be returned:
+<p>Upon a successful authentication request the following information will be returned:</p>
+
+<p><em>Return Data</em></p>
+
+<p>┏auth_status: the status code of the authorization (&ldquo;verified&rdquo; or &ldquo;unverified&rdquo;)<br>
+┣auth_user: the username of the account just verified<br>
+┣auth_token: the auth token for this account<br>
+┣pro: true or false value specifying if pro status is currently active<br>
+┣pro_exp: expiration date of current or previous pro status (null if never active)<br>
+┣premium: true or false value specifying if premium status is currently active<br>
+┣premium_exp: expiration date of current or previous premium status (null if never active)<br>
+┗r18: true or false value specifying if user wants to view R-18 content  </p>
+
 <aside class="warning">
 DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password to the API when 
 you are obtaining an auth token. Store auth tokens as securely as possible!
-</aside></p>
+</aside>
 
 <h2 id="emoji-seeds">emoji Seeds</h2>
 
@@ -336,6 +349,12 @@ All emoji details from seeds contain all detailed information. There is no enabl
 extended details with these calls.
 </aside>
 
+<p><em>Return Data</em></p>
+
+<p>┏moji_string: a string of character codes, with multi-chracter compound codes coming before others<br>
+┣moji_array: an array of character codes, with multi-chracter compound codes coming before others<br>
+┗moji_index: a localized hash index of character code keys with emoji code values  </p>
+
 <h2 id="emoji-information">emoji Information</h2>
 
 <blockquote>
@@ -374,6 +393,18 @@ replacing (emoji code) with the emoji code you want the information about.</p>
 </tr>
 </tbody></table>
 
+<p><em>Return Data</em></p>
+
+<p>┏code: the :code: of the emoji<br>
+┣moji: the character code of the emoji (null when emoji is not a standard character)<br>
+┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)<br>
+┣category: the category the emoji is contained in<br>
+┣tags: an array of tags the emoji is registered under (an empty array [] if none)<br>
+┣link: a URL associated with the emoji (null when no link is registered or active)<br>
+┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)<br>
+┣variants: an array of variants of this emoji<br>
+┗score: the score of the emoji  </p>
+
 <h2 id="emoji-index">emoji Index</h2>
 
 <blockquote>
@@ -406,7 +437,7 @@ replacing (emoji code) with the emoji code you want the information about.</p>
 </code></pre>
 <pre class="highlight java"><code></code></pre>
 
-<p>Gets a general index of emoji.<br>
+<p>Gets a general index of emoji, sorted by score.<br>
 <aside class="notice">
 This index is ordered by a combination of registration date and popularity. 
 Newer and more popular emoji will show up first.
@@ -443,6 +474,23 @@ Newer and more popular emoji will show up first.
 </tr>
 </tbody></table>
 
+<p><em>Return Data</em></p>
+
+<p>┏emoji: an array of emoji<br>
+┃┣code: the :code: of the emoji<br>
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)<br>
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)<br>
+┃┣category: the category the emoji is contained in<br>
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)<br>
+┃┣link: a URL associated with the emoji (null when no link is registered or active)<br>
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)<br>
+┃┣variants: an array of variants of this emoji<br>
+┃┗score: the score of the emoji<br>
+┗meta: meta data about this collection<br>
+　┣count: the count of emoji [limit] contained in this response<br>
+　┣total_count: the total count emoji in this collection available on the server<br>
+　┗page: the current page of the collection  </p>
+
 <h2 id="newest-emoji">Newest emoji</h2>
 
 <blockquote>
@@ -457,6 +505,10 @@ Newer and more popular emoji will show up first.
 
 <p>Gets a general index of emoji sorted by registration date.  </p>
 
+<aside class="notice">
+This resource can only be accessed by pro or premium users.
+</aside>
+
 <p><em>Parameters</em></p>
 
 <table><thead>
@@ -466,6 +518,11 @@ Newer and more popular emoji will show up first.
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>auth_token</td>
+<td>string</td>
+<td>a user auth token. User must be pro or premium to access this resource</td>
+</tr>
 <tr>
 <td>category</td>
 <td>string</td>
@@ -487,6 +544,43 @@ Newer and more popular emoji will show up first.
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
+
+<table><thead>
+<tr>
+<th>HTTP</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>a page of an emoji collection</td>
+</tr>
+<tr>
+<td>401</td>
+<td>{&ldquo;status&rdquo;:&ldquo;resource requires authorization&rdquo;}</td>
+</tr>
+<tr>
+<td>402</td>
+<td>{&ldquo;status&rdquo;:&ldquo;resource limited to premium/pro users&rdquo;}</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Data</em></p>
+
+<p>┏emoji: an array of emoji<br>
+┃┣code: the :code: of the emoji<br>
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)<br>
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)<br>
+┃┣category: the category the emoji is contained in<br>
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)<br>
+┃┣link: a URL associated with the emoji (null when no link is registered or active)<br>
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)<br>
+┃┣variants: an array of variants of this emoji<br>
+┃┗score: the score of the emoji<br>
+┗meta: meta data about this collection<br>
+　┣count: the count of emoji [limit] contained in this response<br>
+　┣total_count: the total count emoji in this collection available on the server<br>
+　┗page: the current page of the collection  </p>
 
 <h2 id="popular-emoji">Popular emoji</h2>
 
@@ -500,7 +594,11 @@ Newer and more popular emoji will show up first.
 </code></pre>
 <pre class="highlight java"><code></code></pre>
 
-<p>Gets a general index of emoji sorted by popularity.  </p>
+<p>Gets a general index of emoji sorted by popularity (times favorited).  </p>
+
+<aside class="notice">
+This resource can only be accessed by pro or premium users.
+</aside>
 
 <p><em>Parameters</em></p>
 
@@ -511,6 +609,11 @@ Newer and more popular emoji will show up first.
 <th>Description</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>auth_token</td>
+<td>string</td>
+<td>a user auth token. User must be pro or premium to access this resource</td>
+</tr>
 <tr>
 <td>category</td>
 <td>string</td>
@@ -532,6 +635,45 @@ Newer and more popular emoji will show up first.
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
+
+<p><em>Return Status</em></p>
+
+<table><thead>
+<tr>
+<th>HTTP</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>a page of an emoji collection</td>
+</tr>
+<tr>
+<td>401</td>
+<td>{&ldquo;status&rdquo;:&ldquo;resource requires authorization&rdquo;}</td>
+</tr>
+<tr>
+<td>402</td>
+<td>{&ldquo;status&rdquo;:&ldquo;resource limited to premium/pro users&rdquo;}</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Data</em></p>
+
+<p>┏emoji: an array of emoji<br>
+┃┣code: the :code: of the emoji<br>
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)<br>
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)<br>
+┃┣category: the category the emoji is contained in<br>
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)<br>
+┃┣link: a URL associated with the emoji (null when no link is registered or active)<br>
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)<br>
+┃┣variants: an array of variants of this emoji<br>
+┃┗score: the score of the emoji<br>
+┗meta: meta data about this collection<br>
+　┣count: the count of emoji [limit] contained in this response<br>
+　┣total_count: the total count emoji in this collection available on the server<br>
+　┗page: the current page of the collection  </p>
 
 <h2 id="categories">Categories</h2>
 
@@ -549,6 +691,24 @@ Newer and more popular emoji will show up first.
 <pre class="highlight java"><code></code></pre>
 
 <blockquote>
+<p>Returns category info</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"categories"</span><span class="p">:[{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Abstract"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"abstract"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">967</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Cosmos"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"cosmos"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">110</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Faces"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"faces"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">1702</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Food"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">448</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Gestures"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"gestures"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">657</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Nature"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"nature"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">833</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Objects"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"objects"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">1848</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"People"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"people"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">997</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Places"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"places"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">163</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Symbols"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"symbols"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">1572</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Tools"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"tools"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">79</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Transportation"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"transportation"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">277</span><span class="p">}],</span><span class="w">
+</span><span class="nt">"meta"</span><span class="p">:{</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="nt">"total_count"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="nt">"page"</span><span class="p">:</span><span class="mi">1</span><span class="p">}}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
 <p>GET /categories locale=ja</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/categories -d <span class="nv">locale</span><span class="o">=</span>ja
@@ -558,7 +718,67 @@ Newer and more popular emoji will show up first.
 </code></pre>
 <pre class="highlight java"><code></code></pre>
 
+<blockquote>
+<p>Returns category info with Japanese names</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"categories"</span><span class="p">:[{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"抽象物"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"abstract"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">967</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"宇宙"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"cosmos"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">110</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"顔"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"faces"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">1702</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"食べ物"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">448</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"ジェスチャー"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"gestures"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">657</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"自然"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"nature"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">833</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"物"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"objects"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">1848</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"人"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"people"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">997</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"場所"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"places"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">163</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"記号"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"symbols"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">1572</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"道具"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"tools"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">79</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"乗り物"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"transportation"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">277</span><span class="p">}],</span><span class="w">
+</span><span class="nt">"meta"</span><span class="p">:{</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="nt">"total_count"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="nt">"page"</span><span class="p">:</span><span class="mi">1</span><span class="p">}}</span><span class="w">
+</span></code></pre>
+
 <p>Gets a list of categoires, including category codes (used in searching) and [localized] titles.</p>
+
+<aside class="notice">
+While the categories endpoint can take limit and page parameters, there are currently not enough 
+categories that you&rsquo;d need to use them. The defaults will give you a full list of categories.
+</aside>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>integer</td>
+<td>amount of categories to return per page</td>
+</tr>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>page number</td>
+</tr>
+<tr>
+<td>locale</td>
+<td>string</td>
+<td>language for category names currently only &ldquo;en&rdquo; [default] and &ldquo;ja&rdquo; are supported</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Data</em></p>
+
+<p>┏categories: an array of categories<br>
+┃┣name: the localized category name<br>
+┃┣code: the category code<br>
+┃┗emoji_count: the number of emoji currently in this category<br>
+┗meta: meta data about the array of categories<br>
+　┣count: the number of categories in this response<br>
+　┣total_count: the total count of categories available on the server<br>
+　┗page: the current page of categories  </p>
 
 <h2 id="search-for-emoji">Search for emoji</h2>
 
@@ -713,6 +933,23 @@ the code you are checking for).
 </tr>
 </tbody></table>
 
+<p><em>Return Data</em></p>
+
+<p>┏emoji: an array of emoji<br>
+┃┣code: the :code: of the emoji<br>
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)<br>
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)<br>
+┃┣category: the category the emoji is contained in<br>
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)<br>
+┃┣link: a URL associated with the emoji (null when no link is registered or active)<br>
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)<br>
+┃┣variants: an array of variants of this emoji<br>
+┃┗score: the score of the emoji<br>
+┗meta: meta data about this collection<br>
+　┣count: the count of emoji [limit] contained in this response<br>
+　┣total_count: the total count emoji in this collection available on the server<br>
+　┗page: the current page of the collection  </p>
+
 <h2 id="user-emoji">User emoji</h2>
 
 <blockquote>
@@ -730,6 +967,15 @@ the code you are checking for).
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Index</span><span class="p">.</span><span class="nx">user</span><span class="p">(</span><span class="s2">"絵文字"</span><span class="p">);</span>
 </code></pre>
+
+<blockquote>
+<p>Returns a collection</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"emoji"</span><span class="p">:[{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"幻"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"abstract"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+</span><span class="nt">"base"</span><span class="p">:</span><span class="s2">"幻"</span><span class="p">,</span><span class="nt">"variants"</span><span class="p">:[</span><span class="s2">"幻"</span><span class="p">,</span><span class="s2">"幻(白)"</span><span class="p">],</span><span class="nt">"score"</span><span class="p">:</span><span class="mi">0</span><span class="p">},{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"pink poo"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+</span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"abstract"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"base"</span><span class="p">:</span><span class="s2">"pink_poo"</span><span class="p">,</span><span class="w">
+</span><span class="nt">"variants"</span><span class="p">:[</span><span class="s2">"pink_poo"</span><span class="p">],</span><span class="nt">"score"</span><span class="p">:</span><span class="mi">340</span><span class="p">}],</span><span class="nt">"meta"</span><span class="p">:{</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">"total_count"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">"page"</span><span class="p">:</span><span class="mi">1</span><span class="p">}}</span><span class="w">
+</span></code></pre>
 
 <p>You can get all emoji registered by a specific user.<br>
 Some special user accounts exist from which you can get the current UTF 
@@ -772,6 +1018,23 @@ call without pagination (see above).</p>
 </tr>
 </tbody></table>
 
+<p><em>Return Data</em></p>
+
+<p>┏emoji: an array of emoji<br>
+┃┣code: the :code: of the emoji<br>
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)<br>
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)<br>
+┃┣category: the category the emoji is contained in<br>
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)<br>
+┃┣link: a URL associated with the emoji (null when no link is registered or active)<br>
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)<br>
+┃┣variants: an array of variants of this emoji<br>
+┃┗score: the score of the emoji<br>
+┗meta: meta data about this collection<br>
+　┣count: the count of emoji [limit] contained in this response<br>
+　┣total_count: the total count emoji in this collection available on the server<br>
+　┗page: the current page of the collection  </p>
+
 <h2 id="favorites">Favorites</h2>
 
 <blockquote>
@@ -784,6 +1047,10 @@ call without pagination (see above).</p>
 <span class="c1">// you can actively obtain favorites from the server</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
 </code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"emoji"</span><span class="p">:[{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+</span><span class="nt">"base"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"variants"</span><span class="p">:[</span><span class="s2">"falafel"</span><span class="p">],</span><span class="nt">"score"</span><span class="p">:</span><span class="mi">100</span><span class="p">}],</span><span class="w">
+</span><span class="nt">"meta"</span><span class="p">:{</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"total_count"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"page"</span><span class="p">:</span><span class="mi">1</span><span class="p">}}</span><span class="w">
+</span></code></pre>
 
 <blockquote>
 <p>Add an emoji to favorites:</p>
@@ -792,6 +1059,9 @@ call without pagination (see above).</p>
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
 </code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+</span><span class="nt">"base"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"variants"</span><span class="p">:[</span><span class="s2">"falafel"</span><span class="p">],</span><span class="nt">"score"</span><span class="p">:</span><span class="mi">106</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <blockquote>
 <p>Remove an emoji from favorites:</p>
@@ -800,6 +1070,9 @@ call without pagination (see above).</p>
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">unset</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
 </code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+</span><span class="nt">"base"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"variants"</span><span class="p">:[</span><span class="s2">"falafel"</span><span class="p">],</span><span class="nt">"score"</span><span class="p">:</span><span class="mi">6</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <p>Favorites can only be accessed with a token. This resource requires authentication.</p>
 
@@ -851,9 +1124,33 @@ auth_token.</p>
 </tr>
 </tbody></table>
 
-<p><strong>Adding to favorites:</strong><br>
+<p><em>Return Data</em></p>
+
+<p>┏emoji: an array of emoji<br>
+┃┣code: the :code: of the emoji<br>
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)<br>
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)<br>
+┃┣category: the category the emoji is contained in<br>
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)<br>
+┃┣link: a URL associated with the emoji (null when no link is registered or active)<br>
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)<br>
+┃┣variants: an array of variants of this emoji<br>
+┃┗score: the score of the emoji<br>
+┗meta: meta data about this collection<br>
+　┣count: the count of emoji [limit] contained in this response<br>
+　┣total_count: the total count emoji in this collection available on the server<br>
+　┗page: the current page of the collection  </p>
+
+<p><strong>Adding a Favorite:</strong><br>
 You can add an emoji to a users favorites by performing a POST against the users/favorites 
 endpoint with a valid auth_token and the emoji_code.</p>
+
+<p>When a favorite is successfully added an HTTP return code of 201 with updated emoji information 
+in the message body.</p>
+
+<p>To prevent adding multiple entries of the same emoji an HTTP status of 202 with a JSON string 
+{&ldquo;status&rdquo;:&ldquo;emoji already in user favorites&rdquo;} will be returned. Check either the HTTP stats code 
+or for this string so you don&rsquo;t accidentally duplicate the entry in your data set.</p>
 
 <p><em>Parameters</em></p>
 
@@ -898,6 +1195,85 @@ endpoint with a valid auth_token and the emoji_code.</p>
 </tr>
 </tbody></table>
 
+<p><em>Return Data</em></p>
+
+<p>┏code: the :code: of the emoji<br>
+┣moji: the character code of the emoji (null when emoji is not a standard character)<br>
+┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)<br>
+┣category: the category the emoji is contained in<br>
+┣tags: an array of tags the emoji is registered under (an empty array [] if none)<br>
+┣link: a URL associated with the emoji (null when no link is registered or active)<br>
+┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)<br>
+┣variants: an array of variants of this emoji<br>
+┗score: the score of the emoji  </p>
+
+<p><strong>Removing a Favorite</strong>
+You can remove an emoji from a users favorites by performing a DELETE against the users/favorites 
+endpoint with a valid auth_token and the emoji_code.</p>
+
+<p>When a favorite is successfully removed an HTTP return code of 200 with the emoji information 
+in the body will be returned. You can use this information to cross check your local data and 
+remove the emoji from the data set [though this is really only usefull if you have asyncronous 
+or event driven code].</p>
+
+<p>When a favorite is already remove an HTTP status of 202 with a JSON string 
+{&ldquo;status&rdquo;:&ldquo;emoji not in user favorites&rdquo;} will be returned.</p>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>auth_token</td>
+<td>string</td>
+<td>the auth token of the user whos favorites you wish to remove from</td>
+</tr>
+<tr>
+<td>emoji_code</td>
+<td>string</td>
+<td>the code of the emoji you wish to remove from the users favorites</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Status</em></p>
+
+<table><thead>
+<tr>
+<th>HTTP</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>up to date details for the given emoji</td>
+</tr>
+<tr>
+<td>202</td>
+<td>{&ldquo;status&rdquo;:&ldquo;emoji not in user favorites&rdquo;}</td>
+</tr>
+<tr>
+<td>401</td>
+<td>{&ldquo;status&rdquo;:&ldquo;wrong authentication token&rdquo;}</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Data</em></p>
+
+<p>┏code: the :code: of the emoji<br>
+┣moji: the character code of the emoji (null when emoji is not a standard character)<br>
+┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)<br>
+┣category: the category the emoji is contained in<br>
+┣tags: an array of tags the emoji is registered under (an empty array [] if none)<br>
+┣link: a URL associated with the emoji (null when no link is registered or active)<br>
+┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)<br>
+┣variants: an array of variants of this emoji<br>
+┗score: the score of the emoji  </p>
+
 <h2 id="history">History</h2>
 
 <blockquote>
@@ -912,6 +1288,14 @@ endpoint with a valid auth_token and the emoji_code.</p>
 </code></pre>
 
 <blockquote>
+<p>A successful request will return a history array and meta info.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"history"</span><span class="p">:[{</span><span class="nt">"emoji_code"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"times_used"</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span><span class="nt">"last_used"</span><span class="p">:</span><span class="s2">"2015-12-21T14:16:58.603+00:00"</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="nt">"emoji_code"</span><span class="p">:</span><span class="s2">"sushi"</span><span class="p">,</span><span class="nt">"times_used"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="nt">"last_used"</span><span class="p">:</span><span class="s2">"2015-12-21T14:16:49.708+00:00"</span><span class="p">}],</span><span class="w">
+</span><span class="nt">"meta"</span><span class="p">:{</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">"total_count"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">"page"</span><span class="p">:</span><span class="mi">1</span><span class="p">}}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
 <p>Add an emoji to history:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X POST https://www.emojidex.com/api/v1/users/history -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef -d <span class="nv">emoji_code</span><span class="o">=</span>zebra
@@ -920,16 +1304,20 @@ endpoint with a valid auth_token and the emoji_code.</p>
 </code></pre>
 
 <blockquote>
-<p>A successful registration will return the updated history entry:
-<code class="prettyprint">
-{&quot;emoji_code&quot;:&quot;zebra&quot;,&quot;times_used&quot;:1,&quot;last_used&quot;:&quot;2015-11-30T04:18:23.647+00:00&quot;}
-</code></p>
+<p>A successful registration will return the updated history entry:</p>
 </blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"emoji_code"</span><span class="p">:</span><span class="s2">"zebra"</span><span class="p">,</span><span class="nt">"times_used"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"last_used"</span><span class="p">:</span><span class="s2">"2015-11-30T04:18:23.647+00:00"</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <p>History can only be accessed with a token. This resource requires authentication.</p>
 
 <p><strong>Obtaining history:</strong><br>
 You can obtain history by performing a GET on the users/history endpoint with a valid auth_token.</p>
+
+<aside class="notice">
+The history is NOT a standard collection. Do not attempt to parse it like an &ldquo;emoji&rdquo; array returned 
+by most other calls.
+</aside>
 
 <p><em>Parameters</em></p>
 
@@ -974,6 +1362,17 @@ You can obtain history by performing a GET on the users/history endpoint with a 
 <td>{&ldquo;status&rdquo;:&ldquo;wrong authentication token&rdquo;}</td>
 </tr>
 </tbody></table>
+
+<p><em>Return Data</em></p>
+
+<p>┏history: an array containing emoji codes and times and dates used<br>
+┃┣emoji_code: the :code: of the emoji<br>
+┃┣times_used: the total number of times used by this users<br>
+┃┗last_used: the :code: of the emoji<br>
+┗meta: meta data about the history array<br>
+　┣count: the count of history items [limit] contained in this response<br>
+　┣total_count: the total count of entries in this users history<br>
+　┗page: the current page of history  </p>
 
 <p><strong>Adding to history:</strong><br>
 Whenever a user uses an emoji you should append to their history by performing a POST on the 
@@ -1022,6 +1421,12 @@ added.</p>
 <td>{&ldquo;status&rdquo;:&ldquo;invalid emoji code&rdquo;}</td>
 </tr>
 </tbody></table>
+
+<p><em>Return Data</em></p>
+
+<p>┏emoji_code: the :code: of the emoji<br>
+┣times_used: the total number of times used by this users<br>
+┗last_used: the :code: of the emoji  </p>
 
           <h1 id="assets">Assets</h1>
 
