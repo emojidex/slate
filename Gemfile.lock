@@ -100,7 +100,7 @@ GEM
     redcarpet (3.3.3)
     ref (2.0.0)
     rouge (1.9.1)
-    sass (3.4.19)
+    sass (3.4.20)
     sprockets (2.12.4)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -140,4 +140,4 @@ DEPENDENCIES
   therubyracer (~> 0.12.2)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

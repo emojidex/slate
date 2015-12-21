@@ -75,7 +75,8 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=MeMeMe -d tok
 > When authentication / confirmation succeeds something like the following JSON is returned:
 
 ```json
-{"auth_status":"verified","auth_user":"MyUserName","auth_token":"0123456789abcdef","pro":false,"pro_exp":null,"premium":true,"premium_exp":1467431422}
+{"auth_status":"verified","auth_user":"MyUserName","auth_token":"0123456789abcdef",
+"pro":false,"pro_exp":null,"premium":true,"premium_exp":1467431422}
 ```
 
 > When authentication fails the follwing JSON is returned:
@@ -150,6 +151,18 @@ it is the only part of a user account that can not be changed and remains static
 </aside>
 
 Upon a successful authentication request the following information will be returned:
+
+*Return Data*
+
+┏auth_status: the status code of the authorization ("verified" or "unverified")  
+┣auth_user: the username of the account just verified  
+┣auth_token: the auth token for this account  
+┣pro: true or false value specifying if pro status is currently active  
+┣pro_exp: expiration date of current or previous pro status (null if never active)  
+┣premium: true or false value specifying if premium status is currently active  
+┣premium_exp: expiration date of current or previous premium status (null if never active)  
+┗r18: true or false value specifying if user wants to view R-18 content  
+
 <aside class="warning">
 DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password to the API when 
 you are obtaining an auth token. Store auth tokens as securely as possible!
@@ -228,6 +241,12 @@ All emoji details from seeds contain all detailed information. There is no enabl
 extended details with these calls.
 </aside>
 
+*Return Data*
+
+┏moji_string: a string of character codes, with multi-chracter compound codes coming before others  
+┣moji_array: an array of character codes, with multi-chracter compound codes coming before others  
+┗moji_index: a localized hash index of character code keys with emoji code values  
+
 ## emoji Information
 > Get information on the "sushi" emoji
 
@@ -260,6 +279,18 @@ replacing (emoji code) with the emoji code you want the information about.
 Name | Type | Description
 ---- | ---- | -----------
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+
+*Return Data*
+
+┏code: the :code: of the emoji  
+┣moji: the character code of the emoji (null when emoji is not a standard character)  
+┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
+┣category: the category the emoji is contained in  
+┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┣link: a URL associated with the emoji (null when no link is registered or active)  
+┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
+┣variants: an array of variants of this emoji  
+┗score: the score of the emoji  
 
 ## emoji Index
 
@@ -311,7 +342,7 @@ emojidex.Indexes.index(null, {'page': 2, 'limit': 50});
 ```java
 ```
 
-Gets a general index of emoji.  
+Gets a general index of emoji, sorted by score.  
 <aside class="notice">
 This index is ordered by a combination of registration date and popularity. 
 Newer and more popular emoji will show up first.
@@ -326,6 +357,22 @@ limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
+*Return Data*
+
+┏emoji: an array of emoji  
+┃┣code: the :code: of the emoji  
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
+┃┣category: the category the emoji is contained in  
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣link: a URL associated with the emoji (null when no link is registered or active)  
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
+┃┣variants: an array of variants of this emoji  
+┃┗score: the score of the emoji  
+┗meta: meta data about this collection  
+　┣count: the count of emoji [limit] contained in this response  
+　┣total_count: the total count emoji in this collection available on the server  
+　┗page: the current page of the collection  
 
 ## Newest emoji
 
@@ -347,14 +394,42 @@ emojidex.Indexes.newest();
 
 Gets a general index of emoji sorted by registration date.  
 
+<aside class="notice">
+This resource can only be accessed by pro or premium users.
+</aside>
+
 *Parameters*
 
 Name | Type | Description
 ---- | ---- | -----------
+auth_token | string | a user auth token. User must be pro or premium to access this resource
 category | string | the category code (EG: "faces" or "food") you wish to limit the index to
 limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+
+HTTP | Message
+---- | -------
+200  | a page of an emoji collection
+401  | {"status":"resource requires authorization"}
+402  | {"status":"resource limited to premium/pro users"}
+
+*Return Data*
+
+┏emoji: an array of emoji  
+┃┣code: the :code: of the emoji  
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
+┃┣category: the category the emoji is contained in  
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣link: a URL associated with the emoji (null when no link is registered or active)  
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
+┃┣variants: an array of variants of this emoji  
+┃┗score: the score of the emoji  
+┗meta: meta data about this collection  
+　┣count: the count of emoji [limit] contained in this response  
+　┣total_count: the total count emoji in this collection available on the server  
+　┗page: the current page of the collection  
 
 ## Popular emoji
 
@@ -374,16 +449,46 @@ emojidex.Indexes.popular();
 ```java
 ```
 
-Gets a general index of emoji sorted by popularity.  
+Gets a general index of emoji sorted by popularity (times favorited).  
+
+<aside class="notice">
+This resource can only be accessed by pro or premium users.
+</aside>
 
 *Parameters*
 
 Name | Type | Description
 ---- | ---- | -----------
+auth_token | string | a user auth token. User must be pro or premium to access this resource
 category | string | the category code (EG: "faces" or "food") you wish to limit the index to
 limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+
+*Return Status*
+
+HTTP | Message
+---- | -------
+200  | a page of an emoji collection
+401  | {"status":"resource requires authorization"}
+402  | {"status":"resource limited to premium/pro users"}
+
+*Return Data*
+
+┏emoji: an array of emoji  
+┃┣code: the :code: of the emoji  
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
+┃┣category: the category the emoji is contained in  
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣link: a URL associated with the emoji (null when no link is registered or active)  
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
+┃┣variants: an array of variants of this emoji  
+┃┗score: the score of the emoji  
+┗meta: meta data about this collection  
+　┣count: the count of emoji [limit] contained in this response  
+　┣total_count: the total count emoji in this collection available on the server  
+　┗page: the current page of the collection  
 
 Categories
 ----------
@@ -407,6 +512,24 @@ emojidex.Categories.get();
 ```java
 ```
 
+> Returns category info
+
+```json
+{"categories":[{"name":"Abstract","code":"abstract","emoji_count":967},
+{"name":"Cosmos","code":"cosmos","emoji_count":110},
+{"name":"Faces","code":"faces","emoji_count":1702},
+{"name":"Food","code":"food","emoji_count":448},
+{"name":"Gestures","code":"gestures","emoji_count":657},
+{"name":"Nature","code":"nature","emoji_count":833},
+{"name":"Objects","code":"objects","emoji_count":1848},
+{"name":"People","code":"people","emoji_count":997},
+{"name":"Places","code":"places","emoji_count":163},
+{"name":"Symbols","code":"symbols","emoji_count":1572},
+{"name":"Tools","code":"tools","emoji_count":79},
+{"name":"Transportation","code":"transportation","emoji_count":277}],
+"meta":{"count":12,"total_count":12,"page":1}}
+```
+
 > GET /categories locale=ja
 
 ```shell
@@ -423,7 +546,49 @@ emojidex.Categories.get('ja');
 ```java
 ```
 
+> Returns category info with Japanese names
+
+```json
+{"categories":[{"name":"抽象物","code":"abstract","emoji_count":967},
+{"name":"宇宙","code":"cosmos","emoji_count":110},
+{"name":"顔","code":"faces","emoji_count":1702},
+{"name":"食べ物","code":"food","emoji_count":448},
+{"name":"ジェスチャー","code":"gestures","emoji_count":657},
+{"name":"自然","code":"nature","emoji_count":833},
+{"name":"物","code":"objects","emoji_count":1848},
+{"name":"人","code":"people","emoji_count":997},
+{"name":"場所","code":"places","emoji_count":163},
+{"name":"記号","code":"symbols","emoji_count":1572},
+{"name":"道具","code":"tools","emoji_count":79},
+{"name":"乗り物","code":"transportation","emoji_count":277}],
+"meta":{"count":12,"total_count":12,"page":1}}
+```
+
 Gets a list of categoires, including category codes (used in searching) and [localized] titles.
+
+<aside class="notice">
+While the categories endpoint can take limit and page parameters, there are currently not enough 
+categories that you'd need to use them. The defaults will give you a full list of categories.
+</aside>
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+limit | integer | amount of categories to return per page
+page | integer | page number
+locale | string | language for category names currently only "en" [default] and "ja" are supported
+
+*Return Data*
+
+┏categories: an array of categories  
+┃┣name: the localized category name  
+┃┣code: the category code  
+┃┗emoji_count: the number of emoji currently in this category  
+┗meta: meta data about the array of categories  
+　┣count: the number of categories in this response  
+　┣total_count: the total count of categories available on the server  
+　┗page: the current page of categories  
 
 ## Search for emoji
 
@@ -542,6 +707,23 @@ limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
+*Return Data*
+
+┏emoji: an array of emoji  
+┃┣code: the :code: of the emoji  
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
+┃┣category: the category the emoji is contained in  
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣link: a URL associated with the emoji (null when no link is registered or active)  
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
+┃┣variants: an array of variants of this emoji  
+┃┗score: the score of the emoji  
+┗meta: meta data about this collection  
+　┣count: the count of emoji [limit] contained in this response  
+　┣total_count: the total count emoji in this collection available on the server  
+　┗page: the current page of the collection  
+
 ## User emoji
 
 > Get emoji for the user "Zero"
@@ -562,6 +744,15 @@ curl -X GET https://www.emojidex.com/api/v1/users/絵文字/emoji
 
 ```javascript
 emojidex.Index.user("絵文字");
+```
+
+> Returns a collection
+
+```json
+{"emoji":[{"code":"幻","moji":null,"unicode":null,"category":"abstract","tags":[],"link":null,
+"base":"幻","variants":["幻","幻(白)"],"score":0},{"code":"pink poo","moji":null,
+"unicode":null,"category":"abstract","tags":[],"link":null,"base":"pink_poo",
+"variants":["pink_poo"],"score":340}],"meta":{"count":2,"total_count":2,"page":1}}
 ```
 
 You can get all emoji registered by a specific user.  
@@ -585,6 +776,23 @@ limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
 
+*Return Data*
+
+┏emoji: an array of emoji  
+┃┣code: the :code: of the emoji  
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
+┃┣category: the category the emoji is contained in  
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣link: a URL associated with the emoji (null when no link is registered or active)  
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
+┃┣variants: an array of variants of this emoji  
+┃┗score: the score of the emoji  
+┗meta: meta data about this collection  
+　┣count: the count of emoji [limit] contained in this response  
+　┣total_count: the total count emoji in this collection available on the server  
+　┗page: the current page of the collection  
+
 ## Favorites
 
 > Get favorites:
@@ -600,6 +808,12 @@ emojidex.User.Favorites.all()
 emojidex.User.Favorites.get();
 ```
 
+```json
+{"emoji":[{"code":"falafel","moji":null,"unicode":null,"category":"food","tags":[],"link":null,
+"base":"falafel","variants":["falafel"],"score":100}],
+"meta":{"count":1,"total_count":1,"page":1}}
+```
+
 > Add an emoji to favorites:
 
 ```shell
@@ -610,6 +824,11 @@ curl -X POST https://www.emojidex.com/api/v1/users/favorites -d auth_token=12345
 emojidex.User.Favorites.set("zebra");
 ```
 
+```json
+{"code":"falafel","moji":null,"unicode":null,"category":"food","tags":[],"link":null,
+"base":"falafel","variants":["falafel"],"score":106}
+```
+
 > Remove an emoji from favorites:
 
 ```shell
@@ -618,6 +837,11 @@ curl -X DELETE https://www.emojidex.com/api/v1/users/favorites -d auth_token=123
 
 ```javascript
 emojidex.User.Favorites.unset("zebra");
+```
+
+```json
+{"code":"falafel","moji":null,"unicode":null,"category":"food","tags":[],"link":null,
+"base":"falafel","variants":["falafel"],"score":6}
 ```
 
 Favorites can only be accessed with a token. This resource requires authentication.
@@ -641,9 +865,33 @@ HTTP | Message
 200  | an array of user favorites
 401  | {"status":"wrong authentication token"}
 
-**Adding to favorites:**  
+*Return Data*
+
+┏emoji: an array of emoji  
+┃┣code: the :code: of the emoji  
+┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
+┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
+┃┣category: the category the emoji is contained in  
+┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣link: a URL associated with the emoji (null when no link is registered or active)  
+┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
+┃┣variants: an array of variants of this emoji  
+┃┗score: the score of the emoji  
+┗meta: meta data about this collection  
+　┣count: the count of emoji [limit] contained in this response  
+　┣total_count: the total count emoji in this collection available on the server  
+　┗page: the current page of the collection  
+
+**Adding a Favorite:**  
 You can add an emoji to a users favorites by performing a POST against the users/favorites 
 endpoint with a valid auth_token and the emoji_code.
+
+When a favorite is successfully added an HTTP return code of 201 with updated emoji information 
+in the message body.
+
+To prevent adding multiple entries of the same emoji an HTTP status of 202 with a JSON string 
+{"status":"emoji already in user favorites"} will be returned. Check either the HTTP stats code 
+or for this string so you don't accidentally duplicate the entry in your data set.
 
 *Parameters*
 
@@ -660,6 +908,57 @@ HTTP | Message
 202  | {"status":"emoji already in user favorites"}
 401  | {"status":"wrong authentication token"}
 
+*Return Data*
+
+┏code: the :code: of the emoji  
+┣moji: the character code of the emoji (null when emoji is not a standard character)  
+┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
+┣category: the category the emoji is contained in  
+┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┣link: a URL associated with the emoji (null when no link is registered or active)  
+┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
+┣variants: an array of variants of this emoji  
+┗score: the score of the emoji  
+
+**Removing a Favorite**
+You can remove an emoji from a users favorites by performing a DELETE against the users/favorites 
+endpoint with a valid auth_token and the emoji_code.
+
+When a favorite is successfully removed an HTTP return code of 200 with the emoji information 
+in the body will be returned. You can use this information to cross check your local data and 
+remove the emoji from the data set [though this is really only usefull if you have asyncronous 
+or event driven code].
+
+When a favorite is already remove an HTTP status of 202 with a JSON string 
+{"status":"emoji not in user favorites"} will be returned.
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+auth_token | string | the auth token of the user whos favorites you wish to remove from
+emoji_code | string | the code of the emoji you wish to remove from the users favorites
+
+*Return Status*
+
+HTTP | Message
+---- | -------
+201  | up to date details for the given emoji
+202  | {"status":"emoji not in user favorites"}
+401  | {"status":"wrong authentication token"}
+
+*Return Data*
+
+┏code: the :code: of the emoji  
+┣moji: the character code of the emoji (null when emoji is not a standard character)  
+┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
+┣category: the category the emoji is contained in  
+┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┣link: a URL associated with the emoji (null when no link is registered or active)  
+┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
+┣variants: an array of variants of this emoji  
+┗score: the score of the emoji  
+
 ## History
 
 > Get history:
@@ -675,6 +974,14 @@ emojidex.User.History.all()
 emojidex.User.History.get();
 ```
 
+> A successful request will return a history array and meta info.
+
+```json
+{"history":[{"emoji_code":"falafel","times_used":6,"last_used":"2015-12-21T14:16:58.603+00:00"},
+{"emoji_code":"sushi","times_used":4,"last_used":"2015-12-21T14:16:49.708+00:00"}],
+"meta":{"count":2,"total_count":2,"page":1}}
+```
+
 > Add an emoji to history:
 
 ```shell
@@ -686,7 +993,8 @@ emoji.User.History.set("zebra");
 ```
 
 > A successful registration will return the updated history entry:
-```
+
+```json
 {"emoji_code":"zebra","times_used":1,"last_used":"2015-11-30T04:18:23.647+00:00"}
 ```
 
@@ -694,6 +1002,11 @@ History can only be accessed with a token. This resource requires authentication
 
 **Obtaining history:**  
 You can obtain history by performing a GET on the users/history endpoint with a valid auth_token.
+
+<aside class="notice">
+The history is NOT a standard collection. Do not attempt to parse it like an "emoji" array returned 
+by most other calls.
+</aside>
 
 *Parameters*
 
@@ -710,6 +1023,18 @@ HTTP | Message
 ---- | -------
 201  | an array containing emoji codes and times and dates used
 401  | {"status":"wrong authentication token"}
+
+
+*Return Data*
+
+┏history: an array containing emoji codes and times and dates used  
+┃┣emoji_code: the :code: of the emoji  
+┃┣times_used: the total number of times used by this users  
+┃┗last_used: the :code: of the emoji  
+┗meta: meta data about the history array  
+　┣count: the count of history items [limit] contained in this response  
+　┣total_count: the total count of entries in this users history  
+　┗page: the current page of history  
 
 **Adding to history:**  
 Whenever a user uses an emoji you should append to their history by performing a POST on the 
@@ -730,3 +1055,9 @@ HTTP | Message
 200  | an updated history entry for only the emoji appended
 401  | {"status":"wrong authentication token"}
 422  | {"status":"invalid emoji code"}
+
+*Return Data*
+
+┏emoji_code: the :code: of the emoji  
+┣times_used: the total number of times used by this users  
+┗last_used: the :code: of the emoji  
