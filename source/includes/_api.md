@@ -244,8 +244,8 @@ extended details with these calls.
 *Return Data*
 
 ┏moji_string: a string of character codes, with multi-chracter compound codes coming before others  
-┣moji_array: an array of character codes, with multi-chracter compound codes coming before others  
-┗moji_index: a localized hash index of character code keys with emoji code values  
+┣moji_array[]: an array of character codes, with multi-chracter compound codes coming before others  
+┗moji_index{}: a localized hash index of character code keys with emoji code values  
 
 ## emoji Information
 > Get information on the "sushi" emoji
@@ -286,10 +286,10 @@ detailed | bool | returns extra information such as upstream asset checksums[md5
 ┣moji: the character code of the emoji (null when emoji is not a standard character)  
 ┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
 ┣category: the category the emoji is contained in  
-┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┣tags[]: an array of tags the emoji is registered under (an empty array [] if none)  
 ┣link: a URL associated with the emoji (null when no link is registered or active)  
 ┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
-┣variants: an array of variants of this emoji  
+┣variants[]: an array of variants of this emoji  
 ┗score: the score of the emoji  
 
 ## emoji Index
@@ -359,17 +359,17 @@ detailed | bool | returns extra information such as upstream asset checksums[md5
 
 *Return Data*
 
-┏emoji: an array of emoji  
+┏emoji[]: an array of emoji  
 ┃┣code: the :code: of the emoji  
 ┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
 ┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
 ┃┣category: the category the emoji is contained in  
-┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣tags[]: an array of tags the emoji is registered under (an empty array [] if none)  
 ┃┣link: a URL associated with the emoji (null when no link is registered or active)  
 ┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
-┃┣variants: an array of variants of this emoji  
+┃┣variants[]: an array of variants of this emoji  
 ┃┗score: the score of the emoji  
-┗meta: meta data about this collection  
+┗meta{}: meta data about this collection  
 　┣count: the count of emoji [limit] contained in this response  
 　┣total_count: the total count emoji in this collection available on the server  
 　┗page: the current page of the collection  
@@ -416,17 +416,17 @@ HTTP | Message
 
 *Return Data*
 
-┏emoji: an array of emoji  
+┏emoji[]: an array of emoji  
 ┃┣code: the :code: of the emoji  
 ┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
 ┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
 ┃┣category: the category the emoji is contained in  
-┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣tags[]: an array of tags the emoji is registered under (an empty array [] if none)  
 ┃┣link: a URL associated with the emoji (null when no link is registered or active)  
 ┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
-┃┣variants: an array of variants of this emoji  
+┃┣variants[]: an array of variants of this emoji  
 ┃┗score: the score of the emoji  
-┗meta: meta data about this collection  
+┗meta{}: meta data about this collection  
 　┣count: the count of emoji [limit] contained in this response  
 　┣total_count: the total count emoji in this collection available on the server  
 　┗page: the current page of the collection  
@@ -475,17 +475,17 @@ HTTP | Message
 
 *Return Data*
 
-┏emoji: an array of emoji  
+┏emoji{}: an array of emoji  
 ┃┣code: the :code: of the emoji  
 ┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
 ┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
 ┃┣category: the category the emoji is contained in  
-┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣tags[]: an array of tags the emoji is registered under (an empty array [] if none)  
 ┃┣link: a URL associated with the emoji (null when no link is registered or active)  
 ┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
-┃┣variants: an array of variants of this emoji  
+┃┣variants[]: an array of variants of this emoji  
 ┃┗score: the score of the emoji  
-┗meta: meta data about this collection  
+┗meta{}: meta data about this collection  
 　┣count: the count of emoji [limit] contained in this response  
 　┣total_count: the total count emoji in this collection available on the server  
 　┗page: the current page of the collection  
@@ -581,11 +581,11 @@ locale | string | language for category names currently only "en" [default] and 
 
 *Return Data*
 
-┏categories: an array of categories  
+┏categories[]: an array of categories  
 ┃┣name: the localized category name  
 ┃┣code: the category code  
 ┃┗emoji_count: the number of emoji currently in this category  
-┗meta: meta data about the array of categories  
+┗meta{}: meta data about the array of categories  
 　┣count: the number of categories in this response  
 　┣total_count: the total count of categories available on the server  
 　┗page: the current page of categories  
@@ -709,17 +709,17 @@ detailed | bool | returns extra information such as upstream asset checksums[md5
 
 *Return Data*
 
-┏emoji: an array of emoji  
+┏emoji[]: an array of emoji  
 ┃┣code: the :code: of the emoji  
 ┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
 ┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
 ┃┣category: the category the emoji is contained in  
-┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣tags[]: an array of tags the emoji is registered under (an empty array [] if none)  
 ┃┣link: a URL associated with the emoji (null when no link is registered or active)  
 ┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
-┃┣variants: an array of variants of this emoji  
+┃┣variants[]: an array of variants of this emoji  
 ┃┗score: the score of the emoji  
-┗meta: meta data about this collection  
+┗meta{}: meta data about this collection  
 　┣count: the count of emoji [limit] contained in this response  
 　┣total_count: the total count emoji in this collection available on the server  
 　┗page: the current page of the collection  
@@ -778,17 +778,17 @@ detailed | bool | returns extra information such as upstream asset checksums[md5
 
 *Return Data*
 
-┏emoji: an array of emoji  
+┏emoji[]: an array of emoji  
 ┃┣code: the :code: of the emoji  
 ┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
 ┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
 ┃┣category: the category the emoji is contained in  
-┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣tags[]: an array of tags the emoji is registered under (an empty array [] if none)  
 ┃┣link: a URL associated with the emoji (null when no link is registered or active)  
 ┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
-┃┣variants: an array of variants of this emoji  
+┃┣variants[]: an array of variants of this emoji  
 ┃┗score: the score of the emoji  
-┗meta: meta data about this collection  
+┗meta{}: meta data about this collection  
 　┣count: the count of emoji [limit] contained in this response  
 　┣total_count: the total count emoji in this collection available on the server  
 　┗page: the current page of the collection  
@@ -867,17 +867,17 @@ HTTP | Message
 
 *Return Data*
 
-┏emoji: an array of emoji  
+┏emoji[]: an array of emoji  
 ┃┣code: the :code: of the emoji  
 ┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
 ┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
 ┃┣category: the category the emoji is contained in  
-┃┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┃┣tags[]: an array of tags the emoji is registered under (an empty array [] if none)  
 ┃┣link: a URL associated with the emoji (null when no link is registered or active)  
 ┃┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
-┃┣variants: an array of variants of this emoji  
+┃┣variants[]: an array of variants of this emoji  
 ┃┗score: the score of the emoji  
-┗meta: meta data about this collection  
+┗meta{}: meta data about this collection  
 　┣count: the count of emoji [limit] contained in this response  
 　┣total_count: the total count emoji in this collection available on the server  
 　┗page: the current page of the collection  
@@ -914,10 +914,10 @@ HTTP | Message
 ┣moji: the character code of the emoji (null when emoji is not a standard character)  
 ┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
 ┣category: the category the emoji is contained in  
-┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┣tags[]: an array of tags the emoji is registered under (an empty array [] if none)  
 ┣link: a URL associated with the emoji (null when no link is registered or active)  
 ┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
-┣variants: an array of variants of this emoji  
+┣variants[]: an array of variants of this emoji  
 ┗score: the score of the emoji  
 
 **Removing a Favorite**
@@ -953,10 +953,10 @@ HTTP | Message
 ┣moji: the character code of the emoji (null when emoji is not a standard character)  
 ┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
 ┣category: the category the emoji is contained in  
-┣tags: an array of tags the emoji is registered under (an empty array [] if none)  
+┣tags[]: an array of tags the emoji is registered under (an empty array [] if none)  
 ┣link: a URL associated with the emoji (null when no link is registered or active)  
 ┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
-┣variants: an array of variants of this emoji  
+┣variants[]: an array of variants of this emoji  
 ┗score: the score of the emoji  
 
 ## History
@@ -1027,11 +1027,11 @@ HTTP | Message
 
 *Return Data*
 
-┏history: an array containing emoji codes and times and dates used  
+┏history[]: an array containing emoji codes and times and dates used  
 ┃┣emoji_code: the :code: of the emoji  
 ┃┣times_used: the total number of times used by this users  
 ┃┗last_used: the :code: of the emoji  
-┗meta: meta data about the history array  
+┗meta{}: meta data about the history array  
 　┣count: the count of history items [limit] contained in this response  
 　┣total_count: the total count of entries in this users history  
 　┗page: the current page of history  

@@ -59,4 +59,3 @@ to automatically convert emoji character codes on your web site and use emoji as
 widgets, and to enter and parse text with emoji is made as easy as simple as possible. All emoji 
 are obtained from the content delivery network for the emojidex Service so you don't need to 
 cache any emoji on your server or worry about any assets or images on your own server.
-
