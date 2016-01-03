@@ -475,7 +475,7 @@ HTTP | Message
 
 *Return Data*
 
-┏emoji{}: an array of emoji  
+┏emoji[]: an array of emoji  
 ┃┣code: the :code: of the emoji  
 ┃┣moji: the character code of the emoji (null when emoji is not a standard character)  
 ┃┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
