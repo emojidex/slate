@@ -76,7 +76,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=MeMeMe -d tok
 
 ```json
 {"auth_status":"verified","auth_user":"MyUserName","auth_token":"0123456789abcdef",
-"pro":false,"pro_exp":null,"premium":true,"premium_exp":1467431422, "r18":false}
+  "pro":false,"pro_exp":null,"premium":true,"premium_exp":"2016-10-22T15:18:33.926+00:00", "r18":false}
 ```
 
 > When authentication fails the follwing JSON is returned:
@@ -168,7 +168,7 @@ DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password 
 you are obtaining an auth token. Store auth tokens as securely as possible!
 </aside>
 
-## emoji Seeds
+## emoji Seeds / Static Collections
 > Get all UTF [standrd] emoji
 
 ```shell
@@ -230,22 +230,49 @@ with the locale option.
 All these calls give very long JSON responses.
 </aside>
 
+**Moji Code Data**  
+Moji code [character code] data is a set of three consolidated lists of characters and short codes. 
+It's accessable from /api/v1/moji_codes and the only argument is the locale (defaults to 'en').
+
 *Parameters*
 
 Name | Type | Description
 ---- | ---- | -----------
 locale | string | the locale/languge code (EG: "ja" or "en")
 
-<aside class="notice">
-All emoji details from seeds contain all detailed information. There is no enabling or disabling 
-extended details with these calls.
-</aside>
-
 *Return Data*
 
 ┏moji_string: a string of character codes, with multi-chracter compound codes coming before others  
 ┣moji_array[]: an array of character codes, with multi-chracter compound codes coming before others  
 ┗moji_index{}: a localized hash index of character code keys with emoji code values  
+  
+  
+**UTF and Extended Sets**  
+To get a full (non-paginated) set of standard UTF emoji (emoji standardized or in the proposal 
+phase for Unicode) or Extended emojidex original emoji. Call to either api/v1/utf_emoji or 
+api/v1/extended_emoji for UTF or Extended emoji. Both sets offer localized versions in default 
+English or Japanese.
+
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+locale | string | the locale/languge code (EG: "ja" or "en")
+detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+
+*Return Data*
+
+An array of emoji in the format of:  
+┏code: the :code: of the emoji  
+┣moji: the character code of the emoji (null when emoji is not a standard character)  
+┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)  
+┣category: the category the emoji is contained in  
+┣tags[]: an array of tags the emoji is registered under (an empty array [] if none)  
+┣link: a URL associated with the emoji (null when no link is registered or active)  
+┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
+┣variants[]: an array of variants of this emoji  
+┗score: the score of the emoji  
 
 ## emoji Information
 > Get information on the "sushi" emoji
