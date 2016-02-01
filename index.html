@@ -6,19 +6,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>emojidex API Reference</title>
 
-    <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-      <script src="javascripts/all.js" type="text/javascript"></script>
-
-      <script>
-        $(function() {
-          setupLanguages(["shell","ruby","javascript","java"]);
-        });
-      </script>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}
+    </style>
+      <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;javascript&quot;,&quot;java&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -151,7 +224,7 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">user<
 <p>When authentication / confirmation succeeds something like the following JSON is returned:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="nt">"auth_status"</span><span class="p">:</span><span class="s2">"verified"</span><span class="p">,</span><span class="nt">"auth_user"</span><span class="p">:</span><span class="s2">"MyUserName"</span><span class="p">,</span><span class="nt">"auth_token"</span><span class="p">:</span><span class="s2">"0123456789abcdef"</span><span class="p">,</span><span class="w">
-</span><span class="nt">"pro"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">"pro_exp"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"premium"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"premium_exp"</span><span class="p">:</span><span class="mi">1467431422</span><span class="p">,</span><span class="w"> </span><span class="nt">"r18"</span><span class="p">:</span><span class="kc">false</span><span class="p">}</span><span class="w">
+  </span><span class="nt">"pro"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">"pro_exp"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"premium"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"premium_exp"</span><span class="p">:</span><span class="s2">"2016-10-22T15:18:33.926+00:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"r18"</span><span class="p">:</span><span class="kc">false</span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <blockquote>
@@ -265,7 +338,7 @@ DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password 
 you are obtaining an auth token. Store auth tokens as securely as possible!
 </aside>
 
-<h2 id="emoji-seeds">emoji Seeds</h2>
+<h2 id="emoji-seeds-static-collections">emoji Seeds / Static Collections</h2>
 
 <blockquote>
 <p>Get all UTF [standrd] emoji</p>
@@ -328,6 +401,10 @@ with the locale option.</p>
 All these calls give very long JSON responses.
 </aside>
 
+<p><strong>Moji Code Data</strong><br>
+Moji code [character code] data is a set of three consolidated lists of characters and short codes. 
+It&rsquo;s accessable from /api/v1/moji_codes and the only argument is the locale (defaults to &lsquo;en&rsquo;).</p>
+
 <p><em>Parameters</em></p>
 
 <table><thead>
@@ -344,16 +421,51 @@ All these calls give very long JSON responses.
 </tr>
 </tbody></table>
 
-<aside class="notice">
-All emoji details from seeds contain all detailed information. There is no enabling or disabling 
-extended details with these calls.
-</aside>
-
 <p><em>Return Data</em></p>
 
 <p>┏moji_string: a string of character codes, with multi-chracter compound codes coming before others<br>
 ┣moji_array[]: an array of character codes, with multi-chracter compound codes coming before others<br>
 ┗moji_index{}: a localized hash index of character code keys with emoji code values  </p>
+
+<p><strong>UTF and Extended Sets</strong><br>
+To get a full (non-paginated) set of standard UTF emoji (emoji standardized or in the proposal 
+phase for Unicode) or Extended emojidex original emoji. Call to either api/v1/utf_emoji or 
+api/v1/extended_emoji for UTF or Extended emoji. Both sets offer localized versions in default 
+English or Japanese.</p>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>locale</td>
+<td>string</td>
+<td>the locale/languge code (EG: &ldquo;ja&rdquo; or &ldquo;en&rdquo;)</td>
+</tr>
+<tr>
+<td>detailed</td>
+<td>bool</td>
+<td>returns extra information such as upstream asset checksums[md5] when true</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Data</em></p>
+
+<p>An array of emoji in the format of:<br>
+┏code: the :code: of the emoji<br>
+┣moji: the character code of the emoji (null when emoji is not a standard character)<br>
+┣unicode: the unicode ID of the emoji (null when emoji is not a standard character)<br>
+┣category: the category the emoji is contained in<br>
+┣tags[]: an array of tags the emoji is registered under (an empty array [] if none)<br>
+┣link: a URL associated with the emoji (null when no link is registered or active)<br>
+┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)<br>
+┣variants[]: an array of variants of this emoji<br>
+┗score: the score of the emoji  </p>
 
 <h2 id="emoji-information">emoji Information</h2>
 

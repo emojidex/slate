@@ -1,52 +1,4 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>emojidex Client Libraries</title>
-
-    <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-      <script src="javascripts/all.js" type="text/javascript"></script>
-
-      <script>
-        $(function() {
-          setupLanguages(["ruby","java","js"]);
-        });
-      </script>
-  </head>
-
-  <body class="clients">
-    <a href="#" id="nav-button">
-      <span>
-        NAV
-        <img src="images/navbar.png" />
-      </span>
-    </a>
-    <div class="tocify-wrapper">
-      <img src="images/logo.png" />
-        <div class="lang-selector">
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="java">java</a>
-              <a href="#" data-language-name="js">js</a>
-        </div>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
-      <div id="toc">
-      </div>
-        <ul class="toc-footer">
-            <li><a href='/'>API Documentation</a></li>
-            <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
-        </ul>
-    </div>
-    <div class="page-wrapper">
-      <div class="dark-box"></div>
-      <div class="content">
-        <h1 id="client-module-overview">Client Module Overview</h1>
+<h1 id="client-module-overview">Client Module Overview</h1>
 
 <p>emojidex tools are generally developed with the same composition. Each Module implements a
 Collection class which is used to store and access all the emoji information. Extensions to 
@@ -55,7 +7,7 @@ may also come packaged with front end tools that automatically implement text ar
 automatically embedded, input tools such as soft keboards and searching etc. As a general 
 guideline to where emojidex modules or libraries fit in your application we made this chart 
 &hellip; entirely out of emoji.
-<img alt="service to module to app" src="images/service-module-app.svg" /></p>
+<img alt="service to module to app" src="/images/service-module-app.svg" /></p>
 
 <ul>
 <li>Assets are stored on the content delivery network at assets.emojidex.com.</li>
@@ -134,15 +86,3 @@ Bundling emojidex assets statically with your application may violate the allowa
 emojidex Open License. To avoid this, either use up-to-date versions of standard clents or implement 
 under the guidelines set fourth by the emojidex General License Terms and Conditions.
 </aside>
-
-      </div>
-      <div class="dark-box">
-          <div class="lang-selector">
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="java">java</a>
-                <a href="#" data-language-name="js">js</a>
-          </div>
-      </div>
-    </div>
-  </body>
-</html>
