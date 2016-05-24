@@ -4,6 +4,7 @@ title: emojidex API Reference
 language_tabs:
   - shell
   - ruby
+  - c++
   - javascript
   - java
 

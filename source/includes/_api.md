@@ -2,6 +2,7 @@
 language_tabs:
   - shell
   - ruby
+  - c++
   - javascript
   - java
 ---
@@ -41,6 +42,10 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d user=WhoEver -d passwo
 
 ```ruby
 # coming soon
+```
+
+```c++
+// Using libemojidex
 ```
 
 ```javascript
@@ -383,6 +388,19 @@ category | string | the category code (EG: "faces" or "food") you wish to limit 
 limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+sort | string | [Pro only] determines the sort order of the emoji returned.
+
+*Sort Types*
+
+Sort Code | Effect
+--------- | ------
+score | (Default) Organizes results with higher scores first.
+unpopular | The opposite of score - results are organized with lowest score first.
+newest | Newer emoji are returned first.
+oldest | Older emoji are returned first.
+liked | emoji favorited by more users are returned first.
+unliked | emoji favoreted by fewer users are returned first.
+shortest | emoji with shorter emoji codes are returned first.
 
 *Return Data*
 
@@ -434,6 +452,8 @@ category | string | the category code (EG: "faces" or "food") you wish to limit 
 limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+
+*Return Codes*
 
 HTTP | Message
 ---- | -------
@@ -733,6 +753,19 @@ Name | Type | Description
 limit | integer | amount of emoji to return per page
 page | integer | page number
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+sort | string | [Pro only] determines the sort order of the emoji returned.
+
+*Sort Types*
+
+Sort Code | Effect
+--------- | ------
+score | (Default) Organizes results with higher scores first.
+unpopular | The opposite of score - results are organized with lowest score first.
+newest | Newer emoji are returned first.
+oldest | Older emoji are returned first.
+liked | emoji favorited by more users are returned first.
+unliked | emoji favoreted by fewer users are returned first.
+shortest | emoji with shorter emoji codes are returned first.
 
 *Return Data*
 
@@ -1088,3 +1121,74 @@ HTTP | Message
 ┏emoji_code: the :code: of the emoji  
 ┣times_used: the total number of times used by this users  
 ┗last_used: the :code: of the emoji  
+
+## Following / Followers
+
+> Get a list of the users you are following:
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/users/following -d auth_token=1234567890abcdef
+```
+
+> A successful request will retrun an array of user names:
+
+```json
+{"following":["emojidex","Zero"]}
+```
+
+> Get a list of users that are following you (Pro/Premium only):
+
+```shell
+curl -X GET https://www.emojidex.com/api/v1/users/followers -d auth_token=1234567890abcdef
+```
+
+> A successful request will retrun an array of user names:
+
+```json
+{"followers":["emojidex","Zero"]}
+```
+
+By querying the /api/v1/users/following endpoint you can get a list of the user names of the 
+users you are following. If you are a Premium or Pro user you can also access a list of users 
+who are following you.
+
+#### Following
+List of users you are following.
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+auth_token | string | user auth token
+
+*Return Status*
+
+HTTP | Message
+---- | -------
+200  | a list of the users you are following
+401  | {"status":"wrong authentication token"}
+
+*Return Data*
+
+・following[]: an array of the users you are following (an empty array [] if none) 
+
+#### Followers
+List of users who are following you (Premium or Pro accounts only).
+
+*Parameters*
+
+Name | Type | Description
+---- | ---- | -----------
+auth_token | string | user auth token
+
+*Return Status*
+
+HTTP | Message
+---- | -------
+200  | a list of the users who are following you
+401  | {"status":"wrong authentication token"}
+402  | {"status":"resource limited to premium/pro users"}
+
+*Return Data*
+
+・followers[]: an array of the users who are following you (an empty array [] if none) 
