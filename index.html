@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>emojidex API Reference</title>
 
-    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -88,10 +86,12 @@
   color: #90a959;
 }
     </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;javascript&quot;,&quot;java&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;c++&quot;,&quot;javascript&quot;,&quot;java&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -103,6 +103,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="ruby">ruby</a>
+              <a href="#" data-language-name="c++">c++</a>
               <a href="#" data-language-name="javascript">javascript</a>
               <a href="#" data-language-name="java">java</a>
         </div>
@@ -200,6 +201,8 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">user<
 </code></pre>
 <pre class="highlight ruby"><code><span class="c1"># coming soon</span>
 </code></pre>
+<pre class="highlight cpp"><code><span class="c1">// Using libemojidex
+</span></code></pre>
 <pre class="highlight javascript"><code><span class="c1">// Using the emojidex-web-client</span>
 <span class="nx">emojidex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EmojidexClient</span><span class="p">();</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">login</span><span class="p">({</span><span class="s1">'authtype'</span><span class="p">:</span> <span class="s1">'plain'</span><span class="p">,</span> <span class="s1">'username'</span><span class="p">:</span> <span class="s1">'MeMeMe'</span><span class="p">,</span> <span class="s1">'password'</span><span class="p">:</span> <span class="s1">'******'</span><span class="p">});</span>
@@ -584,6 +587,49 @@ Newer and more popular emoji will show up first.
 <td>bool</td>
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
+<tr>
+<td>sort</td>
+<td>string</td>
+<td>[Pro only] determines the sort order of the emoji returned.</td>
+</tr>
+</tbody></table>
+
+<p><em>Sort Types</em></p>
+
+<table><thead>
+<tr>
+<th>Sort Code</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>score</td>
+<td>(Default) Organizes results with higher scores first.</td>
+</tr>
+<tr>
+<td>unpopular</td>
+<td>The opposite of score - results are organized with lowest score first.</td>
+</tr>
+<tr>
+<td>newest</td>
+<td>Newer emoji are returned first.</td>
+</tr>
+<tr>
+<td>oldest</td>
+<td>Older emoji are returned first.</td>
+</tr>
+<tr>
+<td>liked</td>
+<td>emoji favorited by more users are returned first.</td>
+</tr>
+<tr>
+<td>unliked</td>
+<td>emoji favoreted by fewer users are returned first.</td>
+</tr>
+<tr>
+<td>shortest</td>
+<td>emoji with shorter emoji codes are returned first.</td>
+</tr>
 </tbody></table>
 
 <p><em>Return Data</em></p>
@@ -656,6 +702,8 @@ This resource can only be accessed by pro or premium users.
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
 </tr>
 </tbody></table>
+
+<p><em>Return Codes</em></p>
 
 <table><thead>
 <tr>
@@ -1042,6 +1090,49 @@ the code you are checking for).
 <td>detailed</td>
 <td>bool</td>
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>string</td>
+<td>[Pro only] determines the sort order of the emoji returned.</td>
+</tr>
+</tbody></table>
+
+<p><em>Sort Types</em></p>
+
+<table><thead>
+<tr>
+<th>Sort Code</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>score</td>
+<td>(Default) Organizes results with higher scores first.</td>
+</tr>
+<tr>
+<td>unpopular</td>
+<td>The opposite of score - results are organized with lowest score first.</td>
+</tr>
+<tr>
+<td>newest</td>
+<td>Newer emoji are returned first.</td>
+</tr>
+<tr>
+<td>oldest</td>
+<td>Older emoji are returned first.</td>
+</tr>
+<tr>
+<td>liked</td>
+<td>emoji favorited by more users are returned first.</td>
+</tr>
+<tr>
+<td>unliked</td>
+<td>emoji favoreted by fewer users are returned first.</td>
+</tr>
+<tr>
+<td>shortest</td>
+<td>emoji with shorter emoji codes are returned first.</td>
 </tr>
 </tbody></table>
 
@@ -1540,6 +1631,124 @@ added.</p>
 ┣times_used: the total number of times used by this users<br>
 ┗last_used: the :code: of the emoji  </p>
 
+<h2 id="following-followers">Following / Followers</h2>
+
+<blockquote>
+<p>Get a list of the users you are following:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/following -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
+</code></pre>
+
+<blockquote>
+<p>A successful request will retrun an array of user names:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"following"</span><span class="p">:[</span><span class="s2">"emojidex"</span><span class="p">,</span><span class="s2">"Zero"</span><span class="p">]}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Get a list of users that are following you (Pro/Premium only):</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/followers -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
+</code></pre>
+
+<blockquote>
+<p>A successful request will retrun an array of user names:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"followers"</span><span class="p">:[</span><span class="s2">"emojidex"</span><span class="p">,</span><span class="s2">"Zero"</span><span class="p">]}</span><span class="w">
+</span></code></pre>
+
+<p>By querying the /api/v1/users/following endpoint you can get a list of the user names of the 
+users you are following. If you are a Premium or Pro user you can also access a list of users 
+who are following you.</p>
+
+<h4 id="following">Following</h4>
+
+<p>List of users you are following.</p>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>auth_token</td>
+<td>string</td>
+<td>user auth token</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Status</em></p>
+
+<table><thead>
+<tr>
+<th>HTTP</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>a list of the users you are following</td>
+</tr>
+<tr>
+<td>401</td>
+<td>{&ldquo;status&rdquo;:&ldquo;wrong authentication token&rdquo;}</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Data</em></p>
+
+<p>・following[]: an array of the users you are following (an empty array [] if none) </p>
+
+<h4 id="followers">Followers</h4>
+
+<p>List of users who are following you (Premium or Pro accounts only).</p>
+
+<p><em>Parameters</em></p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>auth_token</td>
+<td>string</td>
+<td>user auth token</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Status</em></p>
+
+<table><thead>
+<tr>
+<th>HTTP</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>a list of the users who are following you</td>
+</tr>
+<tr>
+<td>401</td>
+<td>{&ldquo;status&rdquo;:&ldquo;wrong authentication token&rdquo;}</td>
+</tr>
+<tr>
+<td>402</td>
+<td>{&ldquo;status&rdquo;:&ldquo;resource limited to premium/pro users&rdquo;}</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Data</em></p>
+
+<p>・followers[]: an array of the users who are following you (an empty array [] if none) </p>
+
           <h1 id="assets">Assets</h1>
 
 <h2 id="assets-cdn-address">Assets [CDN] Address</h2>
@@ -1742,6 +1951,7 @@ most messaging clients or social media feeds without distortion or any degrade i
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="ruby">ruby</a>
+                <a href="#" data-language-name="c++">c++</a>
                 <a href="#" data-language-name="javascript">javascript</a>
                 <a href="#" data-language-name="java">java</a>
           </div>
