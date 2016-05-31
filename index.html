@@ -630,6 +630,10 @@ Newer and more popular emoji will show up first.
 <td>shortest</td>
 <td>emoji with shorter emoji codes are returned first.</td>
 </tr>
+<tr>
+<td>longest</td>
+<td>emoji with longer emoji codes are returned first.</td>
+</tr>
 </tbody></table>
 
 <p><em>Return Data</em></p>
@@ -1133,6 +1137,10 @@ the code you are checking for).
 <tr>
 <td>shortest</td>
 <td>emoji with shorter emoji codes are returned first.</td>
+</tr>
+<tr>
+<td>longest</td>
+<td>emoji with longer emoji codes are returned first.</td>
 </tr>
 </tbody></table>
 
@@ -1646,6 +1654,30 @@ added.</p>
 </span></code></pre>
 
 <blockquote>
+<p>Add a user to your Following list:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -X POST https://www.emojidex.com/api/v1/users/following -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef -d <span class="nv">username</span><span class="o">=</span>emojidex
+</code></pre>
+
+<blockquote>
+<p>A successful request will retrun the user name for confirmation:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"username"</span><span class="p">:</span><span class="s2">"emojidex"</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Remove a user from your following list:</p>
+</blockquote>
+<pre class="highlight shell"><code>curl -X DELETE https://www.emojidex.com/api/v1/users/following -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef -d <span class="nv">username</span><span class="o">=</span>emojidex
+</code></pre>
+
+<blockquote>
+<p>A successful request will retrun the user name for confirmation:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="nt">"username"</span><span class="p">:</span><span class="s2">"emojidex"</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
 <p>Get a list of users that are following you (Pro/Premium only):</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/followers -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
@@ -1662,6 +1694,8 @@ users you are following. If you are a Premium or Pro user you can also access a 
 who are following you.</p>
 
 <h4 id="following">Following</h4>
+
+<p>You can list, add, or remove users you are following.</p>
 
 <p>List of users you are following.</p>
 
