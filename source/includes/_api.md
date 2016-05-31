@@ -401,6 +401,7 @@ oldest | Older emoji are returned first.
 liked | emoji favorited by more users are returned first.
 unliked | emoji favoreted by fewer users are returned first.
 shortest | emoji with shorter emoji codes are returned first.
+longest | emoji with longer emoji codes are returned first.
 
 *Return Data*
 
@@ -766,6 +767,7 @@ oldest | Older emoji are returned first.
 liked | emoji favorited by more users are returned first.
 unliked | emoji favoreted by fewer users are returned first.
 shortest | emoji with shorter emoji codes are returned first.
+longest | emoji with longer emoji codes are returned first.
 
 *Return Data*
 
@@ -1136,6 +1138,30 @@ curl -X GET https://www.emojidex.com/api/v1/users/following -d auth_token=123456
 {"following":["emojidex","Zero"]}
 ```
 
+> Add a user to your Following list:
+
+```shell
+curl -X POST https://www.emojidex.com/api/v1/users/following -d auth_token=1234567890abcdef -d username=emojidex
+```
+
+> A successful request will retrun the user name for confirmation:
+
+```json
+{"username":"emojidex"}
+```
+
+> Remove a user from your following list:
+
+```shell
+curl -X DELETE https://www.emojidex.com/api/v1/users/following -d auth_token=1234567890abcdef -d username=emojidex
+```
+
+> A successful request will retrun the user name for confirmation:
+
+```json
+{"username":"emojidex"}
+```
+
 > Get a list of users that are following you (Pro/Premium only):
 
 ```shell
@@ -1153,6 +1179,9 @@ users you are following. If you are a Premium or Pro user you can also access a 
 who are following you.
 
 #### Following
+You can list, add, or remove users you are following.
+
+
 List of users you are following.
 
 *Parameters*
