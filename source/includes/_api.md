@@ -46,6 +46,8 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d user=WhoEver -d passwo
 
 ```c++
 // Using libemojidex
+Emojidex::Service::User user;
+user.login("MyUser", "my-password");
 ```
 
 ```javascript
@@ -66,6 +68,12 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=MeMeMe -d tok
 
 ```ruby
 # coming soon
+```
+
+```c++
+// Using libemojidex
+Emojidex::Service::User user;
+user.authorize("MyUser", "0123456789abcdef");
 ```
 
 ```javascript
@@ -178,6 +186,13 @@ you are obtaining an auth token. Store auth tokens as securely as possible!
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/utf_emoji
+```
+
+```ruby
+```
+
+```c++
+// Using libemojidex
 ```
 
 > Get all emojidex brand Extended emoji
@@ -311,6 +326,13 @@ replacing (emoji code) with the emoji code you want the information about.
 Name | Type | Description
 ---- | ---- | -----------
 detailed | bool | returns extra information such as upstream asset checksums[md5] when true
+
+*Return Codes*
+
+HTTP | Message
+---- | -------
+200  | emoji information
+404  | {"status":"emoji not found"}
 
 *Return Data*
 
