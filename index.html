@@ -202,7 +202,9 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">user<
 <pre class="highlight ruby"><code><span class="c1"># coming soon</span>
 </code></pre>
 <pre class="highlight cpp"><code><span class="c1">// Using libemojidex
-</span></code></pre>
+</span><span class="n">Emojidex</span><span class="o">::</span><span class="n">Service</span><span class="o">::</span><span class="n">User</span> <span class="n">user</span><span class="p">;</span>
+<span class="n">user</span><span class="p">.</span><span class="n">login</span><span class="p">(</span><span class="s">"MyUser"</span><span class="p">,</span> <span class="s">"my-password"</span><span class="p">);</span>
+</code></pre>
 <pre class="highlight javascript"><code><span class="c1">// Using the emojidex-web-client</span>
 <span class="nx">emojidex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EmojidexClient</span><span class="p">();</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">login</span><span class="p">({</span><span class="s1">'authtype'</span><span class="p">:</span> <span class="s1">'plain'</span><span class="p">,</span> <span class="s1">'username'</span><span class="p">:</span> <span class="s1">'MeMeMe'</span><span class="p">,</span> <span class="s1">'password'</span><span class="p">:</span> <span class="s1">'******'</span><span class="p">});</span>
@@ -216,6 +218,10 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">user<
 <pre class="highlight shell"><code>curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">username</span><span class="o">=</span>MeMeMe -d <span class="nv">token</span><span class="o">=</span>0123456789abcdef
 </code></pre>
 <pre class="highlight ruby"><code><span class="c1"># coming soon</span>
+</code></pre>
+<pre class="highlight cpp"><code><span class="c1">// Using libemojidex
+</span><span class="n">Emojidex</span><span class="o">::</span><span class="n">Service</span><span class="o">::</span><span class="n">User</span> <span class="n">user</span><span class="p">;</span>
+<span class="n">user</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"MyUser"</span><span class="p">,</span> <span class="s">"0123456789abcdef"</span><span class="p">);</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="c1">// Using the emojidex-web-client</span>
 <span class="c1">// coming soon</span>
@@ -348,6 +354,9 @@ you are obtaining an auth token. Store auth tokens as securely as possible!
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/utf_emoji
 </code></pre>
+<pre class="highlight ruby"><code></code></pre>
+<pre class="highlight cpp"><code><span class="c1">// Using libemojidex
+</span></code></pre>
 
 <blockquote>
 <p>Get all emojidex brand Extended emoji</p>
@@ -505,6 +514,24 @@ replacing (emoji code) with the emoji code you want the information about.</p>
 <td>detailed</td>
 <td>bool</td>
 <td>returns extra information such as upstream asset checksums[md5] when true</td>
+</tr>
+</tbody></table>
+
+<p><em>Return Codes</em></p>
+
+<table><thead>
+<tr>
+<th>HTTP</th>
+<th>Message</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>emoji information</td>
+</tr>
+<tr>
+<td>404</td>
+<td>{&ldquo;status&rdquo;:&ldquo;emoji not found&rdquo;}</td>
 </tr>
 </tbody></table>
 
