@@ -1,15 +1,10 @@
 #Assets
 
 ## Assets [CDN] Address
-`http://cdn.emojidex.com`
-
-Note that this is not (currently) an HTTPS address. Assets are currently hosted on 
-cloud front with an S3 backend. To get the HTTPS address you need to either query the 
-enviornment information through the API or simply use the CDN address and accept 
-certs from cloudfront.
+`https://cdn.emojidex.com`
 
 <aside class="notice">
-The S3 instance at assets.emojidex.com may also be used but it will likely be much 
+The S3 instance at http://assets.emojidex.com may also be used but it will likely be much 
 slower. There is no real benefit to using assets.emojidex.com over cdn.emojidex.com.
 </aside>
 
@@ -36,7 +31,7 @@ certainly consider it.
 </aside>
 
 <aside class="notice">
-NO, we will NOT offer animated GIF. Ever. Don't ask. Animated GIF is proven 
+We will not be offering animated GIF. Animated GIF is proven 
 to be inferior in quality, size and features when compared to Animated PNG. 
 If your platform does not support Animated PNG then submit a feature request 
 FOR YOUR PLATFORM. There are already issues up for 
@@ -50,13 +45,13 @@ and
 > Get the 32px PNG image for :blush:
 
 ```text
-http://assets.emojidex.com/emoji/px32/blush.png
+https://cdn.emojidex.com/emoji/px32/blush.png
 ```
 
 > Get the SVG image for :blush:
 
 ```text
-http://assets.emojidex.com/emoji/blush.svg
+https://cdn.emojidex.com/emoji/blush.svg
 ```
 
 Assets can be found on the Content Delivery Network under structured 
@@ -67,8 +62,8 @@ For example, the emoji code "blush" would have PNG images named "blush.png".
 
 All emoji on www.emojidex.com can be found under /emoji, with the root /emoji containing SVG 
 images:  
-`http://assets.emojidex.com/emoji/blush.svg`  
-![blush emoji](http://assets.emojidex.com/emoji/blush.svg)
+`https://cdn.emojidex.com/emoji/blush.svg`  
+![blush emoji](https://cdn.emojidex.com/emoji/blush.svg)
 
 PNG images come in a variety of sizes:  
 ```json
@@ -82,21 +77,21 @@ high.
 
 display | size | address
 ------- | ---- | -------
-![blush emoji](http://assets.emojidex.com/emoji/ldpi/blush.png)  | ldpi  | http://assets.emojidex.com/emoji/ldpi/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/mdpi/blush.png)  | mdpi  | http://assets.emojidex.com/emoji/mdpi/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/hdpi/blush.png)  | hdpi  | http://assets.emojidex.com/emoji/hdpi/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/xhdpi/blush.png) | xhdpi | http://assets.emojidex.com/emoji/xhdpi/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/xxhdpi/blush.png) | xxhdpi | http://assets.emojidex.com/emoji/xxhdpi/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/xxxhdpi/blush.png) | xxxhdpi | http://assets.emojidex.com/emoji/xxxhdpi/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/px8/blush.png)   | px8   | http://assets.emojidex.com/emoji/px8/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/px16/blush.png)  | px16  | http://assets.emojidex.com/emoji/px16/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/px32/blush.png)  | px32  | http://assets.emojidex.com/emoji/px32/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/px64/blush.png)  | px64  | http://assets.emojidex.com/emoji/px64/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/px128/blush.png) | px128 | http://assets.emojidex.com/emoji/px128/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/px256/blush.png) | px256 | http://assets.emojidex.com/emoji/px256/blush.png
-[(image too big, click here to see)](http://assets.emojidex.com/emoji/px512/blush.png) | px512 | http://assets.emojidex.com/emoji/px512/blush.png
-![blush emoji](http://assets.emojidex.com/emoji/hanko/blush.png) | hanko | http://assets.emojidex.com/emoji/hanko/blush.png
-[(image too big, click here to see)](http://assets.emojidex.com/emoji/seal/blush.png) | seal | http://assets.emojidex.com/emoji/seal/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/ldpi/blush.png)  | ldpi  | https://cdn.emojidex.com/emoji/ldpi/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/mdpi/blush.png)  | mdpi  | https://cdn.emojidex.com/emoji/mdpi/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/hdpi/blush.png)  | hdpi  | https://cdn.emojidex.com/emoji/hdpi/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/xhdpi/blush.png) | xhdpi | https://cdn.emojidex.com/emoji/xhdpi/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/xxhdpi/blush.png) | xxhdpi | https://cdn.emojidex.com/emoji/xxhdpi/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/xxxhdpi/blush.png) | xxxhdpi | https://cdn.emojidex.com/emoji/xxxhdpi/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/px8/blush.png)   | px8   | https://cdn.emojidex.com/emoji/px8/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/px16/blush.png)  | px16  | https://cdn.emojidex.com/emoji/px16/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/px32/blush.png)  | px32  | https://cdn.emojidex.com/emoji/px32/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/px64/blush.png)  | px64  | https://cdn.emojidex.com/emoji/px64/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/px128/blush.png) | px128 | https://cdn.emojidex.com/emoji/px128/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/px256/blush.png) | px256 | https://cdn.emojidex.com/emoji/px256/blush.png
+[(image too big, click here to see)](https://cdn.emojidex.com/emoji/px512/blush.png) | px512 | https://cdn.emojidex.com/emoji/px512/blush.png
+![blush emoji](https://cdn.emojidex.com/emoji/hanko/blush.png) | hanko | https://cdn.emojidex.com/emoji/hanko/blush.png
+[(image too big, click here to see)](https://cdn.emojidex.com/emoji/seal/blush.png) | seal | https://cdn.emojidex.com/emoji/seal/blush.png
 
 <aside class="warning">
 Only obtian the images you need only in the size that matches your use case or the nearest size 
@@ -108,10 +103,10 @@ some emoji images please limit it to only a few (eg. 10 or less).
 </aside>
 
 In general small text will usually be best with an emoji 
-size of about ldpi ![blush emoji](http://assets.emojidex.com/emoji/ldpi/blush.png) 
-and web text will be around mdpi ![blush emoji](http://assets.emojidex.com/emoji/mdpi/blush.png). 
+size of about ldpi ![blush emoji](https://cdn.emojidex.com/emoji/ldpi/blush.png) 
+and web text will be around mdpi ![blush emoji](https://cdn.emojidex.com/emoji/mdpi/blush.png). 
 Thicker text readable on handsets will usually be around hdpi 
-![blush emoji](http://assets.emojidex.com/emoji/hdpi/blush.png). Android developers will note the 
+![blush emoji](https://cdn.emojidex.com/emoji/hdpi/blush.png). Android developers will note the 
 naming conventions coincide with standard asset quality naming conventions; they are in fact 
 sized to be compatible with Android standard sizing. iOS and other platforms should find this 
 sizing convention entirely compatible with native sizing guidelines.  

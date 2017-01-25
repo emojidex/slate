@@ -10,6 +10,7 @@ language_tabs:
 
 toc_footers:
   - <a href='/clients.html'>Client Documentation</a>
+  - <a href='/coc.html'>Anti CoC</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
