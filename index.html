@@ -14,11 +14,11 @@
   background-color: #272822;
 }
 .highlight .err {
-  color: #151515;
-  background-color: #ac4142;
+  color: #272822;
+  background-color: #f92672;
 }
 .highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
-  color: #505050;
+  color: #75715e;
 }
 .highlight .cp {
   color: #f4bf75;
@@ -27,45 +27,45 @@
   color: #f4bf75;
 }
 .highlight .o, .highlight .ow {
-  color: #d0d0d0;
+  color: #f8f8f2;
 }
 .highlight .p, .highlight .pi {
-  color: #d0d0d0;
+  color: #f8f8f2;
 }
 .highlight .gi {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .gd {
-  color: #ac4142;
+  color: #f92672;
 }
 .highlight .gh {
-  color: #6a9fb5;
-  background-color: #151515;
+  color: #66d9ef;
+  background-color: #272822;
   font-weight: bold;
 }
 .highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
-  color: #aa759f;
+  color: #ae81ff;
 }
 .highlight .kc {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .kt {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .kd {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .sr {
-  color: #75b5aa;
+  color: #a1efe4;
 }
 .highlight .si {
-  color: #8f5536;
+  color: #cc6633;
 }
 .highlight .se {
-  color: #8f5536;
+  color: #cc6633;
 }
 .highlight .nn {
   color: #f4bf75;
@@ -77,13 +77,13 @@
   color: #f4bf75;
 }
 .highlight .na {
-  color: #6a9fb5;
+  color: #66d9ef;
 }
 .highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .ss {
-  color: #90a959;
+  color: #a6e22e;
 }
     </style>
     <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
@@ -95,11 +95,11 @@
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar.png" />
+        <img src="images/navbar.png" alt="Navbar" />
       </span>
     </a>
     <div class="tocify-wrapper">
-      <img src="images/logo.png" />
+      <img src="images/logo.png" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="ruby">ruby</a>
@@ -115,6 +115,7 @@
       </div>
         <ul class="toc-footer">
             <li><a href='/clients.html'>Client Documentation</a></li>
+            <li><a href='/coc.html'>Anti CoC</a></li>
             <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -164,7 +165,17 @@ widgets, and to enter and parse text with emoji is made as easy as simple as pos
 are obtained from the content delivery network for the emojidex Service so you don&rsquo;t need to 
 cache any emoji on your server or worry about any assets or images on your own server.</p>
 
-          <h1 id="api">API</h1>
+          <hr>
+
+<p>language_tabs:
+  - shell
+  - ruby
+  - c++
+  - javascript</p>
+
+<h2 id="java">  - java</h2>
+
+<h1 id="api">API</h1>
 
 <aside class="notice">
 This documenation is for Version 1 of the API.
@@ -198,60 +209,44 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">usern
 curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">user</span><span class="o">=</span>whoever@emojidex.com -d <span class="nv">password</span><span class="o">=</span><span class="k">********</span>
 <span class="c"># or</span>
 curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">user</span><span class="o">=</span>WhoEver -d <span class="nv">password</span><span class="o">=</span><span class="k">********</span>
-</code></pre>
-<pre class="highlight ruby"><code><span class="c1"># coming soon</span>
-</code></pre>
-<pre class="highlight cpp"><code><span class="c1">// Using libemojidex
+</code></pre><pre class="highlight ruby"><code><span class="c1"># coming soon</span>
+</code></pre><pre class="highlight cpp"><code><span class="c1">// Using libemojidex
 </span><span class="n">Emojidex</span><span class="o">::</span><span class="n">Service</span><span class="o">::</span><span class="n">User</span> <span class="n">user</span><span class="p">;</span>
 <span class="n">user</span><span class="p">.</span><span class="n">login</span><span class="p">(</span><span class="s">"MyUser"</span><span class="p">,</span> <span class="s">"my-password"</span><span class="p">);</span>
-</code></pre>
-<pre class="highlight javascript"><code><span class="c1">// Using the emojidex-web-client</span>
+</code></pre><pre class="highlight javascript"><code><span class="c1">// Using the emojidex-web-client</span>
 <span class="nx">emojidex</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EmojidexClient</span><span class="p">();</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">login</span><span class="p">({</span><span class="s1">'authtype'</span><span class="p">:</span> <span class="s1">'plain'</span><span class="p">,</span> <span class="s1">'username'</span><span class="p">:</span> <span class="s1">'MeMeMe'</span><span class="p">,</span> <span class="s1">'password'</span><span class="p">:</span> <span class="s1">'******'</span><span class="p">});</span>
+</code></pre><pre class="highlight java"><code><span class="c1">// coming soon</span>
 </code></pre>
-<pre class="highlight java"><code><span class="c1">// coming soon</span>
-</code></pre>
-
 <blockquote>
 <p>Token confirmation:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET www.emojidex.com/api/v1/users/authenticate -d <span class="nv">username</span><span class="o">=</span>MeMeMe -d <span class="nv">token</span><span class="o">=</span>0123456789abcdef
-</code></pre>
-<pre class="highlight ruby"><code><span class="c1"># coming soon</span>
-</code></pre>
-<pre class="highlight cpp"><code><span class="c1">// Using libemojidex
+</code></pre><pre class="highlight ruby"><code><span class="c1"># coming soon</span>
+</code></pre><pre class="highlight cpp"><code><span class="c1">// Using libemojidex
 </span><span class="n">Emojidex</span><span class="o">::</span><span class="n">Service</span><span class="o">::</span><span class="n">User</span> <span class="n">user</span><span class="p">;</span>
 <span class="n">user</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">"MyUser"</span><span class="p">,</span> <span class="s">"0123456789abcdef"</span><span class="p">);</span>
-</code></pre>
-<pre class="highlight javascript"><code><span class="c1">// Using the emojidex-web-client</span>
+</code></pre><pre class="highlight javascript"><code><span class="c1">// Using the emojidex-web-client</span>
 <span class="c1">// coming soon</span>
+</code></pre><pre class="highlight java"><code><span class="c1">// coming soon</span>
 </code></pre>
-<pre class="highlight java"><code><span class="c1">// coming soon</span>
-</code></pre>
-
 <blockquote>
 <p>When authentication / confirmation succeeds something like the following JSON is returned:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="nt">"auth_status"</span><span class="p">:</span><span class="s2">"verified"</span><span class="p">,</span><span class="nt">"auth_user"</span><span class="p">:</span><span class="s2">"MyUserName"</span><span class="p">,</span><span class="nt">"auth_token"</span><span class="p">:</span><span class="s2">"0123456789abcdef"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"pro"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nt">"pro_exp"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"premium"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"premium_exp"</span><span class="p">:</span><span class="s2">"2016-10-22T15:18:33.926+00:00"</span><span class="p">,</span><span class="w"> </span><span class="nt">"r18"</span><span class="p">:</span><span class="kc">false</span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>When authentication fails the follwing JSON is returned:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="nt">"auth_status"</span><span class="p">:</span><span class="s2">"unverified"</span><span class="p">,</span><span class="nt">"auth_token"</span><span class="p">:</span><span class="kc">null</span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Token utilization example:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight javascript"><code><span class="c1">// the emojidex web client will automatically insert auth keys for you</span>
-</code></pre>
-<pre class="highlight java"><code></code></pre>
-
+</code></pre><pre class="highlight ruby"><code></code></pre><pre class="highlight javascript"><code><span class="c1">// the emojidex web client will automatically insert auth keys for you</span>
+</code></pre><pre class="highlight java"><code></code></pre>
 <h3 id="auth-tokens">Auth Tokens</h3>
 
 <p>Each user is granted an auth token which gives them access to their own personal resources. 
@@ -353,35 +348,28 @@ you are obtaining an auth token. Store auth tokens as securely as possible!
 <p>Get all UTF [standrd] emoji</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/utf_emoji
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight cpp"><code><span class="c1">// Using libemojidex
+</code></pre><pre class="highlight ruby"><code></code></pre><pre class="highlight cpp"><code><span class="c1">// Using libemojidex
 </span></code></pre>
-
 <blockquote>
 <p>Get all emojidex brand Extended emoji</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/extended_emoji
 </code></pre>
-
 <blockquote>
 <p>Get all UTF [standard] emoji with Japanese codes</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/utf_emoji -d <span class="nv">locale</span><span class="o">=</span>ja
 </code></pre>
-
 <blockquote>
 <p>Get all emojidex brand Extended emoji with Japanese codes</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/extended_emoji -d <span class="nv">locale</span><span class="o">=</span>ja
 </code></pre>
-
 <blockquote>
 <p>Get moji code indexes</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/moji_codes
 </code></pre>
-
 <blockquote>
 <p>The returned data contains three major indexes.</p>
 </blockquote>
@@ -395,13 +383,11 @@ you are obtaining an auth token. Store auth tokens as securely as possible!
   </span><span class="nt">"moji_index"</span><span class="p">:{</span><span class="nt">"⛲"</span><span class="p">:</span><span class="s2">"fountain"</span><span class="p">,</span><span class="nt">"⛳"</span><span class="p">:</span><span class="s2">"golf"</span><span class="p">,</span><span class="nt">"⛺"</span><span class="p">:</span><span class="s2">"tent"</span><span class="p">,</span><span class="nt">"⛽"</span><span class="p">:</span><span class="s2">"fuelpump"</span><span class="p">,</span><span class="w"> </span><span class="err">...}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Get moji code indexes with Japanese codes</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/moji_codes -d <span class="nv">locale</span><span class="o">=</span>ja
 </code></pre>
-
 <p>Generally you&rsquo;ll want to have a selection of emoji available immediately. Usually that will at least 
 consist of the standardized UTF/Unicode emoji. A semi-static index is available at api/v1/utf_emoji .
 If you only need the codes, a combined string for regex filtering, or an index of character code to 
@@ -487,17 +473,12 @@ English or Japanese.</p>
 <p>GET /emoji/sushi</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji/sushi
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight javascript"><code></code></pre>
-<pre class="highlight java"><code></code></pre>
-
+</code></pre><pre class="highlight ruby"><code></code></pre><pre class="highlight javascript"><code></code></pre><pre class="highlight java"><code></code></pre>
 <blockquote>
 <p>Information about the &ldquo;sushi&rdquo; emoji is retruned:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"sushi"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="s2">"🍣"</span><span class="p">,</span><span class="nt">"unicode"</span><span class="p">:</span><span class="s2">"1f363"</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[]}</span><span class="w">
 </span></code></pre>
-
 <p>To get information about a particular emoji simply query they /emoji/(emoji code) endpoint, 
 replacing (emoji code) with the emoji code you want the information about.</p>
 
@@ -553,32 +534,20 @@ replacing (emoji code) with the emoji code you want the information about.</p>
 <p>GET /emoji</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Indexes</span><span class="p">.</span><span class="nx">index</span><span class="p">();</span>
-</code></pre>
-<pre class="highlight java"><code></code></pre>
-
+</code></pre><pre class="highlight ruby"><code></code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Indexes</span><span class="p">.</span><span class="nx">index</span><span class="p">();</span>
+</code></pre><pre class="highlight java"><code></code></pre>
 <blockquote>
 <p>GET /emoji detailed=true</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji -d <span class="nv">detailed</span><span class="o">=</span><span class="nb">true</span>
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Indexes</span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span><span class="s1">'detailed'</span><span class="p">:</span> <span class="kc">true</span><span class="p">});</span>
-</code></pre>
-<pre class="highlight java"><code></code></pre>
-
+</code></pre><pre class="highlight ruby"><code></code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Indexes</span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span><span class="s1">'detailed'</span><span class="p">:</span> <span class="kc">true</span><span class="p">});</span>
+</code></pre><pre class="highlight java"><code></code></pre>
 <blockquote>
 <p>GET /emoji limit=50 page=2</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/emoji -d <span class="nv">page</span><span class="o">=</span>2 -d <span class="nv">limit</span><span class="o">=</span>50
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Indexes</span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span><span class="s1">'page'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'limit'</span><span class="p">:</span> <span class="mi">50</span><span class="p">});</span>
-</code></pre>
-<pre class="highlight java"><code></code></pre>
-
+</code></pre><pre class="highlight ruby"><code></code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Indexes</span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span><span class="s1">'page'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'limit'</span><span class="p">:</span> <span class="mi">50</span><span class="p">});</span>
+</code></pre><pre class="highlight java"><code></code></pre>
 <p>Gets a general index of emoji, sorted by score.<br>
 <aside class="notice">
 This index is ordered by a combination of registration date and popularity. 
@@ -686,12 +655,8 @@ Newer and more popular emoji will show up first.
 <p>GET /newest</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/newest
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Indexes</span><span class="p">.</span><span class="nx">newest</span><span class="p">();</span>
-</code></pre>
-<pre class="highlight java"><code></code></pre>
-
+</code></pre><pre class="highlight ruby"><code></code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Indexes</span><span class="p">.</span><span class="nx">newest</span><span class="p">();</span>
+</code></pre><pre class="highlight java"><code></code></pre>
 <p>Gets a general index of emoji sorted by registration date.  </p>
 
 <aside class="notice">
@@ -779,12 +744,8 @@ This resource can only be accessed by pro or premium users.
 <p>GET /popular</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/popular
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Indexes</span><span class="p">.</span><span class="nx">popular</span><span class="p">();</span>
-</code></pre>
-<pre class="highlight java"><code></code></pre>
-
+</code></pre><pre class="highlight ruby"><code></code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Indexes</span><span class="p">.</span><span class="nx">popular</span><span class="p">();</span>
+</code></pre><pre class="highlight java"><code></code></pre>
 <p>Gets a general index of emoji sorted by popularity (times favorited).  </p>
 
 <aside class="notice">
@@ -872,15 +833,11 @@ This resource can only be accessed by pro or premium users.
 <p>GET /categories</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/categories
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight javascript"><code><span class="c1">// categories should be pre-cached</span>
+</code></pre><pre class="highlight ruby"><code></code></pre><pre class="highlight javascript"><code><span class="c1">// categories should be pre-cached</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">Categories</span><span class="p">.</span><span class="nx">all</span><span class="p">()</span>
 <span class="c1">// you can actively obtain categories from the server</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">Categories</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
-</code></pre>
-<pre class="highlight java"><code></code></pre>
-
+</code></pre><pre class="highlight java"><code></code></pre>
 <blockquote>
 <p>Returns category info</p>
 </blockquote>
@@ -898,17 +855,12 @@ This resource can only be accessed by pro or premium users.
 </span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Transportation"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"transportation"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">277</span><span class="p">}],</span><span class="w">
 </span><span class="nt">"meta"</span><span class="p">:{</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="nt">"total_count"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="nt">"page"</span><span class="p">:</span><span class="mi">1</span><span class="p">}}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>GET /categories locale=ja</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/categories -d <span class="nv">locale</span><span class="o">=</span>ja
-</code></pre>
-<pre class="highlight ruby"><code></code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Categories</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'ja'</span><span class="p">);</span>
-</code></pre>
-<pre class="highlight java"><code></code></pre>
-
+</code></pre><pre class="highlight ruby"><code></code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Categories</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'ja'</span><span class="p">);</span>
+</code></pre><pre class="highlight java"><code></code></pre>
 <blockquote>
 <p>Returns category info with Japanese names</p>
 </blockquote>
@@ -926,7 +878,6 @@ This resource can only be accessed by pro or premium users.
 </span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"乗り物"</span><span class="p">,</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"transportation"</span><span class="p">,</span><span class="nt">"emoji_count"</span><span class="p">:</span><span class="mi">277</span><span class="p">}],</span><span class="w">
 </span><span class="nt">"meta"</span><span class="p">:{</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="nt">"total_count"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="nt">"page"</span><span class="p">:</span><span class="mi">1</span><span class="p">}}</span><span class="w">
 </span></code></pre>
-
 <p>Gets a list of categoires, including category codes (used in searching) and [localized] titles.</p>
 
 <aside class="notice">
@@ -977,58 +928,44 @@ categories that you&rsquo;d need to use them. The defaults will give you a full 
 <p>Search for emoji with code containing &ldquo;heart&rdquo;</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart
+</code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="s2">"heart"</span><span class="p">);</span>
 </code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="s2">"heart"</span><span class="p">);</span>
-</code></pre>
-
 <blockquote>
 <p>Search for emoji with code starting with &ldquo;heart&rdquo;</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_sw</span><span class="o">=</span>heart
+</code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">starting</span><span class="p">(</span><span class="s2">"heart"</span><span class="p">);</span>
 </code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">starting</span><span class="p">(</span><span class="s2">"heart"</span><span class="p">);</span>
-</code></pre>
-
 <blockquote>
 <p>Search for emoji with code ending with &ldquo;heart&rdquo;</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_ew</span><span class="o">=</span>heart
+</code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">ending</span><span class="p">(</span><span class="s2">"heart"</span><span class="p">);</span>
 </code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">ending</span><span class="p">(</span><span class="s2">"heart"</span><span class="p">);</span>
-</code></pre>
-
 <blockquote>
 <p>Search for emoji with codes containing &ldquo;heart&rdquo; in the category &ldquo;faces&rdquo;</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d categories<span class="se">\[\]</span><span class="o">=</span>faces
+</code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">advanced</span><span class="p">(</span><span class="s2">"heart"</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">'faces'</span><span class="p">]);</span>
 </code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">advanced</span><span class="p">(</span><span class="s2">"heart"</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">'faces'</span><span class="p">]);</span>
-</code></pre>
-
 <blockquote>
 <p>Search for emoji with codes containing &ldquo;heart&rdquo; in either the category &ldquo;faces&rdquo; or &ldquo;abstract&rdquo;</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>heart -d categories<span class="se">\[\]</span><span class="o">=</span>faces -d categories<span class="se">\[\]</span><span class="o">=</span>abstract
+</code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">advanced</span><span class="p">(</span><span class="s2">"heart"</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">'faces'</span><span class="p">,</span> <span class="s1">'abstract'</span><span class="p">]);</span>
 </code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">advanced</span><span class="p">(</span><span class="s2">"heart"</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">'faces'</span><span class="p">,</span> <span class="s1">'abstract'</span><span class="p">]);</span>
-</code></pre>
-
 <blockquote>
 <p>Search for emoji with tag &ldquo;weapon&rdquo; </p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags<span class="se">\[\]</span><span class="o">=</span>weapon
+</code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">tags</span><span class="p">([</span><span class="s2">"weapon"</span><span class="p">]);</span>
 </code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">tags</span><span class="p">([</span><span class="s2">"weapon"</span><span class="p">]);</span>
-</code></pre>
-
 <blockquote>
 <p>Search for emoji where code contains &ldquo;rifle&rdquo;, has the tag &ldquo;weapon&rdquo;, and is in category &ldquo;tools&rdquo;</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/search/emoji -d <span class="nv">code_cont</span><span class="o">=</span>rifle -d tags<span class="se">\[\]</span><span class="o">=</span>weapon -d categories<span class="se">\[\]</span><span class="o">=</span>tools
+</code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">advanced</span><span class="p">(</span><span class="s2">"rifle"</span><span class="p">,</span> <span class="p">[</span><span class="s1">'weapon'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'tools'</span><span class="p">]);</span>
 </code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Search</span><span class="p">.</span><span class="nx">advanced</span><span class="p">(</span><span class="s2">"rifle"</span><span class="p">,</span> <span class="p">[</span><span class="s1">'weapon'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'tools'</span><span class="p">]);</span>
-</code></pre>
-
 <p>The basis for emoji searches is search by emoji code. Searches can be performed for 
 codes that contain a term, start with a term, or end with a term. Alternatively, 
 you can serch for tags, or you can combine a code search with tags to restrict search 
@@ -1194,18 +1131,14 @@ the code you are checking for).
 <p>Get emoji for the user &ldquo;Zero&rdquo;</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/Zero/emoji
+</code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Index</span><span class="p">.</span><span class="nx">user</span><span class="p">(</span><span class="s2">"Zero"</span><span class="p">);</span>
 </code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Index</span><span class="p">.</span><span class="nx">user</span><span class="p">(</span><span class="s2">"Zero"</span><span class="p">);</span>
-</code></pre>
-
 <blockquote>
 <p>Get emoji for the user &ldquo;絵文字&rdquo;</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/絵文字/emoji
+</code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Index</span><span class="p">.</span><span class="nx">user</span><span class="p">(</span><span class="s2">"絵文字"</span><span class="p">);</span>
 </code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">Index</span><span class="p">.</span><span class="nx">user</span><span class="p">(</span><span class="s2">"絵文字"</span><span class="p">);</span>
-</code></pre>
-
 <blockquote>
 <p>Returns a collection</p>
 </blockquote>
@@ -1214,7 +1147,6 @@ the code you are checking for).
 </span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"abstract"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"base"</span><span class="p">:</span><span class="s2">"pink_poo"</span><span class="p">,</span><span class="w">
 </span><span class="nt">"variants"</span><span class="p">:[</span><span class="s2">"pink_poo"</span><span class="p">],</span><span class="nt">"score"</span><span class="p">:</span><span class="mi">340</span><span class="p">}],</span><span class="nt">"meta"</span><span class="p">:{</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">"total_count"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">"page"</span><span class="p">:</span><span class="mi">1</span><span class="p">}}</span><span class="w">
 </span></code></pre>
-
 <p>You can get all emoji registered by a specific user.<br>
 Some special user accounts exist from which you can get the current UTF 
 index, emojidex original extended emoji, etc. These accounts are as 
@@ -1279,39 +1211,30 @@ call without pagination (see above).</p>
 <p>Get favorites:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
-</code></pre>
-<pre class="highlight javascript"><code><span class="c1">// favorites should be pre-cached on login/initialization</span>
+</code></pre><pre class="highlight javascript"><code><span class="c1">// favorites should be pre-cached on login/initialization</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">all</span><span class="p">()</span>
 <span class="c1">// you can actively obtain favorites from the server</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="nt">"emoji"</span><span class="p">:[{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+</code></pre><pre class="highlight json"><code><span class="p">{</span><span class="nt">"emoji"</span><span class="p">:[{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
 </span><span class="nt">"base"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"variants"</span><span class="p">:[</span><span class="s2">"falafel"</span><span class="p">],</span><span class="nt">"score"</span><span class="p">:</span><span class="mi">100</span><span class="p">}],</span><span class="w">
 </span><span class="nt">"meta"</span><span class="p">:{</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"total_count"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"page"</span><span class="p">:</span><span class="mi">1</span><span class="p">}}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Add an emoji to favorites:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X POST https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef -d <span class="nv">emoji_code</span><span class="o">=</span>zebra
-</code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+</code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
+</code></pre><pre class="highlight json"><code><span class="p">{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
 </span><span class="nt">"base"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"variants"</span><span class="p">:[</span><span class="s2">"falafel"</span><span class="p">],</span><span class="nt">"score"</span><span class="p">:</span><span class="mi">106</span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Remove an emoji from favorites:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X DELETE https://www.emojidex.com/api/v1/users/favorites -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef -d <span class="nv">emoji_code</span><span class="o">=</span>zebra
-</code></pre>
-<pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">unset</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
-</code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+</code></pre><pre class="highlight javascript"><code><span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Favorites</span><span class="p">.</span><span class="nx">unset</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
+</code></pre><pre class="highlight json"><code><span class="p">{</span><span class="nt">"code"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"moji"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"unicode"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nt">"category"</span><span class="p">:</span><span class="s2">"food"</span><span class="p">,</span><span class="nt">"tags"</span><span class="p">:[],</span><span class="nt">"link"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
 </span><span class="nt">"base"</span><span class="p">:</span><span class="s2">"falafel"</span><span class="p">,</span><span class="nt">"variants"</span><span class="p">:[</span><span class="s2">"falafel"</span><span class="p">],</span><span class="nt">"score"</span><span class="p">:</span><span class="mi">6</span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <p>Favorites can only be accessed with a token. This resource requires authentication.</p>
 
 <p><strong>Obtaining favorites:</strong><br>
@@ -1518,13 +1441,11 @@ or event driven code].</p>
 <p>Get history:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/history -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
-</code></pre>
-<pre class="highlight javascript"><code><span class="c1">// history is pre-cached on login/initialization</span>
+</code></pre><pre class="highlight javascript"><code><span class="c1">// history is pre-cached on login/initialization</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">History</span><span class="p">.</span><span class="nx">all</span><span class="p">()</span>
 <span class="c1">// you can active obtain history from the server</span>
 <span class="nx">emojidex</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">History</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
 </code></pre>
-
 <blockquote>
 <p>A successful request will return a history array and meta info.</p>
 </blockquote>
@@ -1532,21 +1453,17 @@ or event driven code].</p>
 </span><span class="p">{</span><span class="nt">"emoji_code"</span><span class="p">:</span><span class="s2">"sushi"</span><span class="p">,</span><span class="nt">"times_used"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="nt">"last_used"</span><span class="p">:</span><span class="s2">"2015-12-21T14:16:49.708+00:00"</span><span class="p">}],</span><span class="w">
 </span><span class="nt">"meta"</span><span class="p">:{</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">"total_count"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">"page"</span><span class="p">:</span><span class="mi">1</span><span class="p">}}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Add an emoji to history:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X POST https://www.emojidex.com/api/v1/users/history -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef -d <span class="nv">emoji_code</span><span class="o">=</span>zebra
+</code></pre><pre class="highlight javascript"><code><span class="nx">emoji</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">History</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
 </code></pre>
-<pre class="highlight javascript"><code><span class="nx">emoji</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">History</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">"zebra"</span><span class="p">);</span>
-</code></pre>
-
 <blockquote>
 <p>A successful registration will return the updated history entry:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="nt">"emoji_code"</span><span class="p">:</span><span class="s2">"zebra"</span><span class="p">,</span><span class="nt">"times_used"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"last_used"</span><span class="p">:</span><span class="s2">"2015-11-30T04:18:23.647+00:00"</span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <p>History can only be accessed with a token. This resource requires authentication.</p>
 
 <p><strong>Obtaining history:</strong><br>
@@ -1673,49 +1590,41 @@ added.</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/following -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
 </code></pre>
-
 <blockquote>
 <p>A successful request will retrun an array of user names:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="nt">"following"</span><span class="p">:[</span><span class="s2">"emojidex"</span><span class="p">,</span><span class="s2">"Zero"</span><span class="p">]}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Add a user to your Following list:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X POST https://www.emojidex.com/api/v1/users/following -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef -d <span class="nv">username</span><span class="o">=</span>emojidex
 </code></pre>
-
 <blockquote>
 <p>A successful request will retrun the user name for confirmation:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="nt">"username"</span><span class="p">:</span><span class="s2">"emojidex"</span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Remove a user from your following list:</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X DELETE https://www.emojidex.com/api/v1/users/following -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef -d <span class="nv">username</span><span class="o">=</span>emojidex
 </code></pre>
-
 <blockquote>
 <p>A successful request will retrun the user name for confirmation:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="nt">"username"</span><span class="p">:</span><span class="s2">"emojidex"</span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Get a list of users that are following you (Pro/Premium only):</p>
 </blockquote>
 <pre class="highlight shell"><code>curl -X GET https://www.emojidex.com/api/v1/users/followers -d <span class="nv">auth_token</span><span class="o">=</span>1234567890abcdef
 </code></pre>
-
 <blockquote>
 <p>A successful request will retrun an array of user names:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="nt">"followers"</span><span class="p">:[</span><span class="s2">"emojidex"</span><span class="p">,</span><span class="s2">"Zero"</span><span class="p">]}</span><span class="w">
 </span></code></pre>
-
 <p>By querying the /api/v1/users/following endpoint you can get a list of the user names of the 
 users you are following. If you are a Premium or Pro user you can also access a list of users 
 who are following you.</p>
@@ -1814,15 +1723,10 @@ who are following you.</p>
 
 <h2 id="assets-cdn-address">Assets [CDN] Address</h2>
 
-<p><code class="prettyprint">http://cdn.emojidex.com</code></p>
-
-<p>Note that this is not (currently) an HTTPS address. Assets are currently hosted on 
-cloud front with an S3 backend. To get the HTTPS address you need to either query the 
-enviornment information through the API or simply use the CDN address and accept 
-certs from cloudfront.</p>
+<p><code class="prettyprint">https://cdn.emojidex.com</code></p>
 
 <aside class="notice">
-The S3 instance at assets.emojidex.com may also be used but it will likely be much 
+The S3 instance at http://assets.emojidex.com may also be used but it will likely be much 
 slower. There is no real benefit to using assets.emojidex.com over cdn.emojidex.com.
 </aside>
 
@@ -1850,7 +1754,7 @@ certainly consider it.
 </aside>
 
 <aside class="notice">
-NO, we will NOT offer animated GIF. Ever. Don&rsquo;t ask. Animated GIF is proven 
+We will not be offering animated GIF. Animated GIF is proven 
 to be inferior in quality, size and features when compared to Animated PNG. 
 If your platform does not support Animated PNG then submit a feature request 
 FOR YOUR PLATFORM. There are already issues up for 
@@ -1864,15 +1768,13 @@ and
 <blockquote>
 <p>Get the 32px PNG image for :blush:</p>
 </blockquote>
-<pre class="highlight plaintext"><code>http://assets.emojidex.com/emoji/px32/blush.png
+<pre class="highlight plaintext"><code>https://cdn.emojidex.com/emoji/px32/blush.png
 </code></pre>
-
 <blockquote>
 <p>Get the SVG image for :blush:</p>
 </blockquote>
-<pre class="highlight plaintext"><code>http://assets.emojidex.com/emoji/blush.svg
+<pre class="highlight plaintext"><code>https://cdn.emojidex.com/emoji/blush.svg
 </code></pre>
-
 <p>Assets can be found on the Content Delivery Network under structured 
 directories.</p>
 
@@ -1881,8 +1783,8 @@ For example, the emoji code &ldquo;blush&rdquo; would have PNG images named &ldq
 
 <p>All emoji on www.emojidex.com can be found under /emoji, with the root /emoji containing SVG 
 images:<br>
-<code class="prettyprint">http://assets.emojidex.com/emoji/blush.svg</code><br>
-<img alt="blush emoji" src="http://assets.emojidex.com/emoji/blush.svg" /></p>
+<code class="prettyprint">https://cdn.emojidex.com/emoji/blush.svg</code><br>
+<img src="https://cdn.emojidex.com/emoji/blush.svg" alt="blush emoji" /></p>
 
 <p>PNG images come in a variety of sizes:<br>
 <code class="prettyprint">json
@@ -1902,79 +1804,79 @@ high.  </p>
 </tr>
 </thead><tbody>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/ldpi/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/ldpi/blush.png" alt="blush emoji" /></td>
 <td>ldpi</td>
-<td>http://assets.emojidex.com/emoji/ldpi/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/ldpi/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/mdpi/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/mdpi/blush.png" alt="blush emoji" /></td>
 <td>mdpi</td>
-<td>http://assets.emojidex.com/emoji/mdpi/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/mdpi/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/hdpi/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/hdpi/blush.png" alt="blush emoji" /></td>
 <td>hdpi</td>
-<td>http://assets.emojidex.com/emoji/hdpi/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/hdpi/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/xhdpi/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/xhdpi/blush.png" alt="blush emoji" /></td>
 <td>xhdpi</td>
-<td>http://assets.emojidex.com/emoji/xhdpi/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/xhdpi/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/xxhdpi/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/xxhdpi/blush.png" alt="blush emoji" /></td>
 <td>xxhdpi</td>
-<td>http://assets.emojidex.com/emoji/xxhdpi/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/xxhdpi/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/xxxhdpi/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/xxxhdpi/blush.png" alt="blush emoji" /></td>
 <td>xxxhdpi</td>
-<td>http://assets.emojidex.com/emoji/xxxhdpi/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/xxxhdpi/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px8/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/px8/blush.png" alt="blush emoji" /></td>
 <td>px8</td>
-<td>http://assets.emojidex.com/emoji/px8/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/px8/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px16/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/px16/blush.png" alt="blush emoji" /></td>
 <td>px16</td>
-<td>http://assets.emojidex.com/emoji/px16/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/px16/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px32/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/px32/blush.png" alt="blush emoji" /></td>
 <td>px32</td>
-<td>http://assets.emojidex.com/emoji/px32/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/px32/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px64/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/px64/blush.png" alt="blush emoji" /></td>
 <td>px64</td>
-<td>http://assets.emojidex.com/emoji/px64/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/px64/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px128/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/px128/blush.png" alt="blush emoji" /></td>
 <td>px128</td>
-<td>http://assets.emojidex.com/emoji/px128/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/px128/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/px256/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/px256/blush.png" alt="blush emoji" /></td>
 <td>px256</td>
-<td>http://assets.emojidex.com/emoji/px256/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/px256/blush.png</td>
 </tr>
 <tr>
-<td><a href="http://assets.emojidex.com/emoji/px512/blush.png">(image too big, click here to see)</a></td>
+<td><a href="https://cdn.emojidex.com/emoji/px512/blush.png">(image too big, click here to see)</a></td>
 <td>px512</td>
-<td>http://assets.emojidex.com/emoji/px512/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/px512/blush.png</td>
 </tr>
 <tr>
-<td><img alt="blush emoji" src="http://assets.emojidex.com/emoji/hanko/blush.png" /></td>
+<td><img src="https://cdn.emojidex.com/emoji/hanko/blush.png" alt="blush emoji" /></td>
 <td>hanko</td>
-<td>http://assets.emojidex.com/emoji/hanko/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/hanko/blush.png</td>
 </tr>
 <tr>
-<td><a href="http://assets.emojidex.com/emoji/seal/blush.png">(image too big, click here to see)</a></td>
+<td><a href="https://cdn.emojidex.com/emoji/seal/blush.png">(image too big, click here to see)</a></td>
 <td>seal</td>
-<td>http://assets.emojidex.com/emoji/seal/blush.png</td>
+<td>https://cdn.emojidex.com/emoji/seal/blush.png</td>
 </tr>
 </tbody></table>
 
@@ -1989,10 +1891,10 @@ some emoji images please limit it to only a few (eg. 10 or less).
 </aside>
 
 <p>In general small text will usually be best with an emoji 
-size of about ldpi <img alt="blush emoji" src="http://assets.emojidex.com/emoji/ldpi/blush.png" /> 
-and web text will be around mdpi <img alt="blush emoji" src="http://assets.emojidex.com/emoji/mdpi/blush.png" />. 
+size of about ldpi <img src="https://cdn.emojidex.com/emoji/ldpi/blush.png" alt="blush emoji" /> 
+and web text will be around mdpi <img src="https://cdn.emojidex.com/emoji/mdpi/blush.png" alt="blush emoji" />. 
 Thicker text readable on handsets will usually be around hdpi 
-<img alt="blush emoji" src="http://assets.emojidex.com/emoji/hdpi/blush.png" />. Android developers will note the 
+<img src="https://cdn.emojidex.com/emoji/hdpi/blush.png" alt="blush emoji" />. Android developers will note the 
 naming conventions coincide with standard asset quality naming conventions; they are in fact 
 sized to be compatible with Android standard sizing. iOS and other platforms should find this 
 sizing convention entirely compatible with native sizing guidelines.  </p>
