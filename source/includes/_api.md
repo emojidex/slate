@@ -1,12 +1,3 @@
----
-language_tabs:
-  - shell
-  - ruby
-  - c++
-  - javascript
-  - java
----
-
 # API
 <aside class="notice">
 This documenation is for Version 1 of the API.
@@ -26,9 +17,126 @@ Throughout most of the API different actions are mapped to different HTTP verbs,
 PUT, POST, DELETE. You MUST be aware of what verb you are using to make an API request, as most 
 of the time only one HTTP verb will perform the task you want in your query.
 
+## Transport Data Types
+The emojidex API currently provides data to and from all endpoints in either standard JSON or 
+[MessagePack](http://msgpack.org/) format. JSON being such a such a standardized and universally 
+accepted format is of course the default, but we strongly encourage you to implement with 
+MessagePack as all communication between your app and the emojidex server will be lighter and 
+faster. MessagePack is already included as default in all of our clients other than emojidex-web, 
+and in that case only because we didn't want to increase the processing burden and initial load 
+of the script. To use MessagePack in your own client, simply pass requests with the Accept header 
+set to "application/msgpack":  
+```
+Accept: application/msgpack
+```
+And if your transactor happens to not be sending/receiving UTF-8 by default, we would of course 
+recommend adding:
+```
+Charset: UTF-8
+```
+just in case.
+  
+Specific examples will not be given in MessagePack here as it is not easily readable, but if you 
+wanted to execute any of the Shell/CURL examples in this documentation with MessagePack then 
+simply add ```-H "Charset: UTF-8" -H "Accept: application/msgpack"``` after the -L switch. For 
+example 
+```
+curl -X GET -L -H "Charset: UTF-8" -H "Accept: application/msgpack"\
+ https://www.emojidex.com/api/v1/emoji -o emoji.msgpack
+```
+would obtain the index in MessagePack and save it to a file named "emoji.msgpack". 
+
+## Clients
+> Client origin/sources:
+
+```shell
+https://curl.haxx.se
+```
+
+```ruby
+https://github.com/emojidex/emojidex
+```
+
+```cpp
+https://github.com/emojidex/libemojidex
+```
+
+```javascript
+https://github.com/emojidex/emojidex-web-client
+```
+
+```java
+// Java client is a JNI interface to the C++ libemojidex
+https://github.com/emojidex/libemojidex
+```
+
+> Client acquisition:
+
+```shell
+# Use the command line client for CURL, which should be included in any Linux distrobution and OS-X
+#   by default. For Windows, or if your distrobution does not include CURL, look here:
+#   https://curl.haxx.se/download.html
+```
+
+```ruby
+# Install the emojidex ruby gem:
+gem install emojidex
+# Or add the following to your Gemfile before bundling:
+gem 'emojidex'
+```
+
+```cpp
+// Clone with Git, build libs yourself, see the link in acquisition above for instructions
+```
+
+```javascript
+// Available on NPM, see: https://www.npmjs.com/package/emojidex-client
+// Require directly from the CDN: http://cdn.emojidex.com/scripts/javascript/emojidex-client.min.js
+// Obtain from the "dist" directory of the repository:
+//   https://github.com/emojidex/emojidex-web-client/tree/master/dist/js
+```
+
+```java
+// Clone with Git, build jar yourself, see the link in acquisition above for instructions
+```
+
+> Client usage:
+
+```shell
+# Simply type the CURL command in a terminal:
+curl
+```
+
+```ruby
+# Most methods are available from the client.
+# For specific functionality require the specific module.
+require 'emojidex/client'
+```
+
+```cpp
+// Generally you'll want the client provided with libemojidex.
+// Assuming you've vendorized emojidex and have the headers under an "emojidex" folder:
+#include <emojidex/client>
+```
+
+```javascript
+/* Obtaining from the CDN:
+    <script src="https://cdn.emojidex.com/scripts/javascript/emojidex.min.js"></script>
+*/
+```
+
+```java
+// Most of the functionality is consolidated in the Client.
+// Specific functionality can be accessed by importing specific modules.
+import com.emojidex.libemojidex.Emojidex.Client;
+```
+
+Clients are provided for all the langauges selectable on the right (and more). Please select the tab 
+for the language you wish to use to find information on how to obtain and utilize the client.
+
 ## Authentication
 
-> Token acquisition:
+> Token acquisition/Login:
 
 ```shell
 curl -X GET www.emojidex.com/api/v1/users/authenticate -d email=whoever@emojidex.com -d password=********
@@ -41,48 +149,59 @@ curl -X GET www.emojidex.com/api/v1/users/authenticate -d user=WhoEver -d passwo
 ```
 
 ```ruby
-# coming soon
+require 'emojidex/service/user'
+
+user = Emojidex::Service::User.new
+user.login('MeMeMe', '******')
 ```
 
-```c++
-// Using libemojidex
+```cpp
+#include <emojidex/service/user>
+
 Emojidex::Service::User user;
 user.login("MyUser", "my-password");
 ```
 
 ```javascript
-// Using the emojidex-web-client
 emojidex = new EmojidexClient();
 emojidex.User.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '******'});
 ```
 
 ```java
-// coming soon
+import com.emojidex.libemojidex.Emojidex.Service.User;
+
+User user = new User();
+user.login("MeMeMe", "******");
 ```
 
-> Token confirmation:
+> Token authentication/Authentication:
 
 ```shell
 curl -X GET www.emojidex.com/api/v1/users/authenticate -d username=MeMeMe -d token=0123456789abcdef
 ```
 
 ```ruby
-# coming soon
+require 'emojidex/service/user'
+
+user = Emojidex::Service::User.new
+user.authorize('MeMeMe', '0123456789abcdef')
 ```
 
-```c++
-// Using libemojidex
+```cpp
+#include <emojidex/service/user>
+
 Emojidex::Service::User user;
 user.authorize("MyUser", "0123456789abcdef");
 ```
 
 ```javascript
-// Using the emojidex-web-client
-// coming soon
 ```
 
 ```java
-// coming soon
+import com.emojidex.libemojidex.Emojidex.Service.User;
+
+User user = new User();
+user.authorize("MeMeMe", "0123456789abcdef");
 ```
 
 > When authentication / confirmation succeeds something like the following JSON is returned:
@@ -96,22 +215,6 @@ user.authorize("MyUser", "0123456789abcdef");
 
 ```json
 {"auth_status":"unverified","auth_token":null}
-```
-
-> Token utilization example:
-
-```shell
-curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
-```
-
-```ruby
-```
-
-```javascript
-// the emojidex web client will automatically insert auth keys for you
-```
-
-```java
 ```
 
 ### Auth Tokens
@@ -189,10 +292,27 @@ curl -X GET https://www.emojidex.com/api/v1/utf_emoji
 ```
 
 ```ruby
+require "emojidex/data/emoji/utf"
+
+utf = Emojidex::Data::UTF.new
 ```
 
-```c++
-// Using libemojidex
+```cpp
+#include <emojidex/service/indexes>
+#include <emojidex/data/collection>
+
+Emojidex::Service::Indexes idx;
+Emojidex::Data::Collection utf = idx.utfEmoji();
+```
+
+```javascript
+```
+
+```java
+import com.emojidex.libemojidex.Emojidex.Service.Indexes;
+import com.emojidex.libemojidex.Emojidex.Data.Collection;
+
+// TODO
 ```
 
 > Get all emojidex brand Extended emoji
@@ -201,10 +321,50 @@ curl -X GET https://www.emojidex.com/api/v1/utf_emoji
 curl -X GET https://www.emojidex.com/api/v1/extended_emoji
 ```
 
+```ruby
+require "emojidex/data/emoji/extended"
+
+extended = Emojidex::Data::Extended.new
+```
+
+```cpp
+#include <emojidex/service/indexes>
+#include <emojidex/data/collection>
+
+Emojidex::Service::Indexes idx;
+Emojidex::Data::Collection extended = idx.extendedEmoji();
+```
+
+```javascript
+```
+
+```java
+```
+
 > Get all UTF [standard] emoji with Japanese codes
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/utf_emoji -d locale=ja
+```
+
+```ruby
+require "emojidex/data/emoji/utf"
+
+utf = Emojidex::Data::UTF.new({locale: 'ja'})
+```
+
+```cpp
+#include <emojidex/service/indexes>
+#include <emojidex/data/collection>
+
+Emojidex::Service::Indexes idx;
+Emojidex::Data::Collection utf = idx.utfEmoji('ja');
+```
+
+```javascript
+```
+
+```java
 ```
 
 > Get all emojidex brand Extended emoji with Japanese codes
@@ -213,10 +373,45 @@ curl -X GET https://www.emojidex.com/api/v1/utf_emoji -d locale=ja
 curl -X GET https://www.emojidex.com/api/v1/extended_emoji -d locale=ja
 ```
 
+```ruby
+require "emojidex/data/emoji/extended"
+
+utf = Emojidex::Data::Extended.new({locale: 'ja'})
+```
+
+```cpp
+#include <emojidex/service/indexes>
+#include <emojidex/data/collection>
+
+Emojidex::Service::Indexes idx;
+Emojidex::Data::Collection utf = idx.extendedEmoji('ja');
+```
+
+```javascript
+```
+
+```java
+```
+
 > Get moji code indexes
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/moji_codes
+```
+
+```ruby
+require "emojidex/service/indexes"
+
+codes = Emojidex::Service::Indexes.moji_codes
+```
+
+```cpp
+```
+
+```javascript
+```
+
+```java
 ```
 
 > The returned data contains three major indexes.
