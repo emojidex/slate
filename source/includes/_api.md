@@ -312,7 +312,8 @@ Emojidex::Data::Collection utf = idx.utfEmoji();
 import com.emojidex.libemojidex.Emojidex.Service.Indexes;
 import com.emojidex.libemojidex.Emojidex.Data.Collection;
 
-// TODO
+Indexes idx = new Indexes();
+Collection utf = idx.utfEmoji();
 ```
 
 > Get all emojidex brand Extended emoji
@@ -406,6 +407,11 @@ codes = Emojidex::Service::Indexes.moji_codes
 ```
 
 ```cpp
+#include <emojidex/service/indexes>
+#include <emojidex/data/moji_codes>
+
+Emojidex::Service::Indexes idx;
+Emojidex::Data::MojiCodes mc = idx.mojiCodes();
 ```
 
 ```javascript
@@ -432,6 +438,26 @@ codes = Emojidex::Service::Indexes.moji_codes
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/moji_codes -d locale=ja
+```
+
+```ruby
+require "emojidex/service/indexes"
+
+codes = Emojidex::Service::Indexes.moji_codes({locale: 'ja'})
+```
+
+```cpp
+#include <emojidex/service/indexes>
+#include <emojidex/data/moji_codes>
+
+Emojidex::Service::Indexes idx;
+Emojidex::Data::MojiCodes mc = idx.mojiCodes("ja");
+```
+
+```javascript
+```
+
+```java
 ```
 
 Generally you'll want to have a selection of emoji available immediately. Usually that will at least 
@@ -499,6 +525,17 @@ curl -X GET https://www.emojidex.com/api/v1/emoji/sushi
 ```
 
 ```ruby
+require "emojidex/service/search"
+
+em = Emojidex::Service::Search.find('sushi')
+```
+
+```cpp
+#include <emojidex/service/search>
+#include <emojidex/data/emoji>
+
+Emojidex::Service::Search search;
+Emojidex::Data::Emoji = search.find('sushi')
 ```
 
 ```javascript
@@ -550,6 +587,17 @@ curl -X GET https://www.emojidex.com/api/v1/emoji
 ```
 
 ```ruby
+require "emojidex/service/indexes"
+
+emoji_collection = Emojidex::Service::Indexes.emoji
+```
+
+```cpp
+#include <emojidex/service/indexes>
+#include <emojidex/data/collection>
+
+Emojidex::Service::Indexes idx;
+Emojidex::Data::Collection emoji_collection = idx.emoji();
 ```
 
 ```javascript
@@ -566,6 +614,17 @@ curl -X GET https://www.emojidex.com/api/v1/emoji -d detailed=true
 ```
 
 ```ruby
+require "emojidex/service/indexes"
+
+emoji_collection = Emojidex::Service::Indexes.emoji(true)
+```
+
+```cpp
+#include <emojidex/service/indexes>
+#include <emojidex/data/collection>
+
+Emojidex::Service::Indexes idx;
+Emojidex::Data::Collection emoji_collection = idx.emoji(DEFAULT_PAGE, DEFAULT_LIMIT, true);
 ```
 
 ```javascript
@@ -582,6 +641,17 @@ curl -X GET https://www.emojidex.com/api/v1/emoji -d page=2 -d limit=50
 ```
 
 ```ruby
+require "emojidex/service/indexes"
+
+emoji_collection = Emojidex::Service::Indexes.emoji(false, 50, 2)
+```
+
+```cpp
+#include <emojidex/service/indexes>
+#include <emojidex/data/collection>
+
+Emojidex::Service::Indexes idx;
+Emojidex::Data::Collection emoji_collection = idx.emoji(2, 50);
 ```
 
 ```javascript
@@ -642,10 +712,24 @@ longest | emoji with longer emoji codes are returned first.
 > GET /newest
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/newest
+curl -X GET https://www.emojidex.com/api/v1/newest -d auth_token=1234567890abcdef
 ```
 
 ```ruby
+require "emojidex/service/indexes"
+
+# If the user has logged in before
+newest = Emojidex::Service::Indexes.newest()
+# Or to manually pass a token
+newest = Emojidex::Service::Indexes.newest(false, Emojidex::Defaults.limit, 0, 'MeMeMe', '1234567890abcdef')
+```
+
+```cpp
+#include <emojidex/service/indexes>
+#include <emojidex/data/collection>
+
+Emojidex::Service::Indexes idx;
+Emojidex::Data::Collection newest_collection = idx.newest("1234567890abcdef");
 ```
 
 ```javascript
@@ -701,10 +785,24 @@ HTTP | Message
 > GET /popular
 
 ```shell
-curl -X GET https://www.emojidex.com/api/v1/popular
+curl -X GET https://www.emojidex.com/api/v1/popular -d auth_token=1234567890abcdef
 ```
 
 ```ruby
+require "emojidex/service/indexes"
+
+# If the user has logged in before
+popular = Emojidex::Service::Indexes.popular()
+# Or to manually pass a token
+popular = Emojidex::Service::Indexes.popular(false, Emojidex::Defaults.limit, 0, 'MeMeMe', '1234567890abcdef')
+```
+
+```cpp
+#include <emojidex/service/indexes>
+#include <emojidex/data/collection>
+
+Emojidex::Service::Indexes idx;
+Emojidex::Data::Collection popular_collection = idx.popular("1234567890abcdef");
 ```
 
 ```javascript
@@ -765,6 +863,15 @@ curl -X GET https://www.emojidex.com/api/v1/categories
 ```
 
 ```ruby
+# The categories on the emojidex service are actually seeded from the emojidex gem.
+# Therefore, when using Ruby we use the Categories class found in the Data namespace.
+require 'emojidex/data/categories'
+
+categories = Emojidex::Data::Categories.new
+```
+
+```cpp
+// TODO
 ```
 
 ```javascript
@@ -802,6 +909,13 @@ curl -X GET https://www.emojidex.com/api/v1/categories -d locale=ja
 ```
 
 ```ruby
+require 'emojidex/data/categories'
+
+categories = Emojidex::Data::Categories.new
+# Category information in the emojidex Ruby gem includes both en and ja
+```
+
+```cpp
 ```
 
 ```javascript
@@ -863,8 +977,20 @@ locale | string | language for category names currently only "en" [default] and 
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart
 ```
 
+```ruby
+require "emojidex/service/search"
+
+res = Emojidex::Service::Search.term('heart')
+```
+
+```cpp
+```
+
 ```javascript
 emojidex.Search.search("heart");
+```
+
+```java
 ```
 
 > Search for emoji with code starting with "heart"
@@ -873,8 +999,20 @@ emojidex.Search.search("heart");
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_sw=heart
 ```
 
+```ruby
+require "emojidex/service/search"
+
+res = Emojidex::Service::Search.starting('heart')
+```
+
+```cpp
+```
+
 ```javascript
 emojidex.Search.starting("heart");
+```
+
+```java
 ```
 
 > Search for emoji with code ending with "heart"
@@ -883,8 +1021,20 @@ emojidex.Search.starting("heart");
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_ew=heart
 ```
 
+```ruby
+require "emojidex/service/search"
+
+res = Emojidex::Service::Search.ending('heart')
+```
+
+```cpp
+```
+
 ```javascript
 emojidex.Search.ending("heart");
+```
+
+```java
 ```
 
 > Search for emoji with codes containing "heart" in the category "faces"
@@ -893,8 +1043,20 @@ emojidex.Search.ending("heart");
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories\[\]=faces
 ```
 
+```ruby
+require "emojidex/service/search"
+
+res = Emojidex::Service::Search.advanced('heart', ['faces'])
+```
+
+```cpp
+```
+
 ```javascript
 emojidex.Search.advanced("heart", [], ['faces']);
+```
+
+```java
 ```
 
 > Search for emoji with codes containing "heart" in either the category "faces" or "abstract"
@@ -903,8 +1065,20 @@ emojidex.Search.advanced("heart", [], ['faces']);
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=heart -d categories\[\]=faces -d categories\[\]=abstract
 ```
 
+```ruby
+require "emojidex/service/search"
+
+res = Emojidex::Service::Search.advanced('heart', ['faces', 'abstract'])
+```
+
+```cpp
+```
+
 ```javascript
 emojidex.Search.advanced("heart", [], ['faces', 'abstract']);
+```
+
+```java
 ```
 
 > Search for emoji with tag "weapon" 
@@ -913,8 +1087,20 @@ emojidex.Search.advanced("heart", [], ['faces', 'abstract']);
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags\[\]=weapon
 ```
 
+```ruby
+require "emojidex/service/search"
+
+res = Emojidex::Service::Search.tags(['weapon'])
+```
+
+```cpp
+```
+
 ```javascript
 emojidex.Search.tags(["weapon"]);
+```
+
+```java
 ```
 
 > Search for emoji where code contains "rifle", has the tag "weapon", and is in category "tools"
@@ -923,8 +1109,20 @@ emojidex.Search.tags(["weapon"]);
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d code_cont=rifle -d tags\[\]=weapon -d categories\[\]=tools
 ```
 
+```ruby
+require "emojidex/service/search"
+
+res = Emojidex::Service::Search.advanced('rifle', ['tools'], ['weapon'])
+```
+
+```cpp
+```
+
 ```javascript
 emojidex.Search.advanced("rifle", ['weapon'], ['tools']);
+```
+
+```java
 ```
 
 The basis for emoji searches is search by emoji code. Searches can be performed for 
