@@ -1209,8 +1209,20 @@ longest | emoji with longer emoji codes are returned first.
 curl -X GET https://www.emojidex.com/api/v1/users/Zero/emoji
 ```
 
+```ruby
+require 'emojidex/service/indexes'
+
+zeros_emoji = Emojidex::Service::Indexes.user_emoji('zero')
+```
+
+```cpp
+```
+
 ```javascript
 emojidex.Index.user("Zero");
+```
+
+```java
 ```
 
 > Get emoji for the user "絵文字"
@@ -1219,8 +1231,20 @@ emojidex.Index.user("Zero");
 curl -X GET https://www.emojidex.com/api/v1/users/絵文字/emoji
 ```
 
+```ruby
+require 'emojidex/service/indexes'
+
+emojidex_ja_emoji = Emojidex::Service::Indexes.user_emoji('絵文字')
+```
+
+```cpp
+```
+
 ```javascript
 emojidex.Index.user("絵文字");
+```
+
+```java
 ```
 
 > Returns a collection
@@ -1278,11 +1302,29 @@ detailed | bool | returns extra information such as upstream asset checksums[md5
 curl -X GET https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef
 ```
 
+```ruby
+require 'emojidex/service/user'
+
+user = Emojidex::Service::User.new()
+
+# Log in/authorize of not already
+
+user.sync_favorites
+
+user.favorites # .favorites will contain favorites
+```
+
+```cpp
+```
+
 ```javascript
 // favorites should be pre-cached on login/initialization
 emojidex.User.Favorites.all()
 // you can actively obtain favorites from the server
 emojidex.User.Favorites.get();
+```
+
+```java
 ```
 
 ```json
@@ -1297,8 +1339,24 @@ emojidex.User.Favorites.get();
 curl -X POST https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef -d emoji_code=zebra
 ```
 
+```ruby
+require 'emojidex/service/user'
+
+user = Emojidex::Service::User.new()
+
+# Log in/authorize of not already
+
+user.add_favorite('zebra')
+```
+
+```cpp
+```
+
 ```javascript
 emojidex.User.Favorites.set("zebra");
+```
+
+```java
 ```
 
 ```json
@@ -1312,8 +1370,24 @@ emojidex.User.Favorites.set("zebra");
 curl -X DELETE https://www.emojidex.com/api/v1/users/favorites -d auth_token=1234567890abcdef -d emoji_code=zebra
 ```
 
+```ruby
+require 'emojidex/service/user'
+
+user = Emojidex::Service::User.new()
+
+# Log in/authorize of not already
+
+user.remove_favorite('zebra')
+```
+
+```cpp
+```
+
 ```javascript
 emojidex.User.Favorites.unset("zebra");
+```
+
+```java
 ```
 
 ```json
@@ -1444,11 +1518,29 @@ HTTP | Message
 curl -X GET https://www.emojidex.com/api/v1/users/history -d auth_token=1234567890abcdef
 ```
 
+```ruby
+require 'emojidex/service/user'
+
+user = Emojidex::Service::User.new()
+
+# Log in/authorize of not already
+
+user.sync_history()
+
+user.history # .history will contain the history array
+```
+
+```cpp
+```
+
 ```javascript
 // history is pre-cached on login/initialization
 emojidex.User.History.all()
 // you can active obtain history from the server
 emojidex.User.History.get();
+```
+
+```java
 ```
 
 > A successful request will return a history array and meta info.
@@ -1465,8 +1557,24 @@ emojidex.User.History.get();
 curl -X POST https://www.emojidex.com/api/v1/users/history -d auth_token=1234567890abcdef -d emoji_code=zebra
 ```
 
+```ruby
+require 'emojidex/service/user'
+
+user = Emojidex::Service::User.new()
+
+# Log in/authorize of not already
+
+user.add_history('zebra')
+```
+
+```cpp
+```
+
 ```javascript
 emoji.User.History.set("zebra");
+```
+
+```java
 ```
 
 > A successful registration will return the updated history entry:
@@ -1547,6 +1655,19 @@ HTTP | Message
 curl -X GET https://www.emojidex.com/api/v1/users/following -d auth_token=1234567890abcdef
 ```
 
+```ruby
+# TODO
+```
+
+```cpp
+```
+
+```javascript
+```
+
+```java
+```
+
 > A successful request will retrun an array of user names:
 
 ```json
@@ -1557,6 +1678,19 @@ curl -X GET https://www.emojidex.com/api/v1/users/following -d auth_token=123456
 
 ```shell
 curl -X POST https://www.emojidex.com/api/v1/users/following -d auth_token=1234567890abcdef -d username=emojidex
+```
+
+```ruby
+# TODO
+```
+
+```cpp
+```
+
+```javascript
+```
+
+```java
 ```
 
 > A successful request will retrun the user name for confirmation:
@@ -1571,6 +1705,19 @@ curl -X POST https://www.emojidex.com/api/v1/users/following -d auth_token=12345
 curl -X DELETE https://www.emojidex.com/api/v1/users/following -d auth_token=1234567890abcdef -d username=emojidex
 ```
 
+```ruby
+# TODO
+```
+
+```cpp
+```
+
+```javascript
+```
+
+```java
+```
+
 > A successful request will retrun the user name for confirmation:
 
 ```json
@@ -1581,6 +1728,19 @@ curl -X DELETE https://www.emojidex.com/api/v1/users/following -d auth_token=123
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/users/followers -d auth_token=1234567890abcdef
+```
+
+```ruby
+# TODO
+```
+
+```cpp
+```
+
+```javascript
+```
+
+```java
 ```
 
 > A successful request will retrun an array of user names:
