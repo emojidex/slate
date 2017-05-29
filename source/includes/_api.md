@@ -8,43 +8,43 @@ This documentation covers access and usage of emojidex service utilizing the API
 ## HTTP Requests
 `https://www.emojidex.com/api/v1`
 
-The API must always be called through HTTPS/SSL. This is to prevent leaking of user auth 
-tokens and generally to keep as much information as to how users use emojidex as private 
+The API must always be called through HTTPS/SSL. This is to prevent leaking of user auth
+tokens and generally to keep as much information as to how users use emojidex as private
 as possible.
 
 ## HTTP Verbs
-Throughout most of the API different actions are mapped to different HTTP verbs, such as GET, 
-PUT, POST, DELETE. You MUST be aware of what verb you are using to make an API request, as most 
+Throughout most of the API different actions are mapped to different HTTP verbs, such as GET,
+PUT, POST, DELETE. You MUST be aware of what verb you are using to make an API request, as most
 of the time only one HTTP verb will perform the task you want in your query.
 
 ## Transport Data Types
-The emojidex API currently provides data to and from all endpoints in either standard JSON or 
-[MessagePack](http://msgpack.org/) format. JSON being such a such a standardized and universally 
-accepted format is of course the default, but we strongly encourage you to implement with 
-MessagePack as all communication between your app and the emojidex server will be lighter and 
-faster. MessagePack is already included as default in all of our clients other than emojidex-web, 
-and in that case only because we didn't want to increase the processing burden and initial load 
-of the script. To use MessagePack in your own client, simply pass requests with the Accept header 
+The emojidex API currently provides data to and from all endpoints in either standard JSON or
+[MessagePack](http://msgpack.org/) format. JSON being such a such a standardized and universally
+accepted format is of course the default, but we strongly encourage you to implement with
+MessagePack as all communication between your app and the emojidex server will be lighter and
+faster. MessagePack is already included as default in all of our clients other than emojidex-web,
+and in that case only because we didn't want to increase the processing burden and initial load
+of the script. To use MessagePack in your own client, simply pass requests with the Accept header
 set to "application/msgpack":  
 ```
 Accept: application/msgpack
 ```
-And if your transactor happens to not be sending/receiving UTF-8 by default, we would of course 
+And if your transactor happens to not be sending/receiving UTF-8 by default, we would of course
 recommend adding:
 ```
 Charset: UTF-8
 ```
 just in case.
-  
-Specific examples will not be given in MessagePack here as it is not easily readable, but if you 
-wanted to execute any of the Shell/CURL examples in this documentation with MessagePack then 
-simply add ```-H "Charset: UTF-8" -H "Accept: application/msgpack"``` after the -L switch. For 
-example 
+
+Specific examples will not be given in MessagePack here as it is not easily readable, but if you
+wanted to execute any of the Shell/CURL examples in this documentation with MessagePack then
+simply add ```-H "Charset: UTF-8" -H "Accept: application/msgpack"``` after the -L switch. For
+example
 ```
 curl -X GET -L -H "Charset: UTF-8" -H "Accept: application/msgpack"\
  https://www.emojidex.com/api/v1/emoji -o emoji.msgpack
 ```
-would obtain the index in MessagePack and save it to a file named "emoji.msgpack". 
+would obtain the index in MessagePack and save it to a file named "emoji.msgpack".
 
 ## Clients
 > Client origin/sources:
@@ -131,7 +131,7 @@ require 'emojidex/client'
 import com.emojidex.libemojidex.Emojidex.Client;
 ```
 
-Clients are provided for all the langauges selectable on the right (and more). Please select the tab 
+Clients are provided for all the langauges selectable on the right (and more). Please select the tab
 for the language you wish to use to find information on how to obtain and utilize the client.
 
 ## Authentication
@@ -218,36 +218,36 @@ user.authorize("MeMeMe", "0123456789abcdef");
 ```
 
 ### Auth Tokens
-Each user is granted an auth token which gives them access to their own personal resources. 
-Each user account is granted one and only one token which can be used by multiple clients, 
+Each user is granted an auth token which gives them access to their own personal resources.
+Each user account is granted one and only one token which can be used by multiple clients,
 does not expire, but can be refreshed/changed.  
-  
+
 <aside class="notice">
-The tokens issued and used in V1 of the API are "level 1" tokens. 
+The tokens issued and used in V1 of the API are "level 1" tokens.
 They do not grant access to any resources which contain personally identifying information,
-nor any resources that allow a user to make payments or change account details such as 
-passwords. The worst that can happen from a stolen token is having favorites added or removed, 
+nor any resources that allow a user to make payments or change account details such as
+passwords. The worst that can happen from a stolen token is having favorites added or removed,
 or items added to a users history.
 </aside>
 
 <aside class="warning">
-Utilizing auth tokens to add or remove favorites or add to history without a users consent may 
-violate usage licenses of emojidex. emojidex may take legal action against anyone found abusing 
+Utilizing auth tokens to add or remove favorites or add to history without a users consent may
+violate usage licenses of emojidex. emojidex may take legal action against anyone found abusing
 access to users auth tokens without first notifying the user and/or obtaining their consent.
 </aside>
 
-Tokens are returned as a response from a valid authorization request. Users can view, re-set, 
-or revoke their auth token from the User Details section after they log in to the 
-emojidex web site. Auth tokens can not be changed through the API. 
-As a single auth token is granted per user and shared between apps, the revocation or 
+Tokens are returned as a response from a valid authorization request. Users can view, re-set,
+or revoke their auth token from the User Details section after they log in to the
+emojidex web site. Auth tokens can not be changed through the API.
+As a single auth token is granted per user and shared between apps, the revocation or
 re-generation of a token will require re-acquisition in all clients.
-Not all API calls require authentication, but all API calls can and should be performed with 
-authentication tokens included when a token is available. 
+Not all API calls require authentication, but all API calls can and should be performed with
+authentication tokens included when a token is available.
 
 ### Authenticating / Obtaining a user auth token from the API
-You can authenticate through the API using a username and password or e-mail and password. 
-It is also possible to check authentication and update user details using the username and token. 
-To authenticate you must make a call to /api/v1/users/authenticate with an appropriate 
+You can authenticate through the API using a username and password or e-mail and password.
+It is also possible to check authentication and update user details using the username and token.
+To authenticate you must make a call to /api/v1/users/authenticate with an appropriate
 combination of the following parameters:
 
 *Parameters*
@@ -261,8 +261,8 @@ password | string | The password of the user (paired with username or e-mail)
 token | string | The authentication token (paired with username)
 
 <aside class="notice">
-There is no inherent demerit to using "user" rather than "username" or "email", but we 
-generally recommend using a username as it is not directly personally identifying and 
+There is no inherent demerit to using "user" rather than "username" or "email", but we
+generally recommend using a username as it is not directly personally identifying and
 it is the only part of a user account that can not be changed and remains static.
 </aside>
 
@@ -280,7 +280,7 @@ Upon a successful authentication request the following information will be retur
 ┗r18: true or false value specifying if user wants to view R-18 content  
 
 <aside class="warning">
-DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password to the API when 
+DO NOT store a users password. ALWAYS use an auth token. ONLY pass the password to the API when
 you are obtaining an auth token. Store auth tokens as securely as possible!
 </aside>
 
@@ -460,11 +460,11 @@ Emojidex::Data::MojiCodes mc = idx.mojiCodes("ja");
 ```java
 ```
 
-Generally you'll want to have a selection of emoji available immediately. Usually that will at least 
+Generally you'll want to have a selection of emoji available immediately. Usually that will at least
 consist of the standardized UTF/Unicode emoji. A semi-static index is available at api/v1/utf_emoji .
-If you only need the codes, a combined string for regex filtering, or an index of character code to 
-emoji short code, these all come in the data available from api/v1/moji_codes . The emojidex branded 
-extended emoji are also available from api/v1/extended_emoji. All of these end points are compatible 
+If you only need the codes, a combined string for regex filtering, or an index of character code to
+emoji short code, these all come in the data available from api/v1/moji_codes . The emojidex branded
+extended emoji are also available from api/v1/extended_emoji. All of these end points are compatible
 with the locale option.
 
 <aside class="notice">
@@ -472,7 +472,7 @@ All these calls give very long JSON responses.
 </aside>
 
 **Moji Code Data**  
-Moji code [character code] data is a set of three consolidated lists of characters and short codes. 
+Moji code [character code] data is a set of three consolidated lists of characters and short codes.
 It's accessable from /api/v1/moji_codes and the only argument is the locale (defaults to 'en').
 
 *Parameters*
@@ -486,12 +486,12 @@ locale | string | the locale/languge code (EG: "ja" or "en")
 ┏moji_string: a string of character codes, with multi-chracter compound codes coming before others  
 ┣moji_array[]: an array of character codes, with multi-chracter compound codes coming before others  
 ┗moji_index{}: a localized hash index of character code keys with emoji code values  
-  
-  
+
+
 **UTF and Extended Sets**  
-To get a full (non-paginated) set of standard UTF emoji (emoji standardized or in the proposal 
-phase for Unicode) or Extended emojidex original emoji. Call to either api/v1/utf_emoji or 
-api/v1/extended_emoji for UTF or Extended emoji. Both sets offer localized versions in default 
+To get a full (non-paginated) set of standard UTF emoji (emoji standardized or in the proposal
+phase for Unicode) or Extended emojidex original emoji. Call to either api/v1/utf_emoji or
+api/v1/extended_emoji for UTF or Extended emoji. Both sets offer localized versions in default
 English or Japanese.
 
 
@@ -550,7 +550,7 @@ Emojidex::Data::Emoji = search.find('sushi')
 {"code":"sushi","moji":"🍣","unicode":"1f363","category":"food","tags":[]}
 ```
 
-To get information about a particular emoji simply query they /emoji/(emoji code) endpoint, 
+To get information about a particular emoji simply query they /emoji/(emoji code) endpoint,
 replacing (emoji code) with the emoji code you want the information about.
 
 *Parameters*
@@ -663,7 +663,7 @@ emojidex.Indexes.index(null, {'page': 2, 'limit': 50});
 
 Gets a general index of emoji, sorted by score.  
 <aside class="notice">
-This index is ordered by a combination of registration date and popularity. 
+This index is ordered by a combination of registration date and popularity.
 Newer and more popular emoji will show up first.
 </aside>
 
@@ -946,7 +946,7 @@ emojidex.Categories.get('ja');
 Gets a list of categoires, including category codes (used in searching) and [localized] titles.
 
 <aside class="notice">
-While the categories endpoint can take limit and page parameters, there are currently not enough 
+While the categories endpoint can take limit and page parameters, there are currently not enough
 categories that you'd need to use them. The defaults will give you a full list of categories.
 </aside>
 
@@ -1081,7 +1081,7 @@ emojidex.Search.advanced("heart", [], ['faces', 'abstract']);
 ```java
 ```
 
-> Search for emoji with tag "weapon" 
+> Search for emoji with tag "weapon"
 
 ```shell
 curl -X GET https://www.emojidex.com/api/v1/search/emoji -d tags\[\]=weapon
@@ -1125,21 +1125,21 @@ emojidex.Search.advanced("rifle", ['weapon'], ['tools']);
 ```java
 ```
 
-The basis for emoji searches is search by emoji code. Searches can be performed for 
-codes that contain a term, start with a term, or end with a term. Alternatively, 
-you can serch for tags, or you can combine a code search with tags to restrict search 
-results to emoji containging the term which also have the tags specified. Additionally, 
-searches can be restricted to one or more categories, where results will only be emoji 
-present in the categories specified. In general, more tags specified means a more 
-specific search with fewer results. And, in general, the more categories specified the 
-more generalized the search and therefore more results. When no categories or tags are 
-specified the search will not be restricted to any categories or tags and will return 
+The basis for emoji searches is search by emoji code. Searches can be performed for
+codes that contain a term, start with a term, or end with a term. Alternatively,
+you can serch for tags, or you can combine a code search with tags to restrict search
+results to emoji containging the term which also have the tags specified. Additionally,
+searches can be restricted to one or more categories, where results will only be emoji
+present in the categories specified. In general, more tags specified means a more
+specific search with fewer results. And, in general, the more categories specified the
+more generalized the search and therefore more results. When no categories or tags are
+specified the search will not be restricted to any categories or tags and will return
 all results for the term specified.
 
 The API endpoint for searches is /search/emoji.
 
 *Predicates*
-Predicates are added to the code field to specify the search type, such as "\[q\]\[code_cont\]" 
+Predicates are added to the code field to specify the search type, such as "\[q\]\[code_cont\]"
 to "query for codes which contain" the specified term.
 
 Predicate | Meaning | Description
@@ -1149,8 +1149,8 @@ sw | Starts With | Code starts with the term.
 ew | Ends With | Code ends with the term.
 
 <aside class="notice">
-There is no "exact match" search because simply hitting https://www.emojidex.com/api/v1/emoji/#code 
-will achieve the same thing - it directly checks for the emoji with that code (replacing #code with 
+There is no "exact match" search because simply hitting https://www.emojidex.com/api/v1/emoji/#code
+will achieve the same thing - it directly checks for the emoji with that code (replacing #code with
 the code you are checking for).
 </aside>
 
@@ -1257,8 +1257,8 @@ emojidex.Index.user("絵文字");
 ```
 
 You can get all emoji registered by a specific user.  
-Some special user accounts exist from which you can get the current UTF 
-index, emojidex original extended emoji, etc. These accounts are as 
+Some special user accounts exist from which you can get the current UTF
+index, emojidex original extended emoji, etc. These accounts are as
 follows:
 
   * emoji: All UTF/Unicode emoji with English emoji codes
@@ -1266,7 +1266,7 @@ follows:
   * 絵文字: UTF/Unicode emoji with Japanese emoji codes
   * 絵文字デックス: emojidex original extended emoji with Japanese emoji codes
 
-However, this information can also be obtained from the emoji Seed paths in one 
+However, this information can also be obtained from the emoji Seed paths in one
 call without pagination (see above).
 
 *Parameters*
@@ -1398,7 +1398,7 @@ emojidex.User.Favorites.unset("zebra");
 Favorites can only be accessed with a token. This resource requires authentication.
 
 **Obtaining favorites:**  
-You can obtain favorites by performing a GET on the users/favorites endpoint with a valid 
+You can obtain favorites by performing a GET on the users/favorites endpoint with a valid
 auth_token.
 
 *Parameters*
@@ -1434,14 +1434,14 @@ HTTP | Message
 　┗page: the current page of the collection  
 
 **Adding a Favorite:**  
-You can add an emoji to a users favorites by performing a POST against the users/favorites 
+You can add an emoji to a users favorites by performing a POST against the users/favorites
 endpoint with a valid auth_token and the emoji_code.
 
-When a favorite is successfully added an HTTP return code of 201 with updated emoji information 
+When a favorite is successfully added an HTTP return code of 201 with updated emoji information
 in the message body.
 
-To prevent adding multiple entries of the same emoji an HTTP status of 202 with a JSON string 
-{"status":"emoji already in user favorites"} will be returned. Check either the HTTP stats code 
+To prevent adding multiple entries of the same emoji an HTTP status of 202 with a JSON string
+{"status":"emoji already in user favorites"} will be returned. Check either the HTTP stats code
 or for this string so you don't accidentally duplicate the entry in your data set.
 
 *Parameters*
@@ -1472,15 +1472,15 @@ HTTP | Message
 ┗score: the score of the emoji  
 
 **Removing a Favorite**
-You can remove an emoji from a users favorites by performing a DELETE against the users/favorites 
+You can remove an emoji from a users favorites by performing a DELETE against the users/favorites
 endpoint with a valid auth_token and the emoji_code.
 
-When a favorite is successfully removed an HTTP return code of 200 with the emoji information 
-in the body will be returned. You can use this information to cross check your local data and 
-remove the emoji from the data set [though this is really only usefull if you have asyncronous 
+When a favorite is successfully removed an HTTP return code of 200 with the emoji information
+in the body will be returned. You can use this information to cross check your local data and
+remove the emoji from the data set [though this is really only usefull if you have asyncronous
 or event driven code].
 
-When a favorite is already remove an HTTP status of 202 with a JSON string 
+When a favorite is already remove an HTTP status of 202 with a JSON string
 {"status":"emoji not in user favorites"} will be returned.
 
 *Parameters*
@@ -1589,7 +1589,7 @@ History can only be accessed with a token. This resource requires authentication
 You can obtain history by performing a GET on the users/history endpoint with a valid auth_token.
 
 <aside class="notice">
-The history is NOT a standard collection. Do not attempt to parse it like an "emoji" array returned 
+The history is NOT a standard collection. Do not attempt to parse it like an "emoji" array returned
 by most other calls.
 </aside>
 
@@ -1622,8 +1622,8 @@ HTTP | Message
 　┗page: the current page of history  
 
 **Adding to history:**  
-Whenever a user uses an emoji you should append to their history by performing a POST on the 
-users/history endpoint with the auth_token of the user and the emoji_code of the emoji being 
+Whenever a user uses an emoji you should append to their history by performing a POST on the
+users/history endpoint with the auth_token of the user and the emoji_code of the emoji being
 added.
 
 *Parameters*
@@ -1749,8 +1749,8 @@ curl -X GET https://www.emojidex.com/api/v1/users/followers -d auth_token=123456
 {"followers":["emojidex","Zero"]}
 ```
 
-By querying the /api/v1/users/following endpoint you can get a list of the user names of the 
-users you are following. If you are a Premium or Pro user you can also access a list of users 
+By querying the /api/v1/users/following endpoint you can get a list of the user names of the
+users you are following. If you are a Premium or Pro user you can also access a list of users
 who are following you.
 
 #### Following
@@ -1774,7 +1774,7 @@ HTTP | Message
 
 *Return Data*
 
-・following[]: an array of the users you are following (an empty array [] if none) 
+・following[]: an array of the users you are following (an empty array [] if none)
 
 #### Followers
 List of users who are following you (Premium or Pro accounts only).
@@ -1795,4 +1795,4 @@ HTTP | Message
 
 *Return Data*
 
-・followers[]: an array of the users who are following you (an empty array [] if none) 
+・followers[]: an array of the users who are following you (an empty array [] if none)
