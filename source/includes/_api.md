@@ -94,6 +94,12 @@ gem 'emojidex'
 // Require directly from the CDN: http://cdn.emojidex.com/scripts/javascript/emojidex-client.min.js
 // Obtain from the "dist" directory of the repository:
 //   https://github.com/emojidex/emojidex-web-client/tree/master/dist/js
+
+// npm:
+npm install emojidex
+
+// yarn:
+yarn add emojidex
 ```
 
 ```java
@@ -163,8 +169,12 @@ user.login("MyUser", "my-password");
 ```
 
 ```javascript
-emojidex = new EmojidexClient();
-emojidex.User.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '******'});
+emojidex = new EmojidexClient({
+  // wait initialization
+  onReady: (EC) => {
+    emojidex.User.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '******'});
+  }
+});
 ```
 
 ```java
@@ -195,6 +205,14 @@ user.authorize("MyUser", "0123456789abcdef");
 ```
 
 ```javascript
+// type plain:
+emojidex.User.login({'authtype': 'plain', 'username': 'MeMeMe', 'password': '******'});
+
+// type token:
+emojidex.User.login({'authtype': 'token', 'username': 'MeMeMe', 'auth_token': '******'});
+
+// type basic:
+emojidex.User.login({'basic': 'plain', 'user': 'username-or-email', 'password': '******'});
 ```
 
 ```java
@@ -306,6 +324,9 @@ Emojidex::Data::Collection utf = idx.utfEmoji();
 ```
 
 ```javascript
+emojidex.Indexes.static(['extended_emoji'], 'en', emoji_data => {
+  console.log(emoji_data)
+})
 ```
 
 ```java
@@ -337,6 +358,9 @@ Emojidex::Data::Collection extended = idx.extendedEmoji();
 ```
 
 ```javascript
+emojidex.Indexes.static(['extended_emoji'], 'en', emoji_data => {
+  console.log(emoji_data)
+})
 ```
 
 ```java
@@ -363,6 +387,10 @@ Emojidex::Data::Collection utf = idx.utfEmoji('ja');
 ```
 
 ```javascript
+emojidex.Indexes.static(['utf_emoji'], 'ja', emoji_data => {
+  console.log(emoji_data)
+})
+
 ```
 
 ```java
@@ -389,6 +417,9 @@ Emojidex::Data::Collection utf = idx.extendedEmoji('ja');
 ```
 
 ```javascript
+emojidex.Indexes.static(['extended_emoji'], 'ja', emoji_data => {
+  console.log(emoji_data)
+})
 ```
 
 ```java
@@ -415,6 +446,7 @@ Emojidex::Data::MojiCodes mc = idx.mojiCodes();
 ```
 
 ```javascript
+emojidex.Data.storage.hub_cache.emojidex.moji_codes
 ```
 
 ```java
@@ -455,6 +487,12 @@ Emojidex::Data::MojiCodes mc = idx.mojiCodes("ja");
 ```
 
 ```javascript
+emojidex = new EmojidexClient({
+  locale: 'ja'
+});
+
+// after initialization
+emojidex.Data.storage.hub_cache.emojidex.moji_codes
 ```
 
 ```java
