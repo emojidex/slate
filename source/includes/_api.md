@@ -577,6 +577,9 @@ Emojidex::Data::Emoji = search.find('sushi')
 ```
 
 ```javascript
+emojidex.Search.search(search_word, result_emoji => {
+  console.log(result_emoji);
+))
 ```
 
 ```java
@@ -639,7 +642,9 @@ Emojidex::Data::Collection emoji_collection = idx.emoji();
 ```
 
 ```javascript
-emojidex.Indexes.index();
+emojidex.Indexes.index((result_emoji) => {
+  console.log(result_emoji);
+});
 ```
 
 ```java
@@ -666,7 +671,10 @@ Emojidex::Data::Collection emoji_collection = idx.emoji(DEFAULT_PAGE, DEFAULT_LI
 ```
 
 ```javascript
-emojidex.Indexes.index(null, {'detailed': true});
+emojidex.Indexes.index((result_emoji) => {
+    console.log(result_emoji);
+  }, {'detailed': true}
+);
 ```
 
 ```java
@@ -693,7 +701,10 @@ Emojidex::Data::Collection emoji_collection = idx.emoji(2, 50);
 ```
 
 ```javascript
-emojidex.Indexes.index(null, {'page': 2, 'limit': 50});
+emojidex.Indexes.index((result_emoji) => {
+    console.log(result_emoji);
+  }, {'page': 2, 'limit': 50}
+);
 ```
 
 ```java
@@ -771,7 +782,10 @@ Emojidex::Data::Collection newest_collection = idx.newest("1234567890abcdef");
 ```
 
 ```javascript
-emojidex.Indexes.newest();
+// this feature is need authorization.
+emojidex.Indexes.newest((result_emoji) => {
+  console.log(result_emoji);
+});
 ```
 
 ```java
@@ -844,7 +858,10 @@ Emojidex::Data::Collection popular_collection = idx.popular("1234567890abcdef");
 ```
 
 ```javascript
-emojidex.Indexes.popular();
+// this feature is need authorization.
+emojidex.Indexes.popular((result_emoji) => {
+  console.log(result_emoji);
+});
 ```
 
 ```java
@@ -914,9 +931,14 @@ categories = Emojidex::Data::Categories.new
 
 ```javascript
 // categories should be pre-cached
-emojidex.Categories.all()
+emojidex.Categories.all((categories) => {
+  console.log(categories)
+});
+
 // you can actively obtain categories from the server
-emojidex.Categories.get();
+emojidex.Categories.sync((categories) => {
+  console.log(categories);
+});
 ```
 
 ```java
@@ -957,7 +979,9 @@ categories = Emojidex::Data::Categories.new
 ```
 
 ```javascript
-emojidex.Categories.get('ja');
+emojidex.Categories.sync((categories) => {
+  console.log(categories);
+}, 'ja');
 ```
 
 ```java
