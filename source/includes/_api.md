@@ -579,7 +579,7 @@ Emojidex::Data::Emoji = search.find('sushi')
 ```javascript
 emojidex.Search.search(search_word, result_emoji => {
   console.log(result_emoji);
-))
+});
 ```
 
 ```java
@@ -672,9 +672,8 @@ Emojidex::Data::Collection emoji_collection = idx.emoji(DEFAULT_PAGE, DEFAULT_LI
 
 ```javascript
 emojidex.Indexes.index((result_emoji) => {
-    console.log(result_emoji);
-  }, {'detailed': true}
-);
+  console.log(result_emoji);
+}, {'detailed': true});
 ```
 
 ```java
@@ -702,9 +701,8 @@ Emojidex::Data::Collection emoji_collection = idx.emoji(2, 50);
 
 ```javascript
 emojidex.Indexes.index((result_emoji) => {
-    console.log(result_emoji);
-  }, {'page': 2, 'limit': 50}
-);
+  console.log(result_emoji);
+}, {'page': 2, 'limit': 50});
 ```
 
 ```java
@@ -1049,7 +1047,9 @@ res = Emojidex::Service::Search.term('heart')
 ```
 
 ```javascript
-emojidex.Search.search("heart");
+emojidex.Search.search(search_word, result_emoji => {
+  console.log(result_emoji);
+})
 ```
 
 ```java
@@ -1071,7 +1071,9 @@ res = Emojidex::Service::Search.starting('heart')
 ```
 
 ```javascript
-emojidex.Search.starting("heart");
+emojidex.Search.starting(search_word, result_emoji => {
+  console.log(result_emoji);
+})
 ```
 
 ```java
@@ -1093,7 +1095,9 @@ res = Emojidex::Service::Search.ending('heart')
 ```
 
 ```javascript
-emojidex.Search.ending("heart");
+emojidex.Search.ending(search_word, result_emoji => {
+  console.log(result_emoji);
+})
 ```
 
 ```java
@@ -1115,7 +1119,9 @@ res = Emojidex::Service::Search.advanced('heart', ['faces'])
 ```
 
 ```javascript
-emojidex.Search.advanced("heart", [], ['faces']);
+emojidex.Search.advanced({"heart", [], ['faces']}, result_emoji => {
+  console.log(result_emoji);
+});
 ```
 
 ```java
@@ -1137,7 +1143,9 @@ res = Emojidex::Service::Search.advanced('heart', ['faces', 'abstract'])
 ```
 
 ```javascript
-emojidex.Search.advanced("heart", [], ['faces', 'abstract']);
+emojidex.Search.advanced({"heart", [], ['faces', 'abstract']}, result_emoji => {
+  console.log(result_emoji);
+});
 ```
 
 ```java
@@ -1159,7 +1167,9 @@ res = Emojidex::Service::Search.tags(['weapon'])
 ```
 
 ```javascript
-emojidex.Search.tags(["weapon"]);
+emojidex.Search.tags(["weapon"], result_emoji => {
+  console.log(result_emoji);
+});
 ```
 
 ```java
@@ -1181,7 +1191,9 @@ res = Emojidex::Service::Search.advanced('rifle', ['tools'], ['weapon'])
 ```
 
 ```javascript
-emojidex.Search.advanced("rifle", ['weapon'], ['tools']);
+emojidex.Search.advanced({"rifle", ['weapon'], ['tools']}, result_emoji => {
+  console.log(result_emoji);
+});
 ```
 
 ```java
@@ -1281,7 +1293,7 @@ zeros_emoji = Emojidex::Service::Indexes.user_emoji('zero')
 ```
 
 ```javascript
-emojidex.Index.user("Zero");
+emojidex.Indexes.user("Zero");
 ```
 
 ```java
@@ -1303,7 +1315,9 @@ emojidex_ja_emoji = Emojidex::Service::Indexes.user_emoji('絵文字')
 ```
 
 ```javascript
-emojidex.Index.user("絵文字");
+emojidex.Indexes.user("絵文字", result_emoji => {
+  console.log(result_emoji);
+});
 ```
 
 ```java
@@ -1382,6 +1396,7 @@ user.favorites # .favorites will contain favorites
 ```javascript
 // favorites should be pre-cached on login/initialization
 emojidex.User.Favorites.all()
+
 // you can actively obtain favorites from the server
 emojidex.User.Favorites.get();
 ```
@@ -1598,6 +1613,7 @@ user.history # .history will contain the history array
 ```javascript
 // history is pre-cached on login/initialization
 emojidex.User.History.all()
+
 // you can active obtain history from the server
 emojidex.User.History.get();
 ```
