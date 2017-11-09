@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
   <head>
@@ -207,8 +208,8 @@
         <img src="images/navbar.png" alt="Navbar" />
       </span>
     </a>
-    <div class="tocify-wrapper">
-      <img src="images/logo.png" alt="Logo" />
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="ruby">ruby</a>
               <a href="#" data-language-name="java">java</a>
@@ -218,7 +219,27 @@
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
         <ul class="search-results"></ul>
-      <div id="toc">
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#client-module-overview" class="toc-h1 toc-link" data-title="Client Module Overview">Client Module Overview</a>
+          </li>
+          <li>
+            <a href="#collections" class="toc-h1 toc-link" data-title="Collections">Collections</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#emojidex-collection" class="toc-h2 toc-link" data-title="emojidex Collection">emojidex Collection</a>
+                  </li>
+                  <li>
+                    <a href="#utf-collection" class="toc-h2 toc-link" data-title="UTF Collection">UTF Collection</a>
+                  </li>
+                  <li>
+                    <a href="#extended-collection" class="toc-h2 toc-link" data-title="Extended Collection">Extended Collection</a>
+                  </li>
+                  <li>
+                    <a href="#utf-extended-packages" class="toc-h2 toc-link" data-title="UTF/Extended Packages">UTF/Extended Packages</a>
+                  </li>
+              </ul>
+          </li>
       </div>
         <ul class="toc-footer">
             <li><a href='/'>API Documentation</a></li>
@@ -228,15 +249,14 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="client-module-overview">Client Module Overview</h1>
-
+        <h1 id='client-module-overview'>Client Module Overview</h1>
 <p>emojidex tools are generally developed with the same composition. Each Module implements a
 Collection class which is used to store and access all the emoji information. Extensions to 
 this class may enables acquisition of assets and caching when appropriate. Different modules 
 may also come packaged with front end tools that automatically implement text areas with emoji 
 automatically embedded, input tools such as soft keboards and searching etc. As a general 
 guideline to where emojidex modules or libraries fit in your application we made this chart 
-&hellip; entirely out of emoji.
+... entirely out of emoji.
 <img src="images/service-module-app.svg" alt="service to module to app" /></p>
 
 <ul>
@@ -249,33 +269,27 @@ cache for each app, the emojidex client modules keep a common cache that also st
 information, favorites, and history in parsable formats (!some user information is encrypted).</li>
 <li>Simply including a client module into your app will give your users access to all the emoji 
 they use without having to re-log-in or grant permissions to your app.</li>
-<li>In most client modules you have access to tools such as &ldquo;emojify&rdquo;, which converts blocks of 
+<li>In most client modules you have access to tools such as &quot;emojify&quot;, which converts blocks of 
 text into blocks of text with emoji images and assets embdedded.</li>
 <li>Some client modules are split into a library and a front end client/tools. The front end client 
 and tools are [optionally] installed by the user and should not be bundled with your application. 
 Instead, include the libary to enable automatic acquisition and display of emoji, and let the user 
 install emojidex clients/tools themselves if they want to input / search / editors etc.</li>
 </ul>
-
-<h1 id="collections">Collections</h1>
-
+<h1 id='collections'>Collections</h1>
 <p>Tools handle emoji in collections. Whenever possible all the emoji the user has used or viewed are 
-kept in a local collection cache [usually in a folder named &ldquo;emojidex&rdquo; or a hidden folder named 
-&ldquo;.emojidex&rdquo;]. Each collection folder for each client will share the same layout and same types of 
+kept in a local collection cache [usually in a folder named &quot;emojidex&quot; or a hidden folder named 
+&quot;.emojidex&quot;]. Each collection folder for each client will share the same layout and same types of 
 commonly parsible files.</p>
 
 <p>emoji are generally obtained from emojidex from the master collection, but there are two special 
 static collections; the UTF and Extended collections.</p>
-
-<h2 id="emojidex-collection">emojidex Collection</h2>
-
+<h2 id='emojidex-collection'>emojidex Collection</h2>
 <p>These are all the emoji available on the emojidex service, searchable and indexed in the emojidex 
 API. This collection DOES contain the UTF and Extended emoji - so in general this is the only 
 collection you ever need to worry about. The UTF and Extended collections generally exist only for 
 seeding and for clients with Closed Licenses who are not using the emojidex service.</p>
-
-<h2 id="utf-collection">UTF Collection</h2>
-
+<h2 id='utf-collection'>UTF Collection</h2>
 <p>The UTF collection contains a completely original set of all the emoji with UTF codes (the Unicode 
 Standard emoji). The index can be found at http://assets.emojidex.com/utf/emoji.json and assets 
 can be found at standard locations, with SVG found at 
@@ -284,12 +298,10 @@ and PNG found in sized folders such as
 http://assets.emojidex.com/utf/px32/{:emoji_code}.png .</p>
 
 <aside class="notice">
-This collection can be found within the emojidex Collection by obtaining emoji from the &ldquo;emoji&rdquo; 
-or &ldquo;絵文字&rdquo; users. See the API documentation [User Emoji](/#user-emoji) section for details.
+This collection can be found within the emojidex Collection by obtaining emoji from the "emoji" 
+or "絵文字" users. See the API documentation [User Emoji](/#user-emoji) section for details.
 </aside>
-
-<h2 id="extended-collection">Extended Collection</h2>
-
+<h2 id='extended-collection'>Extended Collection</h2>
 <p>The Extended collection contains a completely original set of all the emoji we wanted to see. 
 Extended emoji DO NOT have UTF/Unicode entries. The index can be found at 
 http://assets.emojidex.com/extended/emoji.json and assets 
@@ -299,12 +311,10 @@ and PNG found in sized folders such as
 http://assets.emojidex.com/extended/px32/{:emoji_code}.png .</p>
 
 <aside class="notice">
-This collection can be found within the emojidex Collection by obtaining emoji from the &ldquo;emojidex&rdquo; 
-or &ldquo;絵文字デックス&rdquo; users. See the API documentation [User Emoji](/#user-emoji) section for details.
+This collection can be found within the emojidex Collection by obtaining emoji from the "emojidex" 
+or "絵文字デックス" users. See the API documentation [User Emoji](/#user-emoji) section for details.
 </aside>
-
-<h2 id="utf-extended-packages">UTF/Extended Packages</h2>
-
+<h2 id='utf-extended-packages'>UTF/Extended Packages</h2>
 <p>The UTF and Extended emoji are also available in static git repositories or as Ruby gems.
 <a href="https://github.com/emojidex/emojidex-vectors">emojidex-vectors</a> and 
 <a href="https://github.com/emojidex/emojidex-rasters">emojidex-rasters</a> repositories hold vectors and 
