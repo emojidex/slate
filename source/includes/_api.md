@@ -617,7 +617,12 @@ HTTP | Message
 ┣link: a URL associated with the emoji (null when no link is registered or active)  
 ┣base: the code of the emoji this emoji is based off of (code of this emoji if not a variant)  
 ┣variants[]: an array of variants of this emoji  
-┗score: the score of the emoji  
+┣score: the score of the emoji  
+┣r18: specifies if the emoji contains adult/vulgar content (requires account with R-18 enabled)  
+┣customizations: specifies overlays to customize the emoji  
+┣combinations: specifies combinations this emoji can be used in  
+┣created\_at: !Pro/Premium only! creation/registration date in UTC format  
+┗favorited: !Pro/Premium only! amount of active favorites (users who have this emoji favorited)  
 
 ## emoji Index
 
